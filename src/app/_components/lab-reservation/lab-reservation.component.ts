@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TitleService } from 'src/app/_services/title.service';
 
 @Component({
   selector: 'app-lab-reservation',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LabReservationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private titleService: TitleService) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Reservación de laboratorios');
   }
 
 }

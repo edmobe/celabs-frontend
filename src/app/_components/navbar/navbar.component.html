@@ -1,6 +1,6 @@
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">CELabs</a>
+  <a class="navbar-brand">CELabs</a>
   <button
     class="navbar-toggler"
     type="button"
@@ -14,25 +14,43 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home</a>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active"
+          >Home</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Reservación</a>
+        <a class="nav-link" routerLink="/dashboard" routerLinkActive="active"
+          >Dashboard</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Inventario</a>
+        <a
+          class="nav-link"
+          routerLink="/lab-reservation"
+          routerLinkActive="active"
+          >Reservación</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Horas</a>
+        <a class="nav-link" routerLink="/inventory" routerLinkActive="active"
+          >Inventario</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Averías</a>
+        <a class="nav-link" routerLink="/hours" routerLinkActive="active"
+          >Horas</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/failures" routerLinkActive="active"
+          >Averías</a
+        >
       </li>
     </ul>
   </div>
 </nav>
 
 <div class="container-fluid mt-3 ml-3 text-center">
-  <h1>Disponibilidad de laboratorios</h1>
+  <h1>{{ title }}</h1>
 </div>

@@ -7,13 +7,23 @@ import { LoginComponent } from './_components/login/login.component';
 import { LabReservationComponent } from './_components/lab-reservation/lab-reservation.component';
 import { NavbarComponent } from './_components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DashboardComponent } from './_components/dashboard/dashboard.component';
+import { HomeComponent } from './_components/home/home.component';
+import { InventoryComponent } from './_components/inventory/inventory.component';
+import { FailuresComponent } from './_components/failures/failures.component';
+import { HoursComponent } from './_components/hours/hours.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LabReservationComponent,
-    NavbarComponent
+    NavbarComponent,
+    DashboardComponent,
+    HomeComponent,
+    InventoryComponent,
+    FailuresComponent,
+    HoursComponent
   ],
   imports: [
     BrowserModule,
