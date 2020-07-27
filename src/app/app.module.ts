@@ -12,6 +12,12 @@ import { HomeComponent } from './_components/home/home.component';
 import { InventoryComponent } from './_components/inventory/inventory.component';
 import { FailuresComponent } from './_components/failures/failures.component';
 import { HoursComponent } from './_components/hours/hours.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import timeGridPlugin from '@fullcalendar/timegrid'; // a plugin
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  timeGridPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -25,7 +31,7 @@ import { HoursComponent } from './_components/hours/hours.component';
     FailuresComponent,
     HoursComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, FullCalendarModule],
   providers: [],
   bootstrap: [AppComponent],
 })

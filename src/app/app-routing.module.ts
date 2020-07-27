@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './_components/login/login.component';
-import { LabReservationComponent } from './_components/lab-reservation/lab-reservation.component'
+import { LabReservationComponent } from './_components/lab-reservation/lab-reservation.component';
 import { DashboardComponent } from './_components/dashboard/dashboard.component';
 import { HomeComponent } from './_components/home/home.component';
 import { InventoryComponent } from './_components/inventory/inventory.component';
