@@ -4,16 +4,16 @@ import { TitleService } from './../../_services/title.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
 
   title: String;
 
-  constructor(private titleService: TitleService) { }
-
-  ngOnInit(): void {
+  constructor(private titleService: TitleService) {
     this.titleService.getTitle().subscribe(appTitle => this.title = appTitle);
   }
+
+  ngOnInit(): void { }
 
 }

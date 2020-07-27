@@ -4,14 +4,14 @@ import { TitleService } from 'src/app/_services/title.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private titleService: TitleService) { }
-
-  ngOnInit(): void {
+  constructor(private titleService: TitleService) {
     this.titleService.setTitle('Página principal');
   }
+
+  ngOnInit(): void { }
 
 }

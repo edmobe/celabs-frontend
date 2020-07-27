@@ -10,13 +10,13 @@ import { FailuresComponent } from './_components/failures/failures.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'lab-reservation', component: LabReservationComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'inventory', component: InventoryComponent },
-  { path: 'hours', component: HoursComponent },
-  { path: 'failures', component: FailuresComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }, // redirect to `first-component`
+  { path: 'lab-reservation', component: LabReservationComponent, data: { title: 'Reservación de laboratorios' } },
+  { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
+  { path: 'home', component: HomeComponent, data: { title: 'Página principal' } },
+  { path: 'inventory', component: InventoryComponent, data: { title: 'Reporte de inventario' } },
+  { path: 'hours', component: HoursComponent, data: { title: 'Reporte de horas' } },
+  { path: 'failures', component: FailuresComponent, data: { title: 'Reporte de averías' } },
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
