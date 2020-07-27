@@ -9,6 +9,22 @@ import { HomeComponent } from './_components/home/home/home.component';
 @NgModule({
   declarations: [AppComponent, LoginComponent, HomeComponent],
   imports: [BrowserModule, AppRoutingModule],
+import { LabReservationComponent } from './_components/lab-reservation/lab-reservation.component';
+import { NavbarComponent } from './_components/navbar/navbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    LabReservationComponent,
+    NavbarComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
