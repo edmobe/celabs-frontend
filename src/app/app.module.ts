@@ -17,6 +17,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -42,6 +43,7 @@ FullCalendarModule.registerPlugins([
     AppRoutingModule,
     BrowserAnimationsModule,
     FullCalendarModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
