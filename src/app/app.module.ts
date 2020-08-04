@@ -13,11 +13,12 @@ import { InventoryComponent } from './_components/inventory/inventory.component'
 import { FailuresComponent } from './_components/failures/failures.component';
 import { HoursComponent } from './_components/hours/hours.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
-
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LabReservationNormalComponent } from './_components/lab-reservation-normal/lab-reservation-normal.component';
+import { LabReservationPalmadaComponent } from './_components/lab-reservation-palmada/lab-reservation-palmada.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -37,6 +38,8 @@ FullCalendarModule.registerPlugins([
     InventoryComponent,
     FailuresComponent,
     HoursComponent,
+    LabReservationNormalComponent,
+    LabReservationPalmadaComponent
   ],
   imports: [
     BrowserModule,
@@ -47,5 +50,6 @@ FullCalendarModule.registerPlugins([
   ],
   providers: [],
   bootstrap: [AppComponent],
+  entryComponents: [LabReservationNormalComponent, LabReservationPalmadaComponent]
 })
-export class AppModule {}
+export class AppModule { }

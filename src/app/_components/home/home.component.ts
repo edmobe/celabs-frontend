@@ -9,7 +9,7 @@ import { TitleService } from 'src/app/_services/title.service';
 export class HomeComponent implements OnInit {
 
   constructor(private titleService: TitleService) {
-    this.titleService.setTitle('Página principal');
+    this.titleService.setTitle('CE Labs XTEC');
   }
 
   ngOnInit(): void { }
