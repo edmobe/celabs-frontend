@@ -17,12 +17,9 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-<<<<<<< HEAD
 import { ConfigurationComponent } from './_components/configuration/configuration.component';
-=======
 import { LabReservationNormalComponent } from './_components/lab-reservation-normal/lab-reservation-normal.component';
 import { LabReservationPalmadaComponent } from './_components/lab-reservation-palmada/lab-reservation-palmada.component';
->>>>>>> ef7dfeaff0d13850a93db87b3e748e3182c95114
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -42,12 +39,9 @@ FullCalendarModule.registerPlugins([
     InventoryComponent,
     FailuresComponent,
     HoursComponent,
-<<<<<<< HEAD
     ConfigurationComponent,
-=======
     LabReservationNormalComponent,
     LabReservationPalmadaComponent
->>>>>>> ef7dfeaff0d13850a93db87b3e748e3182c95114
   ],
   imports: [
     BrowserModule,
