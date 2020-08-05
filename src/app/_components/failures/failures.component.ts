@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 interface Averia {
   fecha: string;
   hora: string;
   descripcion: string;
   estado: string;
-  responsable : string;
+  responsable: string;
   laboratorio: string;
 }
 
@@ -19,26 +19,26 @@ interface Averia {
 })
 export class FailuresComponent implements OnInit {
 
+  estados: string[] = ["Pendiente de Atención", "Completado", "En proceso", "Reportado"];
+  laboratorios: string[] = ["F2-07", "F2-09", "F2-10"];
+  left = true;
+  averias: Averia[] = [];
+  time = { hour: 13, minute: 30 };
+  closeResult = '';
+  meridian = true;
+
   constructor(private titleService: TitleService, private modalService: NgbModal) {
     this.titleService.setTitle('Reporte de averías');
   }
 
   ngOnInit(): void { }
-  estados: string[] = ["Pendiente de Atención", "Completado", "En proceso", "Reportado"];
-  laboratorios: string[] = ["F2-07","F2-09", "F2-10"];
-  left = true;
-  averias: Averia[] = [];
-  time = {hour: 13, minute: 30};
-  closeResult = '';
-  meridian = true;
 
   toggleMeridian() {
-      this.meridian = !this.meridian;
+    this.meridian = !this.meridian;
   }
-  
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
