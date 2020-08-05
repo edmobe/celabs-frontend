@@ -7,6 +7,7 @@ import { HomeComponent } from './_components/home/home.component';
 import { InventoryComponent } from './_components/inventory/inventory.component';
 import { HoursComponent } from './_components/hours/hours.component';
 import { FailuresComponent } from './_components/failures/failures.component';
+import { ConfigurationComponent } from './_components/configuration/configuration.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'inventory', component: InventoryComponent },
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
+  { path: 'configuration', component: ConfigurationComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
