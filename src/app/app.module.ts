@@ -20,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigurationComponent } from './_components/configuration/configuration.component';
 import { LabReservationNormalComponent } from './_components/lab-reservation-normal/lab-reservation-normal.component';
 import { LabReservationPalmadaComponent } from './_components/lab-reservation-palmada/lab-reservation-palmada.component';
+import { LabReservationSelectComponent } from './_components/lab-reservation-select/lab-reservation-select.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -41,7 +42,8 @@ FullCalendarModule.registerPlugins([
     HoursComponent,
     ConfigurationComponent,
     LabReservationNormalComponent,
-    LabReservationPalmadaComponent
+    LabReservationPalmadaComponent,
+    LabReservationSelectComponent
   ],
   imports: [
     BrowserModule,

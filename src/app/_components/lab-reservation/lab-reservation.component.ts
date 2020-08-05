@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
 
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/es';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LabReservationNormalComponent } from '../lab-reservation-normal/lab-reservation-normal.component';
-import { PreloadAllModules } from '@angular/router';
 import { LabReservationPalmadaComponent } from '../lab-reservation-palmada/lab-reservation-palmada.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lab-reservation',
@@ -17,6 +17,7 @@ import { LabReservationPalmadaComponent } from '../lab-reservation-palmada/lab-r
 })
 export class LabReservationComponent implements OnInit {
 
+  laboratory: string;
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
   selectedEvents = [];
@@ -27,7 +28,11 @@ export class LabReservationComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  constructor(private titleService: TitleService, private modalService: NgbModal) {
+  constructor(private titleService: TitleService, private modalService: NgbModal, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+      this.laboratory = params['laboratory'];
+      console.log('Laboratorio: ' + this.laboratory);
+    });
     const calendar = Calendar.name;
     this.titleService.setTitle('Reservación de laboratorios');
     this.weeks = this.getAllEvents();
@@ -201,18 +206,23 @@ export class LabReservationComponent implements OnInit {
   */
 
   handleEventClick(arg) {
-    let modalRef;
-    if (!arg.event.extendedProps.palmada) {
-      modalRef = this.modalService.open(LabReservationNormalComponent);
-    } else {
-      modalRef = this.modalService.open(LabReservationPalmadaComponent);
-    }
-    modalRef.componentInstance.event = arg.event;
-    modalRef.result.then((result) => {
-      if (result) {
-        console.log(result);
+    if (arg.event.extendedProps.enabled) {
+      let modalRef;
+      if (!arg.event.extendedProps.palmada) {
+        modalRef = this.modalService.open(LabReservationNormalComponent);
+      } else {
+        modalRef = this.modalService.open(LabReservationPalmadaComponent);
       }
-    });
+      modalRef.componentInstance.event = arg.event;
+      modalRef.result.then((result) => {
+        if (result) {
+          console.log(result);
+        }
+      });
+    } else {
+      alert('El evento ya finalizó');
+    }
+
   }
 
   handleEventHover(arg) {

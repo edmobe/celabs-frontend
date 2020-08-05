@@ -12,6 +12,9 @@ export class LabReservationNormalComponent implements OnInit {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
   closeResult = '';
+  date: Date;
+  teacher: string;
+  laboratory: string;
 
   ngOnInit(): void {
     console.log('Se ha seleccionado el siguiente evento:');
