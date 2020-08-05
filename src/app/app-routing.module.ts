@@ -11,6 +11,7 @@ import { LabReservationComponent } from './_components/lab-reservation/lab-reser
 import { ConfigurationComponent } from './_components/configuration/configuration.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
     path: 'reservations', children: [
@@ -24,7 +25,6 @@ const routes: Routes = [
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
   { path: 'configuration', component: ConfigurationComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({

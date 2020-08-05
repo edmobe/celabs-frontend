@@ -52,7 +52,8 @@ FullCalendarModule.registerPlugins([
     BrowserAnimationsModule,
     FullCalendarModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
