@@ -1,0 +1,37 @@
+:root {
+    --primary: #0154A0;
+    --light: #17a2b8;
+}
+
+body {
+    overflow: hidden;
+    font-weight: 300;
+}
+
+a:hover{
+    text-decoration: none;
+    
+}
+
+#sidebar-container {
+    min-height: 65vh;
+}
+ 
+#sidebar-container .logo {
+    padding: .870rem 1rem;
+}
+#sidebar-container .menu {
+    width: 18rem;
+
+}
+
+.d-block:hover {
+    background-color: #003E87;
+}
+
+.bg-primary {
+    background-color: var(--primary);
+}
+.text-light {
+    text-decoration-color: var(--light);
+}
