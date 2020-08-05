@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">¡Hola reservación normal!</h4>
+  <h4 class="modal-title">Reservar laboratorio</h4>
   <button
     type="button"
     class="close"
@@ -10,18 +10,73 @@
   </button>
 </div>
 <div class="modal-body">
-  <p>
-    Tu id es: {{ event.id }} y tu horario es
-    {{ event.start.toLocaleString("es-US") }} -
-    {{ event.end.toLocaleString("es-US") }}
-  </p>
+  <form [formGroup]="reservationForm">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label>Laboratorio a reservar</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Laboratorio"
+          formControlName="laboratory"
+          readonly
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label>Profesor a cargo</label>
+        <select class="form-control" formControlName="teacher">
+          <option *ngFor="let teacher of teachers"> {{ teacher }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label>Fecha de inicio</label>
+        <input
+          type="date"
+          class="form-control"
+          placeholder="Fecha de inicio"
+          formControlName="startDate"
+          readonly
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label>Hora de inicio</label>
+        <input
+          type="time"
+          class="form-control"
+          placeholder="Hora de inicio"
+          formControlName="startTime"
+          readonly
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label>Fecha de finalización</label>
+        <input
+          type="date"
+          class="form-control"
+          placeholder="Fecha de finalización"
+          formControlName="endDate"
+          readonly
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label>Hora de finalización</label>
+        <input
+          type="time"
+          class="form-control"
+          placeholder="Hora de finalización"
+          formControlName="endTime"
+          readonly
+        />
+      </div>
+    </div>
+  </form>
 </div>
 <div class="modal-footer">
-  <button
-    type="button"
-    class="btn btn-outline-dark"
-    (click)="activeModal.close('Close click')"
-  >
+  <button type="button" class="btn btn-outline-dark" (click)="reserve()">
     Enviar
   </button>
 </div>

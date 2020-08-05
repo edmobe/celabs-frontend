@@ -19,6 +19,7 @@ interface Averia {
 })
 export class FailuresComponent implements OnInit {
 
+  model: NgbDateStruct;
   estados: string[] = ["Pendiente de Atención", "Completado", "En proceso", "Reportado"];
   laboratorios: string[] = ["F2-07", "F2-09", "F2-10"];
   left = true;
@@ -38,7 +39,7 @@ export class FailuresComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -54,5 +55,4 @@ export class FailuresComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  model: NgbDateStruct;
 }

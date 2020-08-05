@@ -66,7 +66,6 @@ export class LabReservationComponent implements OnInit {
         end: 'prev today next'
       },
       selectable: true,
-      nowIndicator: true,
       allDaySlot: false,
       displayEventTime: false,
       validRange: {
@@ -209,11 +208,12 @@ export class LabReservationComponent implements OnInit {
     if (arg.event.extendedProps.enabled) {
       let modalRef;
       if (!arg.event.extendedProps.palmada) {
-        modalRef = this.modalService.open(LabReservationNormalComponent);
+        modalRef = this.modalService.open(LabReservationNormalComponent, { size: 'lg' });
       } else {
-        modalRef = this.modalService.open(LabReservationPalmadaComponent);
+        modalRef = this.modalService.open(LabReservationPalmadaComponent, { size: 'lg' });
       }
       modalRef.componentInstance.event = arg.event;
+      modalRef.componentInstance.laboratory = this.laboratory;
       modalRef.result.then((result) => {
         if (result) {
           console.log(result);

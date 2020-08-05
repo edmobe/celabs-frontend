@@ -21,6 +21,7 @@ import { ConfigurationComponent } from './_components/configuration/configuratio
 import { LabReservationNormalComponent } from './_components/lab-reservation-normal/lab-reservation-normal.component';
 import { LabReservationPalmadaComponent } from './_components/lab-reservation-palmada/lab-reservation-palmada.component';
 import { LabReservationSelectComponent } from './_components/lab-reservation-select/lab-reservation-select.component';
+import { FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -51,6 +52,7 @@ FullCalendarModule.registerPlugins([
     BrowserAnimationsModule,
     FullCalendarModule,
     NgbModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
