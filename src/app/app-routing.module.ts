@@ -8,6 +8,7 @@ import { HoursComponent } from './_components/hours/hours.component';
 import { FailuresComponent } from './_components/failures/failures.component';
 import { LabReservationSelectComponent } from './_components/lab-reservation-select/lab-reservation-select.component';
 import { LabReservationComponent } from './_components/lab-reservation/lab-reservation.component';
+import { ConfigurationComponent } from './_components/configuration/configuration.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'inventory', component: InventoryComponent },
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
+  { path: 'configuration', component: ConfigurationComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
