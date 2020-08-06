@@ -11,5 +11,6 @@ export class AppComponent {
   constructor(public router: Router) {
     
   }
+  
   title = 'celabs-frontend';
 }
