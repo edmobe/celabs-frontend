@@ -38,6 +38,13 @@
     display: block;
     text-decoration: none;
   }
+  .sidebar-nav h5 {
+    color: white;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+  }
+  
   
   .sidebar-nav li a:hover {
     color: #fff;
@@ -53,7 +60,7 @@
   .sidebar-nav > .sidebar-brand {
     height: 65px;
     line-height: 60px;
-    font-size: 18px;
+    font-size: 23px;
   }
   
   .sidebar-nav > .sidebar-brand a {
