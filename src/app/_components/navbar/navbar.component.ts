@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { TitleService } from './../../_services/title.service';
 
 @Component({
@@ -14,6 +14,11 @@ export class NavbarComponent implements OnInit {
     this.titleService.getTitle().subscribe(appTitle => this.title = appTitle);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
+  
+    
+ 
+  
 }

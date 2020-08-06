@@ -32,7 +32,8 @@ export class FailuresComponent implements OnInit {
     this.titleService.setTitle('Reporte de averías');
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+   }
 
   toggleMeridian() {
     this.meridian = !this.meridian;

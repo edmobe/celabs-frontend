@@ -14,6 +14,15 @@ export class TitleService {
 
   setTitle(title: String) {
     this.title.next(title);
+    
+    if (title == "Configuración"){
+      document.getElementById("title_c").style.display = "none";
+    }
+    else {
+      document.getElementById("title_c").style.display = "inline";
+    }
+  
+
   }
 
   getTitle(): Observable<String> {
