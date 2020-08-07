@@ -10,6 +10,14 @@ import { LabReservationSelectComponent } from './_components/lab-reservation-sel
 import { LabReservationComponent } from './_components/lab-reservation/lab-reservation.component';
 import { ConfigurationComponent } from './_components/configuration/configuration.component';
 import { AdministratorComponent } from './_components/configuration/config_components/administrator/administrator.component';
+import { CoperatorComponent } from './_components/configuration/config_components/coperator/coperator.component';
+import { CsupportTeamComponent } from './_components/configuration/config_components/csupport-team/csupport-team.component';
+import { CTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/cteachers-administrative.component';
+import { FailuresStatusComponent } from './_components/configuration/config_components/failures-status/failures-status.component';
+import { LaboratoryAvailabilityComponent } from './_components/configuration/config_components/laboratory-availability/laboratory-availability.component';
+import { SemestreComponent } from './_components/configuration/config_components/semestre/semestre.component';
+import { CoursesComponent } from './_components/configuration/config_components/courses/courses.component';
+import { AssetsComponent } from './_components/configuration/config_components/assets/assets.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -27,7 +35,16 @@ const routes: Routes = [
   { 
     path: 'configuration', children: [
       { path: '', component: ConfigurationComponent},
-      { path: 'administrator', component: AdministratorComponent}
+      { path: 'administrator', component: AdministratorComponent },
+      { path: 'operators', component: CoperatorComponent },
+      { path: 'supportTeam', component: CsupportTeamComponent },
+      { path: 'teachersadministrative', component: CTeachersAdministrativeComponent },
+      { path: 'failuresStatus', component: FailuresStatusComponent },
+      { path: 'laboratoryAvailability', component: LaboratoryAvailabilityComponent },
+      { path: 'semester', component: SemestreComponent },
+      { path: 'courses', component: CoursesComponent },
+      { path: 'assets', component: AssetsComponent },
+      
     ]},
   
 ];

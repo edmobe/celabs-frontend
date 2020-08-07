@@ -24,6 +24,14 @@ import { LabReservationSelectComponent } from './_components/lab-reservation-sel
 import { FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SideBarComponent } from './_components/side-bar/side-bar.component';
 import { AdministratorComponent } from './_components/configuration/config_components/administrator/administrator.component';
+import { SemestreComponent } from './_components/configuration/config_components/semestre/semestre.component';
+import { LaboratoryAvailabilityComponent } from './_components/configuration/config_components/laboratory-availability/laboratory-availability.component';
+import { CoursesComponent } from './_components/configuration/config_components/courses/courses.component';
+import { AssetsComponent } from './_components/configuration/config_components/assets/assets.component';
+import { FailuresStatusComponent } from './_components/configuration/config_components/failures-status/failures-status.component';
+import { CoperatorComponent } from './_components/configuration/config_components/coperator/coperator.component';
+import { CsupportTeamComponent } from './_components/configuration/config_components/csupport-team/csupport-team.component';
+import { CTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/cteachers-administrative.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -48,7 +56,15 @@ FullCalendarModule.registerPlugins([
     LabReservationPalmadaComponent,
     LabReservationSelectComponent,
     SideBarComponent,
-    AdministratorComponent
+    AdministratorComponent,
+    SemestreComponent,
+    LaboratoryAvailabilityComponent,
+    CoursesComponent,
+    AssetsComponent,
+    FailuresStatusComponent,
+    CoperatorComponent,
+    CsupportTeamComponent,
+    CTeachersAdministrativeComponent
   ],
   imports: [
     BrowserModule,
