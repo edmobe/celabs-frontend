@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { EventTimeStringService } from 'src/app/_services/event-time-string.service';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { EventApi } from '@fullcalendar/core';
 
 
 @Component({
@@ -11,10 +11,8 @@ import { EventTimeStringService } from 'src/app/_services/event-time-string.serv
 })
 export class LabReservationNormalComponent implements OnInit {
 
-  @Input() event;
-  @Input() laboratory;
-  private start;
-  private end;
+  @Input() events: EventApi[];
+  @Input() laboratory: string;
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
   reservationForm: FormGroup;
@@ -25,13 +23,13 @@ export class LabReservationNormalComponent implements OnInit {
 
   ngOnInit(): void {
     this.reservationForm = this.formBuilder.group({
+      title: '',
+      teacher: '',
       laboratory: this.laboratory,
-      startTime: this.eventTimeStringService.dateToIsoTime(this.event.start),
-      startDate: this.eventTimeStringService.dateToIsoDate(this.event.start),
-      endTime: this.eventTimeStringService.dateToIsoTime(this.event.end),
-      endDate: this.eventTimeStringService.dateToIsoDate(this.event.end),
-      teacher: ''
+      events: this.formBuilder.array([])
     });
+
+    this.getEvents();
 
     /*
     // To print the form:
@@ -41,8 +39,26 @@ export class LabReservationNormalComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private formBuilder: FormBuilder,
-    private eventTimeStringService: EventTimeStringService) { }
+    private formBuilder: FormBuilder) { }
+
+  get eventsForms() {
+    return this.reservationForm.get('events') as FormArray;
+  }
+
+  getEvents() {
+    // console.log(date.toLocaleString('es-CR', {timeZone: 'America/Costa_Rica'}));
+    for (let event of this.events) {
+      const start = event.start.toLocaleString('es-CR', { timeZone: 'America/Costa_Rica' }).split(' ');
+      const end = event.end.toLocaleString('es-CR', { timeZone: 'America/Costa_Rica' }).split(' ');
+      const date = start[0];
+      const startTime = start[1].split(':');
+      const endTime = end[1].split(':');
+      const eventGroup = this.formBuilder.group({
+        block: date + ' (' + startTime[0] + ':' + startTime[1] + ' - ' + endTime[0] + ':' + endTime[1] + ')'
+      });
+      this.eventsForms.push(eventGroup);
+    }
+  }
 
   reserve() {
     this.activeModal.close('Close click');
