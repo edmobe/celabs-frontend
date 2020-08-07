@@ -24,8 +24,12 @@ const routes: Routes = [
   { path: 'inventory', component: InventoryComponent },
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
-  { path: 'configuration', component: ConfigurationComponent },
-  { path: 'configuration/administrator', component: AdministratorComponent}
+  { 
+    path: 'configuration', children: [
+      { path: '', component: ConfigurationComponent},
+      { path: 'administrator', component: AdministratorComponent}
+    ]},
+  
 ];
 
 @NgModule({

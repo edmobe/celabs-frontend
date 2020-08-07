@@ -1,5 +1,4 @@
 <app-navbar *ngIf="router.url !== '/login'"></app-navbar>
+<app-side-bar *ngIf="router.url.includes('/configuration/')"></app-side-bar>
+<router-outlet></router-outlet>
 
-<!--<div class="container-fluid mb-3"></div>-->
-  <router-outlet></router-outlet>
-<!--</div>-->
