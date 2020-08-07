@@ -9,7 +9,7 @@ import { FailuresComponent } from './_components/failures/failures.component';
 import { LabReservationSelectComponent } from './_components/lab-reservation-select/lab-reservation-select.component';
 import { LabReservationComponent } from './_components/lab-reservation/lab-reservation.component';
 import { ConfigurationComponent } from './_components/configuration/configuration.component';
-
+import { AdministratorComponent } from './_components/configuration/config_components/administrator/administrator.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -25,6 +25,7 @@ const routes: Routes = [
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
   { path: 'configuration', component: ConfigurationComponent },
+  { path: 'configuration/administrator', component: AdministratorComponent}
 ];
 
 @NgModule({
