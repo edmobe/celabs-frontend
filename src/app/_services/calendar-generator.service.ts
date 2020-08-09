@@ -40,7 +40,7 @@ export class CalendarGeneratorService {
         start: '2020-04-20',
         end: '2020-08-15'
       },
-      events: this.getEventsOnWeek(this.week)
+      events: this.getEventsOnWeek(this.week + 1)
     };
     return calendarOptions;
   }
