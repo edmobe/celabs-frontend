@@ -32,8 +32,8 @@ const routes: Routes = [
   { path: 'inventory', component: InventoryComponent },
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
-  { 
-    path: 'configuration', 
+  {
+    path: 'configuration',
     component: ConfigurationComponent,
     children: [
       { path: 'administrator', component: AdministratorComponent },
@@ -45,9 +45,9 @@ const routes: Routes = [
       { path: 'semester', component: SemestreComponent },
       { path: 'courses', component: CoursesComponent },
       { path: 'assets', component: AssetsComponent },
-      
-    ]},
-  
+    ]
+  },
+
 ];
 
 @NgModule({
