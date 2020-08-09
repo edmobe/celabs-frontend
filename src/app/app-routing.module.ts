@@ -33,8 +33,9 @@ const routes: Routes = [
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
   { 
-    path: 'configuration', children: [
-      { path: '', component: ConfigurationComponent},
+    path: 'configuration', 
+    component: ConfigurationComponent,
+    children: [
       { path: 'administrator', component: AdministratorComponent },
       { path: 'operators', component: CoperatorComponent },
       { path: 'supportTeam', component: CsupportTeamComponent },
