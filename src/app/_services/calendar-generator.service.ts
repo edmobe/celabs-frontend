@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import esLocale from '@fullcalendar/core/locales/es';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
+import interactionPlugin from '@fullcalendar/interaction';
+import $ from 'jquery';
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +15,35 @@ export class CalendarGeneratorService {
   constructor() { }
 
   public generateCalendar() {
-    this.weeks = this.getAllEvents();
     const calendarOptions = {
       locale: esLocale,
-      height: 'auto',
+      aspectRatio: 0.618,
+      expandRows: true,
       initialView: 'timeGridWeek',
+      slotDuration: '01:00:00',
+      selectOverlap: false,
       themeSystem: 'bootstrap',
-      plugins: [bootstrapPlugin],
+      plugins: [bootstrapPlugin, interactionPlugin],
       progressiveEventRendering: true,
       displayEventEnd: true,
       eventTextColor: '#FFFFFF',
       eventBorderColor: '#FFFFFF',
+      eventColor: '#0154A0',
       buttonText: {
         next: '>',
         prev: '<',
       },
+      businessHours: [{
+        daysOfWeek: [1, 2, 3, 4, 5],
+        startTime: '07:00',
+        endTime: '20:00',
+      },
+      {
+        daysOfWeek: [1, 2, 3, 4, 5],
+        startTime: '07:00',
+        endTime: '20:00',
+      }
+      ],
       headerToolbar: {
         start: 'title',
         center: '',
@@ -35,14 +51,40 @@ export class CalendarGeneratorService {
       },
       selectable: true,
       allDaySlot: false,
+      selectMirror: true,
       displayEventTime: false,
       validRange: {
         start: '2020-04-20',
-        end: '2020-08-15'
+        end: '2020-08-24'
       },
-      events: this.getEventsOnWeek(this.week + 1)
+      unselectCancel: 'app-lab-reservation-normal',
+      selectConstraint: 'businessHours',
+      selectAllow: function (info) {
+        if (info.start < Date.now()) {
+          return false;
+        }
+        return true;
+      },
+      events: this.createCustomEvents()
     };
+    console.log(calendarOptions.events);
     return calendarOptions;
+  }
+
+  private createCustomEvents() {
+    const events = [];
+    let event;
+    event = this.createEvent(1, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 10, 7), new Date(2020, 7, 10, 8), true, false);
+    events.push(event);
+    event = this.createEvent(2, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 10, 8), new Date(2020, 7, 10, 9), true, false);
+    events.push(event);
+    event = this.createEvent(3, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 10, 9), new Date(2020, 7, 10, 10), true, false);
+    events.push(event);
+    event = this.createEvent(4, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 11, 14), new Date(2020, 7, 11, 17), true, false);
+    events.push(event);
+    event = this.createEvent(5, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 11, 17), new Date(2020, 7, 11, 20), true, false);
+    events.push(event);
+    return events;
   }
 
   private createAllEvents() {
@@ -125,11 +167,10 @@ export class CalendarGeneratorService {
 
   private createEvent(eventId: number, eventTitle: string, eventStart: Date, eventEnd: Date, eventEnabled: boolean, eventPalmada: boolean) {
     let eventBackgroundColor;
-    let eventTextColor;
     if (eventEnabled) {
       eventBackgroundColor = '#0154A0';
     } else {
-      eventBackgroundColor = '#3776B0';
+      eventBackgroundColor = '#3775B0';
     }
     const event = {
       id: eventId,
@@ -139,7 +180,6 @@ export class CalendarGeneratorService {
       enabled: eventEnabled,
       selected: false,
       backgroundColor: eventBackgroundColor,
-      textColor: eventTextColor,
       palmada: eventPalmada
     };
     return event;

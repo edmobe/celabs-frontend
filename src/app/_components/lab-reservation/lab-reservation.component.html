@@ -1,41 +1,7 @@
 <div class="container">
-  <div class="row mt-3">
-    <div class="col-1 text-center">
-      <button type="button" class="btn btn-primary">
-        Volver
-      </button>
-    </div>
-    <div class="col-10">
+  <div class="row mt-3 mb-3">
+    <div class="col-12">
       <full-calendar #calendar [options]="calendarOptions"></full-calendar>
-    </div>
-    <div class="col-1 text-center">
-      <div class="sticky-top">
-        <div class="btn-group-vertical" role="group">
-          <button
-            type="button"
-            class="btn btn-primary"
-            (click)="handleRecurrentClick()"
-          >
-            Recurrente
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            (click)="handleConfirmClick()"
-            [disabled]="selectedEvents.length === 0"
-          >
-            Confirmar
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            (click)="handleClearClick()"
-            [disabled]="selectedEvents.length === 0"
-          >
-            Borrar selección
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 </div>

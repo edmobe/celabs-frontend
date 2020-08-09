@@ -10,6 +10,8 @@ import { LabReservationNormalComponent } from '../lab-reservation-normal/lab-res
 import { LabReservationPalmadaComponent } from '../lab-reservation-palmada/lab-reservation-palmada.component';
 import { ActivatedRoute } from '@angular/router';
 
+import $ from 'jquery';
+
 @Component({
   selector: 'app-lab-reservation',
   templateUrl: './lab-reservation.component.html',
@@ -44,6 +46,7 @@ export class LabReservationComponent implements OnInit {
       eventMouseLeave: this.handleEventLeave.bind(this),
       datesSet: this.handleViewChange.bind(this),
       titleFormat: this.getWeek.bind(this),
+      select: this.handleDateSelection.bind(this)
     });
   }
 
@@ -70,6 +73,28 @@ export class LabReservationComponent implements OnInit {
 
   getWeek() {
     return 'Semana 17';
+  }
+
+  handleDateSelection(arg) {
+    const event = {
+      start: arg.startStr,
+      end: arg.endStr,
+      palmada: false
+    };
+    let modalRef;
+    modalRef = this.modalService.open(LabReservationNormalComponent, { size: 'lg' });
+    modalRef.componentInstance.event = event;
+    modalRef.componentInstance.laboratory = this.laboratory;
+    modalRef.result.then((result) => {
+      this.calendarComponent.getApi().unselect();
+      if (result) {
+        this.calendarComponent.getApi().unselect();
+        if (result === 'Close click') { }
+      }
+    }).catch(err => {
+      this.calendarComponent.getApi().unselect();
+    });
+    console.log(arg);
   }
 
   handleEventClick(arg) {

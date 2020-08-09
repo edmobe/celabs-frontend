@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Reservar laboratorio</h4>
+  <h4 class="modal-title">Solicitar reservación de laboratorio</h4>
   <button
     type="button"
     class="close"
@@ -13,11 +13,6 @@
   <form [formGroup]="reservationForm">
     <div class="form-row">
       <div class="form-group col-md-12">
-        <h5>Información general de reservación</h5>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-12">
         <label>Motivo</label>
         <input
           type="text"
@@ -25,6 +20,13 @@
           placeholder="Motivo de reservación"
           formControlName="title"
         />
+      </div>
+    </div>
+    <div class="form-row" *ngIf="title.invalid && title.touched">
+      <div class="form-group col-md-12">
+        <div class="alert alert-danger" role="alert">
+          Debe ingresar un motivo.
+        </div>
       </div>
     </div>
     <div class="form-row">
@@ -41,38 +43,45 @@
       <div class="form-group col-md-6">
         <label>Profesor a cargo</label>
         <select class="form-control" formControlName="teacher">
-          <option *ngFor="let teacher of teachers"> {{ teacher }}</option>
+          <option *ngFor="let teacher of teachers" [ngValue]="teacher">
+            {{ teacher }}</option
+          >
         </select>
       </div>
     </div>
-    <hr />
-    <div class="form-row">
-      <div class="form-group col-md-12">
-        <h5>Bloques seleccionados</h5>
+    <div class="form-row" *ngIf="true">
+      <div class="form-group col-md-6"></div>
+      <div class="form-group col-md-6">
+        <div
+          class="alert alert-danger"
+          *ngIf="teacher.invalid && teacher.touched"
+          role="alert"
+        >
+          Debe seleccionar un profesor.
+        </div>
       </div>
     </div>
-    <div formArrayName="events">
-      <div class="form-row">
-        <div
-          *ngFor="let event of eventsForms.controls; let i = index"
-          [formGroupName]="i"
-          class="form-group col-md-6"
-        >
-          <label>Bloque {{ i + 1 }}</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Bloque"
-            formControlName="block"
-            readonly
-          />
-        </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label>Horario</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Horario"
+          formControlName="time"
+          readonly
+        />
       </div>
     </div>
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="reserve()">
+  <button
+    type="button"
+    [disabled]="reservationForm.invalid"
+    class="btn btn-primary"
+    (click)="reserve()"
+  >
     Enviar
   </button>
 </div>

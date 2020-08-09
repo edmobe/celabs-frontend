@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EventApi } from '@fullcalendar/core';
 
 
@@ -11,7 +11,7 @@ import { EventApi } from '@fullcalendar/core';
 })
 export class LabReservationNormalComponent implements OnInit {
 
-  @Input() events: EventApi[];
+  @Input() event: any;
   @Input() laboratory: string;
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
@@ -22,14 +22,25 @@ export class LabReservationNormalComponent implements OnInit {
 
 
   ngOnInit(): void {
+    const start = this.event.start.split('T');
+    const end = this.event.end.split('T');
+    const date = start[0];
+    const startTime = start[1].split(':');
+    const endTime = end[1].split(':');
     this.reservationForm = this.formBuilder.group({
-      title: '',
-      teacher: '',
-      laboratory: this.laboratory,
-      events: this.formBuilder.array([])
+      title: ['', [
+        Validators.required
+      ]],
+      teacher: ['', [
+        Validators.required
+      ]],
+      laboratory: [this.laboratory, [
+        Validators.required
+      ]],
+      time: [date + ' (' + startTime[0] + ':' + startTime[1] + ' - ' + endTime[0] + ':' + endTime[1] + ')', [
+        Validators.required
+      ]]
     });
-
-    this.getEvents();
 
     /*
     // To print the form:
@@ -41,27 +52,26 @@ export class LabReservationNormalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder) { }
 
-  get eventsForms() {
-    return this.reservationForm.get('events') as FormArray;
-  }
-
-  getEvents() {
-    // console.log(date.toLocaleString('es-CR', {timeZone: 'America/Costa_Rica'}));
-    for (let event of this.events) {
-      const start = event.start.toLocaleString('es-CR', { timeZone: 'America/Costa_Rica' }).split(' ');
-      const end = event.end.toLocaleString('es-CR', { timeZone: 'America/Costa_Rica' }).split(' ');
-      const date = start[0];
-      const startTime = start[1].split(':');
-      const endTime = end[1].split(':');
-      const eventGroup = this.formBuilder.group({
-        block: date + ' (' + startTime[0] + ':' + startTime[1] + ' - ' + endTime[0] + ':' + endTime[1] + ')'
-      });
-      this.eventsForms.push(eventGroup);
-    }
-  }
-
   reserve() {
+    const form = this.reservationForm.value;
+    const newEvent = {
+      title: form.title,
+      teacher: form.teacher,
+      laboratory: this.laboratory,
+      start: this.event.start,
+      end: this.event.end,
+      palmada: this.event.palmada
+    };
     this.activeModal.close('Close click');
-    alert('Json generado:\n' + JSON.stringify(this.reservationForm.value));
+    alert('Json generado:\n' + JSON.stringify(newEvent));
   }
+
+  get title() {
+    return this.reservationForm.get('title');
+  }
+
+  get teacher() {
+    return this.reservationForm.get('teacher');
+  }
+
 }
