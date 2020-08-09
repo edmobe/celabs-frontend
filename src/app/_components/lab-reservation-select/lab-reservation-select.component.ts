@@ -11,10 +11,11 @@ import { Laboratorio } from 'src/app/_models/laboratorio';
 })
 export class LabReservationSelectComponent implements OnInit {
 
-  laboratories: Laboratorio[];
+  //laboratories: Laboratorio[];
+  laboratories: string[] = ['F2-04', 'F2-05', 'F2-06', 'F2-07'];
 
-  constructor(private titleService: TitleService, private laboratoryService: LaboratoryService) {
-    this.laboratories = laboratoryService.getLaboratories();
+  constructor(private titleService: TitleService/*, private laboratoryService: LaboratoryService*/) {
+    //this.laboratories = laboratoryService.getLaboratories();
     this.titleService.setTitle('Seleccione un laboratorio');
   }
 
