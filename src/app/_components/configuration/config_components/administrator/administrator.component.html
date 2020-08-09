@@ -1,4 +1,4 @@
-<div class="container-fluid" style="margin-left: 280px; max-width: 79%;">
+<div class="container-fluid">
     <div class="col">
       <h1>Gestión de Administradores</h1>
       <div class="table-responsive">
@@ -11,6 +11,15 @@
               <th scope="col">Permisos de Administrador</th>
             </tr>
           </thead>
+          <tbody>
+            <tr *ngFor = "let user of users">
+              <td> {{ user.nombre }}</td>
+              <td> {{ user.correo }}</td>
+              <td> {{ user.rol }}</td>
+              <td> 
+              </td>
+            </tr>
+          </tbody>
         </table>
     </div>
     </div>
