@@ -16,7 +16,7 @@ interface User {
 export class AdministratorComponent implements OnInit {
 
   constructor(private titleService: TitleService) {
-    this.titleService.setTitle('Configuración');
+    this.titleService.setTitle('');
    }
   ngOnInit(): void {
     

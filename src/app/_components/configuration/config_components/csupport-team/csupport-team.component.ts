@@ -9,7 +9,7 @@ import { TitleService } from 'src/app/_services/title.service';
 export class CsupportTeamComponent implements OnInit {
 
   constructor(private titleService: TitleService) {
-    this.titleService.setTitle('Configuración');
+    this.titleService.setTitle('');
    }
 
   ngOnInit(): void {
