@@ -33,6 +33,7 @@ import { CoperatorComponent } from './_components/configuration/config_component
 import { CsupportTeamComponent } from './_components/configuration/config_components/csupport-team/csupport-team.component';
 import { CTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/cteachers-administrative.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NotFoundComponent } from './_components/not-found/not-found.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -65,7 +66,8 @@ FullCalendarModule.registerPlugins([
     FailuresStatusComponent,
     CoperatorComponent,
     CsupportTeamComponent,
-    CTeachersAdministrativeComponent
+    CTeachersAdministrativeComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
