@@ -1,1 +1,32 @@
-<p>assets works!</p>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<div class="container-fluid">
+    <div class="col">
+      <h1>Lista de Activos</h1>
+      <div class="table-responsive">
+        <table class="table table-hover table-condensed text-center">
+          <thead>
+            <tr>
+              <th scope="col">Código</th>
+              <th scope="col">Descripción</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody id = "tableSearch">
+            <tr *ngFor = "let activo of activos">
+                <td> {{ activo.codigo }}</td>
+                <td> {{ activo.descripcion }}</td>
+                <td> 
+                    
+                    <a class="fa fa-trash fa-2x" (click)="deleteAsset(activo.codigo)"></a>
+                    
+                </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    </div>
+</div> 
+           
