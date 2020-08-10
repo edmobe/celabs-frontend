@@ -55,9 +55,6 @@ export class ChartGeneratorService {
         ]
       },
       options: {
-        legend: {
-          display: false
-        },
         scales: {
           yAxes: [{
             ticks: {

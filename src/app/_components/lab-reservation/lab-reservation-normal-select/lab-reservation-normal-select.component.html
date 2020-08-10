@@ -62,6 +62,12 @@
   </div>
 </div>
 <div class="modal-footer" *ngIf="selected">
+  <div class="form-check mr-auto">
+    <input class="form-check-input" type="checkbox" [(ngModel)]="recurrent" />
+    <label class="form-check-label" for="defaultCheck1">
+      Este evento es recurrente.
+    </label>
+  </div>
   <button
     *ngIf="baseForm && !classForm"
     type="button"

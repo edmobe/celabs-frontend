@@ -11,16 +11,19 @@ export class LabReservationNormalSelectComponent implements OnInit {
 
   @Input() event: any;
   @Input() laboratory: string;
+
   @ViewChild('baseForm') baseForm: LabReservationNormalComponent;
   @ViewChild('classForm') classForm: LabReservationNormalComponent;
 
   selected: boolean;
   class: boolean;
   type: string;
+  recurrent: boolean;
 
   constructor(public activeModal: NgbActiveModal, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.recurrent = false;
   }
 
   handleSelected(type: string) {
@@ -42,7 +45,8 @@ export class LabReservationNormalSelectComponent implements OnInit {
       laboratory: this.laboratory,
       start: this.event.start,
       end: this.event.end,
-      palmada: this.event.palmada
+      palmada: this.event.palmada,
+      recurrent: this.recurrent
     };
     this.activeModal.close('Close click');
     alert('Json generado:\n' + JSON.stringify(newEvent));
@@ -59,7 +63,8 @@ export class LabReservationNormalSelectComponent implements OnInit {
       end: this.event.end,
       palmada: this.event.palmada,
       teacher: classForm.teacher,
-      course: classForm.course
+      course: classForm.course,
+      recurrent: this.recurrent
     };
     this.activeModal.close('Close click');
     alert('Json generado:\n' + JSON.stringify(newEvent));

@@ -6,7 +6,6 @@ import { CalendarGeneratorService } from 'src/app/_services/calendar-generator.s
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar, EventApi } from '@fullcalendar/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { LabReservationNormalComponent } from './lab-reservation-normal/lab-reservation-normal.component';
 import { LabReservationPalmadaComponent } from './lab-reservation-palmada/lab-reservation-palmada.component';
 import { ActivatedRoute } from '@angular/router';
 
@@ -46,7 +45,7 @@ export class LabReservationComponent implements OnInit {
       eventMouseLeave: this.handleEventLeave.bind(this),
       datesSet: this.handleViewChange.bind(this),
       titleFormat: this.getWeek.bind(this),
-      select: this.handleDateSelection.bind(this)
+      select: this.handleDateSelect.bind(this)
     });
   }
 
@@ -88,12 +87,16 @@ export class LabReservationComponent implements OnInit {
     }
   }
 
-  handleDateSelection(arg) {
+  handleDateSelect(arg) {
     const event = {
       start: arg.startStr,
       end: arg.endStr,
       palmada: false
     };
+    this.openEventModal(event);
+  }
+
+  private openEventModal(event) {
     let modalRef;
     modalRef = this.modalService.open(LabReservationNormalSelectComponent, { size: 'lg' });
     modalRef.componentInstance.event = event;
@@ -155,10 +158,6 @@ export class LabReservationComponent implements OnInit {
 
   handleViewChange(arg) {
     console.log(arg);
-  }
-
-  handleRecurrentClick() {
-    console.log('Se ha seleccionado el botón de reservar recurrentemente');
   }
 
 }
