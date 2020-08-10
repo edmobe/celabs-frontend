@@ -17,8 +17,12 @@
               <td> {{ user.correo }}</td>
               <td> {{ user.rol }}</td>
               <td>
-                  <input type="checkbox" (change)="checkValue(user.id, $event)"/>
-                  <label id = "labelCheck{{user.id}}">Denegado</label>                
+                <div *ngIf = user.permisos; >
+                  <input class="btn btn-primary" id = "btn{{user.id}}" type="button" value="Permitido" (click)="checkValue(user.id)">
+                </div>
+                <div *ngIf = !user.permisos; >
+                  <input class="btn btn-danger" id = "btn{{user.id}}" type="button" value="Denegado" (click)="checkValue(user.id)">
+                </div>
               </td>
             </tr>
           </tbody>
