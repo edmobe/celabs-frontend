@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -15,9 +14,6 @@ export class LabReservationNormalComponent implements OnInit {
 
   reservationForm: FormGroup;
 
-  closeResult = '';
-  teachers: string[] = ['Arnoldo Martínez', 'Juan Diego González', 'Manuel Uribe', 'Karla Jiménez'];
-
   ngOnInit(): void {
     const start = this.event.start.split('T');
     const end = this.event.end.split('T');
@@ -29,9 +25,6 @@ export class LabReservationNormalComponent implements OnInit {
         Validators.required
       ]],
       type: [this.type, [
-        Validators.required
-      ]],
-      teacher: ['', [
         Validators.required
       ]],
       laboratory: [this.laboratory, [
@@ -48,16 +41,11 @@ export class LabReservationNormalComponent implements OnInit {
     */
   }
 
-  constructor(
-    public activeModal: NgbActiveModal,
-    private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) { }
+
 
   get title() {
     return this.reservationForm.get('title');
-  }
-
-  get teacher() {
-    return this.reservationForm.get('teacher');
   }
 
 }

@@ -9,14 +9,13 @@ import { EventApi } from '@fullcalendar/core';
 })
 export class LabReservationPalmadaComponent implements OnInit {
 
-  @Input() public event: EventApi;
+  @Input() public laboratory: EventApi;
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
   closeResult = '';
 
   ngOnInit(): void {
-    console.log('Se ha seleccionado el siguiente evento:');
-    console.log(this.event);
+    console.log('Se ha seleccionado reservar palmada para el laboratorio ' + this.laboratory);
   }
 
   constructor(public activeModal: NgbActiveModal) { }

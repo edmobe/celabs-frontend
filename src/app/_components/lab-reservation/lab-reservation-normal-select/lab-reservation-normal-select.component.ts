@@ -38,12 +38,28 @@ export class LabReservationNormalSelectComponent implements OnInit {
     const baseForm = this.baseForm.reservationForm.value;
     const newEvent = {
       title: baseForm.title,
-      teacher: baseForm.teacher,
       type: this.type,
       laboratory: this.laboratory,
       start: this.event.start,
       end: this.event.end,
       palmada: this.event.palmada
+    };
+    this.activeModal.close('Close click');
+    alert('Json generado:\n' + JSON.stringify(newEvent));
+  }
+
+  postClassForm() {
+    const baseForm = this.baseForm.reservationForm.value;
+    const classForm = this.classForm.reservationForm.value;
+    const newEvent = {
+      title: baseForm.title,
+      type: this.type,
+      laboratory: this.laboratory,
+      start: this.event.start,
+      end: this.event.end,
+      palmada: this.event.palmada,
+      teacher: classForm.teacher,
+      course: classForm.course
     };
     this.activeModal.close('Close click');
     alert('Json generado:\n' + JSON.stringify(newEvent));

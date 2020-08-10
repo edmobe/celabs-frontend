@@ -75,6 +75,19 @@ export class LabReservationComponent implements OnInit {
     return 'Semana 17';
   }
 
+  handleEventClick(arg) {
+    const event = this.calendarComponent.getApi().getEventById(arg.event.id);
+    if (event.extendedProps.enabled) {
+      if (event.extendedProps.palmada) {
+        this.handlePalmadaSelect();
+      } else {
+        //this.handleEventSelect();
+      }
+    } else {
+      alert('El evento ya finalizó.');
+    }
+  }
+
   handleDateSelection(arg) {
     const event = {
       start: arg.startStr,
@@ -96,28 +109,16 @@ export class LabReservationComponent implements OnInit {
     });
   }
 
-  handleEventClick(arg) {
-    const event = this.calendarComponent.getApi().getEventById(arg.event.id);
-    if (event.extendedProps.enabled) {
-      if (event.extendedProps.palmada) {
-        this.handlePalmadaSelect(event);
-      } else {
-        //this.handleEventSelect();
-      }
-    } else {
-      alert('El evento ya finalizó.');
-    }
-  }
-
-  handlePalmadaSelect(event: EventApi) {
+  handlePalmadaSelect() {
     let modalRef;
     modalRef = this.modalService.open(LabReservationPalmadaComponent, { size: 'lg' });
-    modalRef.componentInstance.event = event;
     modalRef.componentInstance.laboratory = this.laboratory;
     modalRef.result.then((result) => {
       if (result) {
         console.log(result);
       }
+    }).catch(err => {
+      this.calendarComponent.getApi().unselect();
     });
   }
 
