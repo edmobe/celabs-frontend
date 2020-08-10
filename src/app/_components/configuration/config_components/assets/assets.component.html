@@ -5,6 +5,9 @@
 <div class="container-fluid">
     <div class="col">
       <h1>Lista de Activos</h1>
+      <div>
+        <button class="mb-3 btn btn-primary" (click)="open(content)">Añadir Activo</button>
+      </div>
       <div class="table-responsive">
         <table class="table table-hover table-condensed text-center">
           <thead>
@@ -29,4 +32,41 @@
     </div>
     </div>
 </div> 
-           
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Nuevo activo</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form>
+          <div class="form-row">
+              <div class="form-group col">
+                  <label for="codeAsset">Código</label>
+                  <input type="text" class="form-control" id="codeAsset">
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col">
+                  <label for="descriptionAsset">Descripción</label>
+                  <textarea class="form-control" rows="5" id="descriptionAsset"></textarea>
+              </div>
+          </div>
+      </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="modal.close('Save click')"
+    >
+      Guardar
+    </button>
+  </div>
+</ng-template>
