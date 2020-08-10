@@ -18,9 +18,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigurationComponent } from './_components/configuration/configuration.component';
-import { LabReservationNormalComponent } from './_components/lab-reservation-normal/lab-reservation-normal.component';
-import { LabReservationPalmadaComponent } from './_components/lab-reservation-palmada/lab-reservation-palmada.component';
-import { LabReservationSelectComponent } from './_components/lab-reservation-select/lab-reservation-select.component';
+import { LabReservationNormalComponent } from './_components/lab-reservation/lab-reservation-normal/lab-reservation-normal.component';
+import { LabReservationPalmadaComponent } from './_components/lab-reservation/lab-reservation-palmada/lab-reservation-palmada.component';
+import { LabReservationSelectComponent } from './_components/lab-reservation/lab-reservation-select/lab-reservation-select.component';
 import { FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SideBarComponent } from './_components/side-bar/side-bar.component';
 import { AdministratorComponent } from './_components/configuration/config_components/administrator/administrator.component';
@@ -34,6 +34,7 @@ import { CsupportTeamComponent } from './_components/configuration/config_compon
 import { CTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/cteachers-administrative.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NotFoundComponent } from './_components/not-found/not-found.component';
+import { LabReservationNormalSelectComponent } from './_components/lab-reservation/lab-reservation-normal-select/lab-reservation-normal-select.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -67,7 +68,8 @@ FullCalendarModule.registerPlugins([
     CoperatorComponent,
     CsupportTeamComponent,
     CTeachersAdministrativeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LabReservationNormalSelectComponent
   ],
   imports: [
     BrowserModule,
