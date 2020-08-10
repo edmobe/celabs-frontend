@@ -3,3 +3,7 @@ h1 {
     padding-bottom: 10px;
     text-align: center;
 }
+
+label {
+    margin-bottom: 0;
+}
