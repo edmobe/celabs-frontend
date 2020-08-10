@@ -8,43 +8,80 @@ export class ChartGeneratorService {
 
   constructor() { }
 
-  public getOccupationChart() {
+  public getOccupationChart(occupationPercentage: number) {
     const occupationChart = new Chart('occupation', {
-      type: 'bar',
+      type: 'doughnut',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Ocupado', 'Libre'],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
+          data: [occupationPercentage, 100 - occupationPercentage],
+          backgroundColor: ['#3775b0', '#4a9eed'],
+          hoverBackgroundColor: ['#01396e', '#027ced']
         }]
       },
       options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
+        responsive: true,
+        maintainAspectRatio: true,
+        tooltips: {
+          callbacks: {
+            label: function (tooltipItem, data) {
+              return data['labels'][tooltipItem['index']] + ': ' + data['datasets'][0]['data'][tooltipItem['index']] + '%';
             }
-          }]
+          }
         }
       }
     });
     return occupationChart;
+  }
+
+  public getReservationsChart(id, reservationsCount: any[]) {
+    const splittedArray = this.reservationsToIntArray(reservationsCount);
+    const reservationsChart = new Chart(id, {
+      type: 'bar',
+      data: {
+        labels: splittedArray[0],
+        datasets: [{
+          label: "Reservaciones",
+          data: splittedArray[1],
+          backgroundColor: '#3775b0',
+          hoverBackgroundColor: '#01396e'
+        },
+        {
+          label: "Palmadas",
+          data: splittedArray[2],
+          backgroundColor: '#4a9eed',
+          hoverBackgroundColor: '#027ced'
+        }
+        ]
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              stepSize: 1
+            }
+          }]
+        },
+        responsive: true,
+        maintainAspectRatio: true,
+      }
+    });
+    return reservationsChart;
+  }
+
+  private reservationsToIntArray(reservationsCount: any[]) {
+    const weeks = [];
+    const reservations = [];
+    const palmadas = [];
+    for (let week of reservationsCount) {
+      weeks.push("Semana " + week.semana);
+      reservations.push(week.reservaciones);
+      palmadas.push(week.palmadas);
+    }
+    return [weeks, reservations, palmadas];
   }
 }

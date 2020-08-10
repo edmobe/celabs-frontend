@@ -32,6 +32,7 @@ import { FailuresStatusComponent } from './_components/configuration/config_comp
 import { CoperatorComponent } from './_components/configuration/config_components/coperator/coperator.component';
 import { CsupportTeamComponent } from './_components/configuration/config_components/csupport-team/csupport-team.component';
 import { CTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/cteachers-administrative.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -73,7 +74,8 @@ FullCalendarModule.registerPlugins([
     FullCalendarModule,
     NgbModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,8 +1,77 @@
 <div class="container">
-  <p>dashboard works!</p>
   <div class="row">
     <div class="col-6">
-      <canvas id="occupation"> {{ occupationChart }} </canvas>
+      <h4 class="text-center">Ocupación de laboratorios</h4>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">Reservaciones y palmadas semanales</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <canvas id="occupation" class="mb-5"> {{ occupationChart }} </canvas>
+    </div>
+    <div class="col-6">
+      <h4 class="text-center">
+        <canvas id="reservations" class="mb-5">
+          {{ reservationsChart }}
+        </canvas>
+      </h4>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12">
+      <h4 class="text-center">Satisfacción de los usuarios</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12">
+          <div class="progress mt-2 text-primary" style="height: 35px;">
+            <div
+              class="progress-bar bg-light"
+              role="progressbar"
+              [ngStyle]="{ width: satisfaction + '%' }"
+              aria-valuenow="75"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              {{ satisfaction }} %
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-3 text-center">
+          <fa-icon
+            [icon]="veryBad"
+            size="2x"
+            [styles]="{ stroke: '#3775b0', color: '#3775b0' }"
+          ></fa-icon>
+        </div>
+        <div class="col-3 text-center">
+          <fa-icon
+            [icon]="bad"
+            size="2x"
+            [styles]="{ stroke: '#3775b0', color: '#3775b0' }"
+          ></fa-icon>
+        </div>
+        <div class="col-3 text-center">
+          <fa-icon
+            [icon]="good"
+            size="2x"
+            [styles]="{ stroke: '#3775b0', color: '#3775b0' }"
+          ></fa-icon>
+        </div>
+        <div class="col-3 text-center">
+          <fa-icon
+            [icon]="veryGood"
+            size="2x"
+            [styles]="{ stroke: '#3775b0', color: '#3775b0' }"
+          ></fa-icon>
+        </div>
+      </div>
     </div>
   </div>
 </div>
