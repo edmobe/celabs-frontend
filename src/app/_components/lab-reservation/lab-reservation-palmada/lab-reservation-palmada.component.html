@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">¡Hola palmada!</h4>
+  <h4 class="modal-title">Solicitar palmada</h4>
   <button
     type="button"
     class="close"
@@ -10,13 +10,94 @@
   </button>
 </div>
 <div class="modal-body">
-  <p>Palmada en laboratorio {{ laboratory }}</p>
+  <div class="row" *ngIf="availablePalmadasForThisWeek.length === 0">
+    <div class="col-12">
+      <div class="alert alert-danger" role="alert">
+        No hay palmadas disponibles para esta semana.
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="availablePalmadasForThisWeek.length !== 0">
+    <div class="col-12">
+      <form class="form-group" [formGroup]="palmadaForm">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>Motivo</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Motivo de palmada"
+              formControlName="title"
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="title.invalid && title.touched"
+            >
+              Debe ingresar un motivo.
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Operador a cargo</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Operador a cargo"
+              formControlName="operator"
+              readonly
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label>Laboratorio</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Laboratorio"
+              formControlName="laboratory"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>Palmada</label>
+            <select class="form-control" formControlName="palmada">
+              <option
+                *ngFor="let palmada of availablePalmadasForThisWeek"
+                [ngValue]="palmada"
+              >
+                {{ getMultipleDateDisplay(palmada.start, palmada.end) }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="palmada.invalid && palmada.touched"
+            >
+              Debe seleccionar una palmada.
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-<div class="modal-footer">
+<div class="modal-footer" *ngIf="availablePalmadasForThisWeek.length !== 0">
   <button
     type="button"
-    class="btn btn-outline-dark"
-    (click)="activeModal.close('Close click')"
+    [disabled]="palmadaForm.invalid"
+    class="btn btn-primary"
+    (click)="postPalmadaForm()"
   >
     Enviar
   </button>

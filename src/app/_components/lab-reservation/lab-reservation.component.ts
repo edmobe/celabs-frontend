@@ -111,8 +111,13 @@ export class LabReservationComponent implements OnInit {
 
   handlePalmadaSelect() {
     let modalRef;
+    const calendarApi = this.calendarComponent.getApi();
+    const startInterval = calendarApi.view.currentStart;
+    const endInterval = calendarApi.view.currentEnd;
     modalRef = this.modalService.open(LabReservationPalmadaComponent, { size: 'lg' });
     modalRef.componentInstance.laboratory = this.laboratory;
+    modalRef.componentInstance.startInterval = startInterval;
+    modalRef.componentInstance.endInterval = endInterval;
     modalRef.result.then((result) => {
       if (result) {
         console.log(result);

@@ -18,7 +18,7 @@ export class LabReservationNormalSelectComponent implements OnInit {
   class: boolean;
   type: string;
 
-  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private changeDetector: ChangeDetectorRef) { }
+  constructor(public activeModal: NgbActiveModal, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DateDisplayService } from '../../../_services/date-display.service';
 
 @Component({
   selector: 'app-lab-reservation-normal',
@@ -30,7 +31,7 @@ export class LabReservationNormalComponent implements OnInit {
       laboratory: [this.laboratory, [
         Validators.required
       ]],
-      time: [date + ' (' + startTime[0] + ':' + startTime[1] + ' - ' + endTime[0] + ':' + endTime[1] + ')', [
+      time: [this.dateDisplayService.getSingleDayDisplay(new Date(this.event.start), new Date(this.event.end)), [
         Validators.required
       ]]
     });
@@ -41,7 +42,7 @@ export class LabReservationNormalComponent implements OnInit {
     */
   }
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private dateDisplayService: DateDisplayService) { }
 
 
   get title() {
