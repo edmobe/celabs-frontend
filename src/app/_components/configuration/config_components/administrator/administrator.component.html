@@ -1,3 +1,4 @@
+
 <div class="container-fluid">
     <div class="col">
       <h1>Gestión de Administradores</h1>
@@ -11,14 +12,14 @@
               <th scope="col">Permisos de Administrador</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id = "tableSearch">
             <tr *ngFor = "let user of users">
               <td> {{ user.nombre }}</td>
               <td> {{ user.correo }}</td>
               <td> {{ user.rol }}</td>
               <td>
                 <div *ngIf = user.permisos; >
-                  <input class="btn btn-primary" id = "btn{{user.id}}" type="button" value="Permitido" (click)="checkValue(user.id)">
+                  <input class="btn btn-success" id = "btn{{user.id}}" type="button" value="Permitido" (click)="checkValue(user.id)">
                 </div>
                 <div *ngIf = !user.permisos; >
                   <input class="btn btn-danger" id = "btn{{user.id}}" type="button" value="Denegado" (click)="checkValue(user.id)">

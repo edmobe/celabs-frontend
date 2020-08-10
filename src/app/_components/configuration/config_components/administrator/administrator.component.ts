@@ -10,7 +10,7 @@ interface User {
 }
 
 var buttonDanger: string = "btn btn-danger";
-var buttonSuccess: string = "btn btn-primary";
+var buttonSuccess: string = "btn btn-success";
 
 @Component({
   selector: 'app-administrator',
