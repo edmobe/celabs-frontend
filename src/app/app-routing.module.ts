@@ -36,6 +36,7 @@ const routes: Routes = [
     path: 'configuration',
     component: ConfigurationComponent,
     children: [
+      { path: '', redirectTo: 'administrator' ,pathMatch: 'full'},
       { path: 'administrator', component: AdministratorComponent },
       { path: 'operators', component: CoperatorComponent },
       { path: 'supportTeam', component: CsupportTeamComponent },
