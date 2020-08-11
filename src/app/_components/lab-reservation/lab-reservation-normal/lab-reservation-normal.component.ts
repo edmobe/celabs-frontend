@@ -16,11 +16,6 @@ export class LabReservationNormalComponent implements OnInit {
   reservationForm: FormGroup;
 
   ngOnInit(): void {
-    const start = this.event.start.split('T');
-    const end = this.event.end.split('T');
-    const date = start[0];
-    const startTime = start[1].split(':');
-    const endTime = end[1].split(':');
     this.reservationForm = this.formBuilder.group({
       title: ['', [
         Validators.required

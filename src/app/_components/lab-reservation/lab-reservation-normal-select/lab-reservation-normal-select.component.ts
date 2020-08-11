@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LabReservationNormalComponent } from '../lab-reservation-normal/lab-reservation-normal.component';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-lab-reservation-normal-select',
@@ -20,54 +21,97 @@ export class LabReservationNormalSelectComponent implements OnInit {
   type: string;
   recurrent: boolean;
 
-  constructor(public activeModal: NgbActiveModal, private changeDetector: ChangeDetectorRef) { }
+  remainingWeeks;
+
+  recurrentForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.remainingWeeks = 17;
     this.recurrent = false;
+    this.recurrentForm = this.formBuilder.group({
+      recurrence: ['', [
+        Validators.required,
+        Validators.min(1),
+        Validators.pattern('^[1-9][0-9]*$')
+      ]]
+    });
   }
 
-  handleSelected(type: string) {
+  checkFormsInvalid(): boolean {
+    try {
+      if (this.recurrent) {
+        if (this.recurrentForm.invalid) {
+          return true;
+        }
+      }
+      if (this.class) {
+        if (this.classForm.reservationForm.invalid) {
+          return true;
+        }
+      }
+      if (this.baseForm.reservationForm.invalid) {
+        return true;
+      }
+      return false;
+    } catch (error) { }
+  }
+
+  handleSelected(type: string): void {
     this.type = type;
     this.selected = true;
     this.changeDetector.detectChanges();
   }
 
-  handleClass() {
+  handleClass(): void {
     this.class = true;
     this.handleSelected('Clase');
   }
 
-  postBaseForm() {
-    const baseForm = this.baseForm.reservationForm.value;
-    const newEvent = {
-      title: baseForm.title,
-      type: this.type,
-      laboratory: this.laboratory,
-      start: this.event.start,
-      end: this.event.end,
-      palmada: this.event.palmada,
-      recurrent: this.recurrent
-    };
+  post(): void {
+    let json = this.getBaseFormJson();
+    if (this.recurrent) {
+      json = Object.assign(json, this.getReccurentFromJson());
+    }
+    if (this.class) {
+      json = Object.assign(json, this.getClassFromJson());
+    }
     this.activeModal.close('Close click');
-    alert('Json generado:\n' + JSON.stringify(newEvent));
+    alert('Json generado:\n' + JSON.stringify(json));
   }
 
-  postClassForm() {
+  getBaseFormJson(): any {
     const baseForm = this.baseForm.reservationForm.value;
-    const classForm = this.classForm.reservationForm.value;
-    const newEvent = {
+    const baseJson = {
       title: baseForm.title,
       type: this.type,
       laboratory: this.laboratory,
       start: this.event.start,
       end: this.event.end,
-      palmada: this.event.palmada,
+    };
+    return baseJson;
+  }
+
+  getClassFromJson(): any {
+    const classForm = this.classForm.reservationForm.value;
+    const classJson = {
       teacher: classForm.teacher,
       course: classForm.course,
-      recurrent: this.recurrent
     };
-    this.activeModal.close('Close click');
-    alert('Json generado:\n' + JSON.stringify(newEvent));
+    return classJson;
+  }
+
+  getReccurentFromJson(): any {
+    const recurrentForm = this.recurrentForm.value;
+    const recurrentJson = {
+      recurrence: recurrentForm.recurrence
+    };
+    return recurrentJson;
+  }
+
+  get recurrence() {
+    return this.recurrentForm.get('recurrence');
   }
 
 }
