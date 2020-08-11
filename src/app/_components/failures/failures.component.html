@@ -2,33 +2,36 @@
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
-<div>
-  <button class="m-3 btn btn-primary" (click)="open(content)">Añadir</button>
-</div>
-<div class="panel panel-default">
-  <div class="panel-body">
-    <table class="table table-striped table-hover table-condensed text-center">
-      <thead>
-        <tr>
-          <th scope="col">Fecha</th>
-          <th scope="col">Laboratorio</th>
-          <th scope="col">Responsable</th>
-          <th scope="col">Descripción</th>
-          <th scope="col">Estado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let averia of averias; index as i">
-          <td>{{ averia.fecha }} {{ averia.hora }}</td>
-          <td>{{ averia.laboratorio }}</td>
-          <td>{{ averia.responsable }}</td>
-          <td>{{ averia.descripcion }}</td>
-          <td>{{ averia.estado }}</td>
-        </tr>
-      </tbody>
-    </table>
+<div class="container-fluid">
+  <div>
+    <button class="m-3 btn btn-primary" (click)="open(content)">Añadir</button>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <table class="table table-striped table-hover table-condensed text-center">
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Laboratorio</th>
+            <th scope="col">Responsable</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let averia of averias; index as i">
+            <td>{{ averia.fecha }} {{ averia.hora }}</td>
+            <td>{{ averia.laboratorio }}</td>
+            <td>{{ averia.responsable }}</td>
+            <td>{{ averia.descripcion }}</td>
+            <td>{{ averia.estado }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
+
 
 <ng-template #content let-modal>
   <div class="modal-header">
