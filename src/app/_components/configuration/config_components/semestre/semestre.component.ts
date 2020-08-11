@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
 
+
 @Component({
   selector: 'app-semestre',
   templateUrl: './semestre.component.html',
@@ -15,4 +16,24 @@ export class SemestreComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  changeFinMin() : void {
+    var calendarInicio = (<HTMLInputElement>document.getElementById("semesterStart"));
+    var calendarFin = (<HTMLInputElement>document.getElementById("semesterEnd"));
+    calendarFin.min = calendarInicio.value;
+  }
+
+  saveChanges () : void {
+    var calendarInicio = (<HTMLInputElement>document.getElementById("semesterStart"));
+    var calendarFin = (<HTMLInputElement>document.getElementById("semesterEnd"));
+
+    var Inicio = calendarInicio.valueAsDate;
+    var Fin = calendarFin.valueAsDate;
+
+    if((Inicio == null) || (Fin == null)){
+      console.log("Error");
+    } else {
+      console.log(Inicio, Fin);
+    }
+    
+  }
 }
