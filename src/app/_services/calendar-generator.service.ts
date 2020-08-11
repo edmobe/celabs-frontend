@@ -74,15 +74,15 @@ export class CalendarGeneratorService {
   private createCustomEvents() {
     const events = [];
     let event;
-    event = this.createEvent(1, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 10, 7), new Date(2020, 7, 10, 8), true, false);
+    event = this.createEvent(1, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 10, 7), new Date(2020, 7, 10, 8), true);
     events.push(event);
-    event = this.createEvent(2, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 10, 8), new Date(2020, 7, 10, 9), true, false);
+    event = this.createEvent(2, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 10, 8), new Date(2020, 7, 10, 9), true);
     events.push(event);
-    event = this.createEvent(3, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 10, 9), new Date(2020, 7, 10, 10), true, false);
+    event = this.createEvent(3, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 10, 9), new Date(2020, 7, 10, 10), true);
     events.push(event);
-    event = this.createEvent(4, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 11, 14), new Date(2020, 7, 11, 17), true, false);
+    event = this.createEvent(4, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 11, 14), new Date(2020, 7, 11, 17), true);
     events.push(event);
-    event = this.createEvent(5, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 11, 17), new Date(2020, 7, 11, 20), true, false);
+    event = this.createEvent(5, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 11, 17), new Date(2020, 7, 11, 20), true);
     events.push(event);
     return events;
   }
@@ -109,9 +109,9 @@ export class CalendarGeneratorService {
         /* 7:00 to 20:00 */
         for (let k = 0; k < NORMAL_DAY_RESERVATIONS_AMOUNT; k++) {
           if (startDate.getTime() < Date.now()) {
-            events.push(this.createEvent(varId, DISABLED_TITLE, startDate, endDate, false, false));
+            events.push(this.createEvent(varId, DISABLED_TITLE, startDate, endDate, false));
           } else {
-            events.push(this.createEvent(varId, RESERVE_TITLE, startDate, endDate, true, false));
+            events.push(this.createEvent(varId, RESERVE_TITLE, startDate, endDate, true));
           }
           /* Update */
           varId++;
@@ -122,9 +122,9 @@ export class CalendarGeneratorService {
         startDate.setMinutes(startDate.getMinutes() + 30);
         endDate.setHours(endDate.getHours() + PALMADA_HOURS);
         if (startDate.getTime() < Date.now()) {
-          events.push(this.createEvent(varId, DISABLED_TITLE, startDate, endDate, false, true));
+          events.push(this.createEvent(varId, DISABLED_TITLE, startDate, endDate, false));
         } else {
-          events.push(this.createEvent(varId, PALMADA_TITLE, startDate, endDate, true, true));
+          events.push(this.createEvent(varId, PALMADA_TITLE, startDate, endDate, true));
         }
         /* Update */
         startDate.setHours(startDate.getHours() + PALMADA_HOURS + 1, startDate.getMinutes() + 30);
@@ -136,9 +136,9 @@ export class CalendarGeneratorService {
       /* 7:00 to 15:00 */
       for (let j = 0; j < 8; j++) {
         if (startDate.getTime() < Date.now()) {
-          events.push(this.createEvent(varId, DISABLED_TITLE, startDate, endDate, false, false));
+          events.push(this.createEvent(varId, DISABLED_TITLE, startDate, endDate, false));
         } else {
-          events.push(this.createEvent(varId, RESERVE_TITLE, startDate, endDate, true, false));
+          events.push(this.createEvent(varId, RESERVE_TITLE, startDate, endDate, true));
         }
         varId++;
         /* Update */
@@ -149,10 +149,10 @@ export class CalendarGeneratorService {
       startDate.setHours(startDate.getHours() + 3);
       endDate.setHours(endDate.getHours() + WEEKEND_PALMADA_HOURS);
       if (startDate.getTime() < Date.now()) {
-        midWeekPalmada = this.createEvent(varId, DISABLED_TITLE, startDate, endDate, false, true);
+        midWeekPalmada = this.createEvent(varId, DISABLED_TITLE, startDate, endDate, false);
         events.push(midWeekPalmada);
       } else {
-        midWeekPalmada = this.createEvent(varId, PALMADA_TITLE, startDate, endDate, true, true);
+        midWeekPalmada = this.createEvent(varId, PALMADA_TITLE, startDate, endDate, true);
         events.push(midWeekPalmada);
       }
       weeks[i] = events;
@@ -165,7 +165,7 @@ export class CalendarGeneratorService {
     return weeks;
   }
 
-  private createEvent(eventId: number, eventTitle: string, eventStart: Date, eventEnd: Date, eventEnabled: boolean, eventPalmada: boolean) {
+  private createEvent(eventId: number, eventTitle: string, eventStart: Date, eventEnd: Date, eventEnabled: boolean) {
     let eventBackgroundColor;
     if (eventEnabled) {
       eventBackgroundColor = '#0154A0';
@@ -179,8 +179,7 @@ export class CalendarGeneratorService {
       end: eventEnd.toISOString(),
       enabled: eventEnabled,
       selected: false,
-      backgroundColor: eventBackgroundColor,
-      palmada: eventPalmada
+      backgroundColor: eventBackgroundColor
     };
     return event;
   }

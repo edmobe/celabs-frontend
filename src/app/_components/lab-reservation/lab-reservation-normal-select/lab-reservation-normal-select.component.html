@@ -57,6 +57,23 @@
           #classForm
           *ngIf="class"
         ></app-lab-reservation-normal-class>
+        <form class="form-group" [formGroup]="recurrentForm" *ngIf="recurrent">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Semanas que tarda el evento</label>
+              <input
+                type="number"
+                min="1"
+                [max]="remainingWeeks"
+                step="1"
+                class="form-control"
+                placeholder="Semanas"
+                formControlName="recurrence"
+                oninput="validity.valid||(value='');"
+              />
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -69,22 +86,10 @@
     </label>
   </div>
   <button
-    *ngIf="baseForm && !classForm"
     type="button"
-    [disabled]="baseForm.reservationForm.invalid"
+    [disabled]="checkFormsInvalid()"
     class="btn btn-primary"
-    (click)="postBaseForm()"
-  >
-    Enviar
-  </button>
-  <button
-    *ngIf="baseForm && classForm"
-    type="button"
-    [disabled]="
-      baseForm.reservationForm.invalid || classForm.reservationForm.invalid
-    "
-    class="btn btn-primary"
-    (click)="postClassForm()"
+    (click)="post()"
   >
     Enviar
   </button>
