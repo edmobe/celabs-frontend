@@ -73,6 +73,17 @@
               />
             </div>
           </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <div
+                class="alert alert-danger"
+                *ngIf="recurrence.invalid && recurrence.touched"
+                role="alert"
+              >
+                Debe indicar una recurrencia.
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>

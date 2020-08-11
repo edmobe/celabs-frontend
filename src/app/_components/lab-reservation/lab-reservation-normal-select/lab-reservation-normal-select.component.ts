@@ -110,4 +110,8 @@ export class LabReservationNormalSelectComponent implements OnInit {
     return recurrentJson;
   }
 
+  get recurrence() {
+    return this.recurrentForm.get('recurrence');
+  }
+
 }
