@@ -57,7 +57,7 @@ export class CalendarGeneratorService {
         start: '2020-04-20',
         end: '2020-08-24'
       },
-      unselectCancel: 'app-lab-reservation-normal',
+      unselectCancel: 'app-lab-reservation-normal-select',
       selectConstraint: 'businessHours',
       selectAllow: function (info) {
         if (info.start < Date.now()) {

@@ -1,0 +1,57 @@
+<form class="form-group" [formGroup]="reservationForm">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Motivo</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Motivo de reservación"
+        formControlName="title"
+      />
+    </div>
+    <div class="form-group col-md-6">
+      <label>Tipo de reservación</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Tipo de reservación"
+        formControlName="type"
+        readonly
+      />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="title.invalid && title.touched"
+      >
+        Debe ingresar un motivo.
+      </div>
+    </div>
+    <div class="form-group col-md-6"></div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Laboratorio a reservar</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Laboratorio"
+        formControlName="laboratory"
+        readonly
+      />
+    </div>
+    <div class="form-group col-md-6">
+      <label>Horario</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Horario"
+        formControlName="time"
+        readonly
+      />
+    </div>
+  </div>
+</form>

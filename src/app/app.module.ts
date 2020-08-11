@@ -18,9 +18,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigurationComponent } from './_components/configuration/configuration.component';
-import { LabReservationNormalComponent } from './_components/lab-reservation-normal/lab-reservation-normal.component';
-import { LabReservationPalmadaComponent } from './_components/lab-reservation-palmada/lab-reservation-palmada.component';
-import { LabReservationSelectComponent } from './_components/lab-reservation-select/lab-reservation-select.component';
+import { LabReservationNormalComponent } from './_components/lab-reservation/lab-reservation-normal/lab-reservation-normal.component';
+import { LabReservationPalmadaComponent } from './_components/lab-reservation/lab-reservation-palmada/lab-reservation-palmada.component';
+import { LabReservationSelectComponent } from './_components/lab-reservation/lab-reservation-select/lab-reservation-select.component';
 import { FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SideBarComponent } from './_components/side-bar/side-bar.component';
 import { AdministratorComponent } from './_components/configuration/config_components/administrator/administrator.component';
@@ -32,6 +32,10 @@ import { FailuresStatusComponent } from './_components/configuration/config_comp
 import { CoperatorComponent } from './_components/configuration/config_components/coperator/coperator.component';
 import { CsupportTeamComponent } from './_components/configuration/config_components/csupport-team/csupport-team.component';
 import { CTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/cteachers-administrative.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NotFoundComponent } from './_components/not-found/not-found.component';
+import { LabReservationNormalSelectComponent } from './_components/lab-reservation/lab-reservation-normal-select/lab-reservation-normal-select.component';
+import { LabReservationNormalClassComponent } from './_components/lab-reservation/lab-reservation-normal-class/lab-reservation-normal-class.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -64,7 +68,10 @@ FullCalendarModule.registerPlugins([
     FailuresStatusComponent,
     CoperatorComponent,
     CsupportTeamComponent,
-    CTeachersAdministrativeComponent
+    CTeachersAdministrativeComponent,
+    NotFoundComponent,
+    LabReservationNormalSelectComponent,
+    LabReservationNormalClassComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +80,8 @@ FullCalendarModule.registerPlugins([
     FullCalendarModule,
     NgbModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent],

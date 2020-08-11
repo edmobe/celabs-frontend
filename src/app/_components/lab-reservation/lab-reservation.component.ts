@@ -6,11 +6,11 @@ import { CalendarGeneratorService } from 'src/app/_services/calendar-generator.s
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar, EventApi } from '@fullcalendar/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { LabReservationNormalComponent } from '../lab-reservation-normal/lab-reservation-normal.component';
-import { LabReservationPalmadaComponent } from '../lab-reservation-palmada/lab-reservation-palmada.component';
+import { LabReservationPalmadaComponent } from './lab-reservation-palmada/lab-reservation-palmada.component';
 import { ActivatedRoute } from '@angular/router';
 
 import $ from 'jquery';
+import { LabReservationNormalSelectComponent } from './lab-reservation-normal-select/lab-reservation-normal-select.component';
 
 @Component({
   selector: 'app-lab-reservation',
@@ -22,7 +22,6 @@ export class LabReservationComponent implements OnInit {
   laboratory: string;
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
-  selectedEvents = [];
   calendarOptions;
   closeResult = '';
 
@@ -46,7 +45,7 @@ export class LabReservationComponent implements OnInit {
       eventMouseLeave: this.handleEventLeave.bind(this),
       datesSet: this.handleViewChange.bind(this),
       titleFormat: this.getWeek.bind(this),
-      select: this.handleDateSelection.bind(this)
+      select: this.handleDateSelect.bind(this)
     });
   }
 
@@ -75,14 +74,31 @@ export class LabReservationComponent implements OnInit {
     return 'Semana 17';
   }
 
-  handleDateSelection(arg) {
+  handleEventClick(arg) {
+    const event = this.calendarComponent.getApi().getEventById(arg.event.id);
+    if (event.extendedProps.enabled) {
+      if (event.extendedProps.palmada) {
+        this.handlePalmadaSelect();
+      } else {
+        //this.handleEventSelect();
+      }
+    } else {
+      alert('El evento ya finalizó.');
+    }
+  }
+
+  handleDateSelect(arg) {
     const event = {
       start: arg.startStr,
       end: arg.endStr,
       palmada: false
     };
+    this.openEventModal(event);
+  }
+
+  private openEventModal(event) {
     let modalRef;
-    modalRef = this.modalService.open(LabReservationNormalComponent, { size: 'lg' });
+    modalRef = this.modalService.open(LabReservationNormalSelectComponent, { size: 'lg' });
     modalRef.componentInstance.event = event;
     modalRef.componentInstance.laboratory = this.laboratory;
     modalRef.result.then((result) => {
@@ -94,45 +110,27 @@ export class LabReservationComponent implements OnInit {
     }).catch(err => {
       this.calendarComponent.getApi().unselect();
     });
-    console.log(arg);
   }
 
-  handleEventClick(arg) {
-    const event = this.calendarComponent.getApi().getEventById(arg.event.id);
-    if (event.extendedProps.enabled) {
-      if (event.extendedProps.palmada) {
-        if (this.selectedEvents.length !== 0) {
-          alert('No puede seleccionar una palmada si tiene reservaciones normales seleccionadas.');
-        } else {
-          this.handlePalmadaSelect(event);
-        }
-      } else {
-        if (!event.extendedProps.selected) {
-          this.selectEvent(event);
-        } else {
-          this.diselectEvent(event);
-        }
+  handlePalmadaSelect() {
+    let modalRef;
+    const calendarApi = this.calendarComponent.getApi();
+    const startInterval = calendarApi.view.currentStart;
+    const endInterval = calendarApi.view.currentEnd;
+    modalRef = this.modalService.open(LabReservationPalmadaComponent, { size: 'lg' });
+    modalRef.componentInstance.laboratory = this.laboratory;
+    modalRef.componentInstance.startInterval = startInterval;
+    modalRef.componentInstance.endInterval = endInterval;
+    modalRef.result.then((result) => {
+      if (result) {
+        console.log(result);
       }
-    } else {
-      alert('El evento ya finalizó.');
-    }
+    }).catch(err => {
+      this.calendarComponent.getApi().unselect();
+    });
   }
 
-  private selectEvent(event: EventApi) {
-    event.setExtendedProp('selected', true);
-    event.setProp('backgroundColor', '#01396E');
-    this.selectedEvents.push(event);
-    console.log(this.selectedEvents);
-  }
-
-  private diselectEvent(event: EventApi) {
-    event.setExtendedProp('selected', false);
-    event.setProp('backgroundColor', '#0154A0');
-    this.selectedEvents.splice(this.selectedEvents.indexOf(event.id), 1);
-    console.log(this.selectedEvents);
-  }
-
-  handlePalmadaSelect(event: EventApi) {
+  handleEventSelect(event: EventApi) {
     let modalRef;
     modalRef = this.modalService.open(LabReservationPalmadaComponent, { size: 'lg' });
     modalRef.componentInstance.event = event;
@@ -142,34 +140,6 @@ export class LabReservationComponent implements OnInit {
         console.log(result);
       }
     });
-  }
-
-  handleConfirmClick() {
-    const events = this.selectedEvents;
-    if (events.length === 0) {
-      alert('Debe seleccionar al menos un evento');
-    } else {
-      let modalRef;
-      modalRef = this.modalService.open(LabReservationNormalComponent, { size: 'lg' });
-      modalRef.componentInstance.events = events;
-      modalRef.componentInstance.laboratory = this.laboratory;
-      modalRef.result.then((result) => {
-        if (result) {
-          console.log(result);
-          if (result === 'Close click') {
-            this.handleClearClick();
-          }
-        }
-      });
-    }
-  }
-
-  handleClearClick() {
-    for (const event of this.selectedEvents) {
-      event.setExtendedProp('selected', false);
-      event.setProp('backgroundColor', '#0154A0');
-    }
-    this.selectedEvents = [];
   }
 
   handleEventHover(arg) {
@@ -188,10 +158,6 @@ export class LabReservationComponent implements OnInit {
 
   handleViewChange(arg) {
     console.log(arg);
-  }
-
-  handleRecurrentClick() {
-    console.log('Se ha seleccionado el botón de reservar recurrentemente');
   }
 
 }

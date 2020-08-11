@@ -1,5 +1,17 @@
 <div class="container">
   <div class="row mt-3 mb-3">
+    <div class="col-6 text-left">
+      <h5>Hora actual:</h5>
+    </div>
+    <div class="col-6 text-right">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button class="btn btn-primary" (click)="handlePalmadaSelect()">
+          Palmada
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-12">
       <full-calendar #calendar [options]="calendarOptions"></full-calendar>
     </div>

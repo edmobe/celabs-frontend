@@ -1,0 +1,40 @@
+<form class="form-group" [formGroup]="reservationForm">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Curso</label>
+      <select class="form-control" formControlName="course">
+        <option *ngFor="let course of courses" [ngValue]="course">
+          {{ course }}</option
+        >
+      </select>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Profesor a cargo</label>
+      <select class="form-control" formControlName="teacher">
+        <option *ngFor="let teacher of teachers" [ngValue]="teacher">
+          {{ teacher }}</option
+        >
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <div
+        class="alert alert-danger"
+        *ngIf="course.invalid && course.touched"
+        role="alert"
+      >
+        Debe seleccionar un curso.
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <div
+        class="alert alert-danger"
+        *ngIf="teacher.invalid && teacher.touched"
+        role="alert"
+      >
+        Debe seleccionar un profesor.
+      </div>
+    </div>
+  </div>
+</form>

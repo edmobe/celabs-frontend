@@ -6,7 +6,7 @@ import { HomeComponent } from './_components/home/home.component';
 import { InventoryComponent } from './_components/inventory/inventory.component';
 import { HoursComponent } from './_components/hours/hours.component';
 import { FailuresComponent } from './_components/failures/failures.component';
-import { LabReservationSelectComponent } from './_components/lab-reservation-select/lab-reservation-select.component';
+import { LabReservationSelectComponent } from './_components/lab-reservation/lab-reservation-select/lab-reservation-select.component';
 import { LabReservationComponent } from './_components/lab-reservation/lab-reservation.component';
 import { ConfigurationComponent } from './_components/configuration/configuration.component';
 import { AdministratorComponent } from './_components/configuration/config_components/administrator/administrator.component';
@@ -18,6 +18,8 @@ import { LaboratoryAvailabilityComponent } from './_components/configuration/con
 import { SemestreComponent } from './_components/configuration/config_components/semestre/semestre.component';
 import { CoursesComponent } from './_components/configuration/config_components/courses/courses.component';
 import { AssetsComponent } from './_components/configuration/config_components/assets/assets.component';
+import { NotFoundComponent } from './_components/not-found/not-found.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -36,7 +38,7 @@ const routes: Routes = [
     path: 'configuration',
     component: ConfigurationComponent,
     children: [
-      { path: '', redirectTo: 'administrator' ,pathMatch: 'full'},
+      { path: '', redirectTo: 'administrator', pathMatch: 'full' },
       { path: 'administrator', component: AdministratorComponent },
       { path: 'operators', component: CoperatorComponent },
       { path: 'supportTeam', component: CsupportTeamComponent },
@@ -45,9 +47,10 @@ const routes: Routes = [
       { path: 'laboratoryAvailability', component: LaboratoryAvailabilityComponent },
       { path: 'semester', component: SemestreComponent },
       { path: 'courses', component: CoursesComponent },
-      { path: 'assets', component: AssetsComponent },
+      { path: 'assets', component: AssetsComponent }
     ]
   },
+  { path: '**', component: NotFoundComponent }
 
 ];
 
