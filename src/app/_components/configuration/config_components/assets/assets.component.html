@@ -21,11 +21,10 @@
             <tr *ngFor = "let activo of activos">
                 <td> {{ activo.codigo }}</td>
                 <td> {{ activo.descripcion }}</td>
-                <td> 
-                    
-                    <a class="fa fa-trash fa-2x" (click)="deleteAsset(activo.codigo)"></a>
-                    
-                </td>
+                <td>
+                  <button class="btn btn-success ml-2">Habilitado</button>
+                  <button class="btn btn-primary ml-2">Editar</button>
+              </td>
             </tr>
           </tbody>
         </table>
