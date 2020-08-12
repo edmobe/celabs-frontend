@@ -4,7 +4,6 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Activo } from '../../../../_models/configuration/activo';
-import { } from '../../../../_services/configuration/activo'
 
 var buttonDanger: string = "btn btn-danger";
 var buttonSuccess: string = "btn btn-success";
@@ -16,22 +15,22 @@ var buttonSuccess: string = "btn btn-success";
 })
 export class AssetsComponent implements OnInit {
 
-  constructor(private titleService: TitleService,private modalService: NgbModal,private toastr: ToastrService) {
+  constructor(private titleService: TitleService, private modalService: NgbModal, private toastr: ToastrService) {
     this.titleService.setTitle('');
-   }
+  }
 
-  activos : Activo[];
+  activos: Activo[];
   ngOnInit(): void {
   }
 
-  deleteAsset(activo : string) : void {
+  deleteAsset(activo: string): void {
     console.log(activo);
   }
 
-  model: NgbDateStruct; 
+  model: NgbDateStruct;
   left = true;
   closeResult = '';
-  
+
 
 
   open(content) {
@@ -52,21 +51,21 @@ export class AssetsComponent implements OnInit {
     }
   }
 
-  checkValue (activo: Activo) : void {
+  checkValue(activo: Activo): void {
 
-    var button = (<HTMLInputElement>document.getElementById("btnS"+activo.id));
+    var button = (<HTMLInputElement>document.getElementById("btnS" + activo.id));
     var clase = button.className;
     if (clase == buttonSuccess) {
-      document.getElementById("btnS"+activo.id).className = buttonDanger;
+      document.getElementById("btnS" + activo.id).className = buttonDanger;
       button.value = "Deshabilitado";
     } else {
-      document.getElementById("btnS"+activo.id).className = buttonSuccess;
+      document.getElementById("btnS" + activo.id).className = buttonSuccess;
       button.value = "Habilitado";
-      
+
     }
   }
 
-  editState (estado : Activo, content) : void {
+  editState(estado: Activo, content): void {
     this.open(content);
   }
 
