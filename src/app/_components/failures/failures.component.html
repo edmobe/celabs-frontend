@@ -60,6 +60,8 @@
               [(ngModel)]="model"
               ngbDatepicker
               #d="ngbDatepicker"
+              [ngClass]="my_group"
+              
             />
             <div class="input-group-append">
               <button
@@ -85,6 +87,12 @@
           <label for="sel1">Laboratorio</label>
           <select class="form-control" id="sel1">
             <option *ngFor="let lab of laboratorios"> {{ lab }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="asset">Activo</label>
+          <select class="form-control" id="asset">
+            <option *ngFor="let asset of assets"> {{ asset }}</option>
           </select>
         </div>
       </div>
