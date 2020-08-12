@@ -39,7 +39,7 @@ export class LabReservationNormalSelectComponent implements OnInit {
 
   ngOnInit(): void {
     this.remainingWeeks = this.getRemainingWeeks();
-    this.recurrentForm = this.formGenerator.createRecurrentForm(this.remainingWeeks);
+    this.recurrentForm = this.formGenerator.createReservationRecurrentForm(this.remainingWeeks);
   }
 
   checkFormsInvalid(): boolean {

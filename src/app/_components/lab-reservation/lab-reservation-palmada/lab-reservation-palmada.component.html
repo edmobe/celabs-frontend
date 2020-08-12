@@ -72,7 +72,7 @@
                 *ngFor="let palmada of availablePalmadasForThisWeek"
                 [ngValue]="palmada"
               >
-                {{ getMultipleDateDisplay(palmada.start, palmada.end) }}
+                {{ multipleDateDisplay(palmada.start, palmada.end) }}
               </option>
             </select>
           </div>

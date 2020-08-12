@@ -17,7 +17,7 @@ export class LabReservationNormalClassComponent implements OnInit {
   constructor(private formGenerator: FormGeneratorService) { }
 
   ngOnInit(): void {
-    this.reservationForm = this.formGenerator.createClassForm();
+    this.reservationForm = this.formGenerator.createReservationClassForm();
   }
 
   get teacher() {

@@ -14,7 +14,7 @@ export class FormGeneratorService {
     private dateDisplayService: DateDisplayService,
     private formValidatorService: FormValidatorService) { }
 
-  public createBaseForm(type: string, laboratory: Laboratorio, event: any) {
+  public createReservationBaseForm(type: string, laboratory: Laboratorio, event: any) {
     return this.formBuilder.group({
       title: ['', [
         Validators.required
@@ -31,7 +31,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createClassForm() {
+  public createReservationClassForm() {
     return this.formBuilder.group({
       course: ['', [
         Validators.required
@@ -42,13 +42,30 @@ export class FormGeneratorService {
     });
   }
 
-  public createRecurrentForm(weeksRemaining: number) {
+  public createReservationRecurrentForm(weeksRemaining: number) {
     return this.formBuilder.group({
       recurrence: ['', [
         Validators.required,
         Validators.min(1),
         Validators.max(weeksRemaining),
         Validators.pattern('^[1-9][0-9]*$')
+      ]]
+    });
+  }
+
+  public createReservationPalmadaForm(laboratory: string, operator: string) {
+    return this.formBuilder.group({
+      title: ['', [
+        Validators.required
+      ]],
+      palmada: ['', [
+        Validators.required
+      ]],
+      laboratory: [laboratory, [
+        Validators.required
+      ]],
+      operator: [operator, [
+        Validators.required
       ]]
     });
   }
