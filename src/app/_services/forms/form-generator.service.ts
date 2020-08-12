@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Laboratorio } from '../../_models/laboratorio';
 import { DateDisplayService } from '../date-display.service';
+import { FormValidatorService } from './form-validator.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormGeneratorService {
 
-  constructor(private formBuilder: FormBuilder, private dateDisplayService: DateDisplayService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private dateDisplayService: DateDisplayService,
+    private formValidatorService: FormValidatorService) { }
 
   public createBaseForm(type: string, laboratory: Laboratorio, event: any) {
     return this.formBuilder.group({
@@ -48,4 +52,16 @@ export class FormGeneratorService {
       ]]
     });
   }
+
+  public createSemesterConfigForm() {
+    return this.formBuilder.group({
+      start: ['', [
+        Validators.required
+      ]],
+      end: ['', [
+        Validators.required
+      ]]
+    });
+  }
+
 }
