@@ -15,7 +15,7 @@ export class ChartGeneratorService {
         labels: ['Ocupado', 'Libre'],
         datasets: [{
           data: [occupationPercentage, 100 - occupationPercentage],
-          backgroundColor: ['#3775b0', '#4a9eed'],
+          backgroundColor: ['#0154a0', '#4a9eed'],
           hoverBackgroundColor: ['#01396e', '#027ced']
         }]
       },
@@ -43,7 +43,7 @@ export class ChartGeneratorService {
         datasets: [{
           label: "Reservaciones",
           data: splittedArray[1],
-          backgroundColor: '#3775b0',
+          backgroundColor: '#0154a0',
           hoverBackgroundColor: '#01396e'
         },
         {
@@ -75,7 +75,7 @@ export class ChartGeneratorService {
     const reservations = [];
     const palmadas = [];
     for (let week of reservationsCount) {
-      weeks.push("Semana " + week.semana);
+      weeks.push('Semana ' + week.semana);
       reservations.push(week.reservaciones);
       palmadas.push(week.palmadas);
     }

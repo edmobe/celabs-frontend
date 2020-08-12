@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
 import { CalendarGeneratorService } from 'src/app/_services/calendar-generator.service';
-
 
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar, EventApi } from '@fullcalendar/core';
@@ -9,7 +8,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LabReservationPalmadaComponent } from './lab-reservation-palmada/lab-reservation-palmada.component';
 import { ActivatedRoute } from '@angular/router';
 
-import $ from 'jquery';
 import { LabReservationNormalSelectComponent } from './lab-reservation-normal-select/lab-reservation-normal-select.component';
 
 @Component({
