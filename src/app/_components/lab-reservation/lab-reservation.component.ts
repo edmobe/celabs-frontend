@@ -52,7 +52,7 @@ export class LabReservationComponent implements OnInit {
       validRange: this.getSemesterInterval(),
       businessHours: this.getLabAvailableHours(this.laboratory),
       selectAllow: function (info) {
-        if (info.start < Date.now()) {
+        if (info.start < this.getServerTime()) {
           return false;
         }
         return true;
@@ -135,6 +135,7 @@ export class LabReservationComponent implements OnInit {
     return semester;
   }
 
+  // Indica la disponibilidad del labotatorio de esta reservación
   getLabAvailableHours(laboratory: Laboratorio) {
     const availability = [{
       daysOfWeek: [1, 2, 3, 4, 5],
@@ -144,6 +145,13 @@ export class LabReservationComponent implements OnInit {
     return availability;
   }
 
+  // Returns server time
+  getServerTime() {
+    return Date.now();
+  }
+
+  // This function is only used for testing purposes (it should return a string with the URL)
+  // See more at: https://fullcalendar.io/docs/events-json-feed
   private getEvents() {
     const events = [];
     let event;
