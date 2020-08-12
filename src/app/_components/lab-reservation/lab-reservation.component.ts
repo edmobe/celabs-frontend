@@ -6,9 +6,10 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar, EventApi } from '@fullcalendar/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LabReservationPalmadaComponent } from './lab-reservation-palmada/lab-reservation-palmada.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { LabReservationNormalSelectComponent } from './lab-reservation-normal-select/lab-reservation-normal-select.component';
+import { Laboratorio } from 'src/app/_models/laboratorio';
 
 @Component({
   selector: 'app-lab-reservation',
@@ -17,11 +18,12 @@ import { LabReservationNormalSelectComponent } from './lab-reservation-normal-se
 })
 export class LabReservationComponent implements OnInit {
 
-  laboratory: string;
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
+  laboratory: Laboratorio;
+
   calendarOptions;
-  closeResult = '';
+  closeResult;
 
   ngOnInit(): void { }
 
@@ -29,22 +31,28 @@ export class LabReservationComponent implements OnInit {
     private titleService: TitleService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
-    private calendarGeneratorService: CalendarGeneratorService) {
+    private calendarGeneratorService: CalendarGeneratorService,
+    private router: Router) {
+
     this.route.queryParams.subscribe(params => {
-      this.laboratory = params['laboratory'];
-      console.log('Laboratorio: ' + this.laboratory);
+      try {
+        this.laboratory = JSON.parse(params.laboratory) as Laboratorio;
+      } catch (error) {
+        this.router.navigate(['error']);
+      }
     });
     const calendar = Calendar.name;
     this.titleService.setTitle('Reservación de laboratorios');
     this.calendarOptions = this.calendarGeneratorService.generateCalendar();
     Object.assign(this.calendarOptions, {
-      eventClick: this.handleEventClick.bind(this), // bind is important!
-      eventMouseEnter: this.handleEventHover.bind(this),
-      eventMouseLeave: this.handleEventLeave.bind(this),
-      datesSet: this.handleViewChange.bind(this),
+      //eventClick: this.handleEventClick.bind(this),
+      //eventMouseEnter: this.handleEventHover.bind(this),
+      //eventMouseLeave: this.handleEventLeave.bind(this),
+      //datesSet: this.handleViewChange.bind(this),
       titleFormat: this.getWeek.bind(this),
       select: this.handleDateSelect.bind(this)
     });
+
   }
 
   /*
@@ -68,10 +76,7 @@ export class LabReservationComponent implements OnInit {
   }
   */
 
-  getWeek() {
-    return 'Semana 17';
-  }
-
+  /*
   handleEventClick(arg) {
     const event = this.calendarComponent.getApi().getEventById(arg.event.id);
     if (event.extendedProps.enabled) {
@@ -84,6 +89,7 @@ export class LabReservationComponent implements OnInit {
       alert('El evento ya finalizó.');
     }
   }
+  */
 
   handleDateSelect(arg) {
     const event = {
@@ -92,22 +98,6 @@ export class LabReservationComponent implements OnInit {
       palmada: false
     };
     this.openEventModal(event);
-  }
-
-  private openEventModal(event) {
-    let modalRef;
-    modalRef = this.modalService.open(LabReservationNormalSelectComponent, { size: 'lg' });
-    modalRef.componentInstance.event = event;
-    modalRef.componentInstance.laboratory = this.laboratory;
-    modalRef.result.then((result) => {
-      this.calendarComponent.getApi().unselect();
-      if (result) {
-        this.calendarComponent.getApi().unselect();
-        if (result === 'Close click') { }
-      }
-    }).catch(err => {
-      this.calendarComponent.getApi().unselect();
-    });
   }
 
   handlePalmadaSelect() {
@@ -140,6 +130,7 @@ export class LabReservationComponent implements OnInit {
     });
   }
 
+  /*
   handleEventHover(arg) {
     const event = this.calendarComponent.getApi().getEventById(arg.event.id);
     if (event.extendedProps.enabled && !event.extendedProps.selected) {
@@ -153,9 +144,32 @@ export class LabReservationComponent implements OnInit {
       event.setProp('backgroundColor', '#0154A0');
     }
   }
+  */
 
-  handleViewChange(arg) {
-    console.log(arg);
+  /*
+  handleViewChange(arg) { }
+  */
+
+  private openEventModal(event) {
+    let modalRef;
+    modalRef = this.modalService.open(LabReservationNormalSelectComponent, { size: 'lg' });
+    modalRef.componentInstance.event = event;
+    modalRef.componentInstance.laboratory = this.laboratory;
+    modalRef.result.then((result) => {
+      this.calendarComponent.getApi().unselect();
+      if (result) {
+        this.calendarComponent.getApi().unselect();
+        if (result === 'Close click') { }
+      }
+    }).catch(err => {
+      this.calendarComponent.getApi().unselect();
+    });
+  }
+
+  getWeek(arg) {
+    const start: Date = arg.start.marker;
+    const end: Date = arg.end.marker;
+    return 'Semana 17';
   }
 
 }

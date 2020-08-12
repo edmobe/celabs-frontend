@@ -10,8 +10,7 @@ import { Laboratorio } from 'src/app/_models/laboratorio';
 })
 export class LabReservationSelectComponent implements OnInit {
 
-  //laboratories: Laboratorio[];
-  laboratories: string[] = ['F2-04', 'F2-05', 'F2-06', 'F2-07'];
+  laboratories: Laboratorio[];
 
   constructor(private titleService: TitleService/*, private laboratoryService: LaboratoryService*/) {
     //this.laboratories = laboratoryService.getLaboratories();
@@ -19,6 +18,28 @@ export class LabReservationSelectComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getLaboratories();
   }
 
+  getLaboratories(): void {
+    this.laboratories = [{
+      nombre: 'F2-04',
+      id: 4
+    }, {
+      nombre: 'F2-05',
+      id: 5
+    }, {
+      nombre: 'F2-06',
+      id: 6
+    }, {
+      nombre: 'F2-07',
+      id: 7
+    }, {
+      nombre: 'F2-08',
+      id: 8
+    }, {
+      nombre: 'F2-09',
+      id: 9
+    }];
+  }
 }
