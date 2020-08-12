@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LabReservationNormalComponent } from '../lab-reservation-normal/lab-reservation-normal.component';
-import { FormGeneratorService } from '../../../_services/form-generator.service';
+import { FormGeneratorService } from '../../../_services/forms/form-generator.service';
+import { FormToJsonService } from '../../../_services/forms/form-to-json.service';
+import { FormValidatorService } from '../../../_services/forms/form-validator.service';
 import { FormGroup } from '@angular/forms';
 import { Laboratorio } from 'src/app/_models/laboratorio';
 
@@ -18,55 +20,50 @@ export class LabReservationNormalSelectComponent implements OnInit {
   @ViewChild('baseForm') baseForm: LabReservationNormalComponent;
   @ViewChild('classForm') classForm: LabReservationNormalComponent;
 
-  selected: boolean;
-  class: boolean;
+  isSelected: boolean;
+  isClass: boolean;
+  isRecurrent: boolean = false;
 
   type: string;
-  recurrent: boolean = false;
 
   recurrentForm: FormGroup;
+  remainingWeeks: number;
 
   constructor(
     public activeModal: NgbActiveModal,
     private changeDetector: ChangeDetectorRef,
-    private formGenerator: FormGeneratorService) { }
+    private formGenerator: FormGeneratorService,
+    private formToJson: FormToJsonService,
+    private formValidator: FormValidatorService
+  ) { }
 
   ngOnInit(): void {
-    this.recurrentForm = this.formGenerator.getRecurrentForm();
+    this.remainingWeeks = this.getRemainingWeeks();
+    this.recurrentForm = this.formGenerator.createRecurrentForm(this.remainingWeeks);
   }
 
   checkFormsInvalid(): boolean {
-    try {
-      if (this.recurrent) {
-        if (this.recurrentForm.invalid) {
-          return true;
-        }
-      }
-      if (this.class) {
-        if (this.classForm.reservationForm.invalid) {
-          return true;
-        }
-      }
-      if (this.baseForm.reservationForm.invalid) {
-        return true;
-      }
-      return false;
-    } catch (error) { }
+    return this.formValidator.checkReservationFormInvalid(
+      this.isRecurrent,
+      this.isClass,
+      this.recurrentForm,
+      this.classForm,
+      this.baseForm);
   }
 
   handleSelected(type: string): void {
     this.type = type;
-    this.selected = true;
+    this.isSelected = true;
     this.changeDetector.detectChanges();
   }
 
   handleClass(): void {
-    this.class = true;
+    this.isClass = true;
     this.handleSelected('Clase');
   }
 
   createBaseFormJson(): any {
-    return this.formGenerator.createBaseFormJson(
+    return this.formToJson.createBaseFormJson(
       this.baseForm.reservationForm.value.title,
       this.type,
       this.laboratory.id,
@@ -76,30 +73,35 @@ export class LabReservationNormalSelectComponent implements OnInit {
   }
 
   createClassFromJson(): any {
-    return this.formGenerator.createClassFormJson(
+    return this.formToJson.createClassFormJson(
       this.classForm.reservationForm.value.teacher,
       this.classForm.reservationForm.value.course
     );
   }
 
   createReccurentFromJson(): any {
-    const recurrentForm = this.recurrentForm.value;
-    const recurrentJson = {
-      recurrence: recurrentForm.recurrence
-    };
-    return recurrentJson;
+    return this.formToJson.createRecurrentFormJson(
+      this.recurrentForm.value.recurrence
+    );
   }
 
   get recurrence() {
     return this.recurrentForm.get('recurrence');
   }
 
+  // GETs
+  getRemainingWeeks(): number {
+    console.log(this.event.end);
+    return 3;
+  }
+
+  // POST
   post(): void {
     let json = this.createBaseFormJson();
-    if (this.recurrent) {
+    if (this.isRecurrent) {
       json = Object.assign(json, this.createReccurentFromJson());
     }
-    if (this.class) {
+    if (this.isClass) {
       json = Object.assign(json, this.createClassFromJson());
     }
     this.activeModal.close('Close click');

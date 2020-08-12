@@ -8,9 +8,6 @@ import { Router } from '@angular/router'; // This import is just for testing
 })
 export class AppComponent {
   // This constructor is just for testing purposes
-  constructor(public router: Router) {
-    
-  }
-  
+  constructor(public router: Router) { }
   title = 'celabs-frontend';
 }
