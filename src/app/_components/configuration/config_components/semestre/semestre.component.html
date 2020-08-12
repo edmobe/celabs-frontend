@@ -1,5 +1,8 @@
 <h1>Ajuste del Semestre</h1>
 <div class="container mt-3">
+<div class="card border mx-auto" style="max-width: 40rem;">
+<div class="card-header">Indique el intervalo del semestre actual</div>
+<div class="card-body">
   <div class="row">
     <div class="col-12">
       <form class="form-group" [formGroup]="semesterConfigForm">
@@ -20,6 +23,7 @@
               class="form-control"
               placeholder="Fecha inicial"
               formControlName="end"
+              [min]="start.value"
             />
           </div>
         </div>
@@ -28,8 +32,7 @@
             <div
               class="alert alert-danger"
               *ngIf="start.invalid && start.touched"
-              role="alert"
-            >
+              role="alert">
               Debe seleccionar una fecha inicial válida.
             </div>
           </div>
@@ -37,8 +40,7 @@
             <div
               class="alert alert-danger"
               *ngIf="end.invalid && end.touched"
-              role="alert"
-            >
+              role="alert">
               Debe seleccionar una fecha final válida.
             </div>
           </div>
@@ -52,12 +54,13 @@
         class="btn btn-primary"
         [disabled]="semesterConfigForm.invalid"
         type="button"
-        (click)="post()"
-      >
+        (click)="post()">
         Guardar cambios
       </button>
     </div>
   </div>
+</div>
+</div>
 </div>
 <!--
 <div class="card border mx-auto" style="max-width: 40rem;">

@@ -63,5 +63,15 @@ export class FormGeneratorService {
       ]]
     });
   }
+  public createAssetConfigForm() {
+    return this.formBuilder.group({
+      id: ['', [
+        Validators.required
+      ]],
+      nombre: ['', [
+        Validators.required
+      ]]
+    });
+  }
 
 }

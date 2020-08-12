@@ -13,7 +13,7 @@
           <thead>
             <tr>
               <th scope="col">Código</th>
-              <th scope="col">Descripción</th>
+              <th scope="col">Nombre</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -43,29 +43,43 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-      <form>
+  <form class="form-group" [formGroup]="assetConfigForm">
+    <div class="modal-body">
           <div class="form-row">
               <div class="form-group col">
-                  <label for="codeAsset">Código</label>
-                  <input type="text" class="form-control" id="codeAsset">
+                  <label>Código</label>
+                  <input type="text" class="form-control" formControlName = "id">
+                    <div
+                      class="alert alert-danger"
+                      *ngIf="id.invalid && id.touched"
+                      role="alert"
+                    >
+                      Debe ingresar un ID válido
+                    </div>
               </div>
           </div>
           <div class="form-row">
               <div class="form-group col">
                   <label for="descriptionAsset">Descripción</label>
-                  <textarea class="form-control" rows="5" id="descriptionAsset"></textarea>
+                  <textarea class="form-control" rows="5" formControlName = "nombre"></textarea>
+                  <div
+                      class="alert alert-danger"
+                      *ngIf="nombre.invalid && nombre.touched"
+                      role="alert">
+                      Debe ingresar un nombre válido
+                    </div>
               </div>
           </div>
-      </form>
   </div>
   <div class="modal-footer">
     <button
       type="button"
       class="btn btn-primary"
       (click)="modal.close('Save click')"
-    >
+      [disabled]="assetConfigForm.invalid">
       Guardar
     </button>
   </div>
+  </form>
+  
 </ng-template>
