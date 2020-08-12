@@ -19,11 +19,11 @@
           </thead>
           <tbody id = "tableSearch">
             <tr *ngFor = "let activo of activos">
-                <td> {{ activo.codigo }}</td>
-                <td> {{ activo.descripcion }}</td>
+                <td> {{ activo.id }}</td>
+                <td> {{ activo.nombre }}</td>
                 <td>
-                  <input type="button" class="btn btn-success" id = "btnS{{activo.codigo}}" (click)="checkValue(activo)" value = "Habilitado">
-                  <input type="button" class="btn btn-primary" id = "btnE{{activo.codigo}}" (click)="editState(activo,content)" value = "Editar">
+                  <input type="button" class="btn btn-success" id = "btnS{{activo.id}}" (click)="checkValue(activo)" value = "Habilitado">
+                  <input type="button" class="btn btn-primary" id = "btnE{{activo.id}}" (click)="editState(activo,content)" value = "Editar">
               </td>
             </tr>
           </tbody>
