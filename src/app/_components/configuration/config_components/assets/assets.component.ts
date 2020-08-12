@@ -28,9 +28,11 @@ export class AssetsComponent implements OnInit {
     private formGenerator: FormGeneratorService,
     private formToJson: FormToJsonService) {
     this.titleService.setTitle('');
-   }
+  }
+
 
   activos : Activo[] = [{id : "CE1001", nombre : "Monitor"}];
+
   ngOnInit(): void {
     //this.activos = this.serviceAsset.getActivos();
     this.assetConfigForm = this.formGenerator.createAssetConfigForm();
@@ -49,10 +51,10 @@ export class AssetsComponent implements OnInit {
     console.log(activo);
   }
 
-  model: NgbDateStruct; 
+  model: NgbDateStruct;
   left = true;
   closeResult = '';
-  
+
 
 
   open(content) {
@@ -73,21 +75,21 @@ export class AssetsComponent implements OnInit {
     }
   }
 
-  checkValue (activo: Activo) : void {
+  checkValue(activo: Activo): void {
 
-    var button = (<HTMLInputElement>document.getElementById("btnS"+activo.id));
+    var button = (<HTMLInputElement>document.getElementById("btnS" + activo.id));
     var clase = button.className;
     if (clase == buttonSuccess) {
-      document.getElementById("btnS"+activo.id).className = buttonDanger;
+      document.getElementById("btnS" + activo.id).className = buttonDanger;
       button.value = "Deshabilitado";
     } else {
-      document.getElementById("btnS"+activo.id).className = buttonSuccess;
+      document.getElementById("btnS" + activo.id).className = buttonSuccess;
       button.value = "Habilitado";
-      
+
     }
   }
 
-  editState (estado : Activo, content) : void {
+  editState(estado: Activo, content): void {
     this.open(content);
   }
 

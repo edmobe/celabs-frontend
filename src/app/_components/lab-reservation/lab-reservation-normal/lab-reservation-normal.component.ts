@@ -18,7 +18,7 @@ export class LabReservationNormalComponent implements OnInit {
   reservationForm: FormGroup;
 
   ngOnInit(): void {
-    this.reservationForm = this.formGenerator.createBaseForm(this.type, this.laboratory, this.event);
+    this.reservationForm = this.formGenerator.createReservationBaseForm(this.type, this.laboratory, this.event);
     /*
     // To print the form:
     this.reservationForm.valueChanges.subscribe(console.log);
