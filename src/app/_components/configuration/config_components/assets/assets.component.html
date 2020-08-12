@@ -22,8 +22,8 @@
                 <td> {{ activo.codigo }}</td>
                 <td> {{ activo.descripcion }}</td>
                 <td>
-                  <button class="btn btn-success ml-2">Habilitado</button>
-                  <button class="btn btn-primary ml-2">Editar</button>
+                  <input type="button" class="btn btn-success" id = "btnS{{activo.codigo}}" (click)="checkValue(activo)" value = "Habilitado">
+                  <input type="button" class="btn btn-primary" id = "btnE{{activo.codigo}}" (click)="editState(activo,content)" value = "Editar">
               </td>
             </tr>
           </tbody>

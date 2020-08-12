@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
-
+import { NgbDateStruct,NgbCalendar, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-semestre',
@@ -12,7 +12,8 @@ export class SemestreComponent implements OnInit {
   constructor(private titleService: TitleService) {
     this.titleService.setTitle('');
    }
-
+  modelEnd: NgbDateStruct;
+  modelStart: NgbDateStruct;
   ngOnInit(): void {
   }
 
@@ -25,6 +26,7 @@ export class SemestreComponent implements OnInit {
   saveChanges () : void {
     var calendarInicio = (<HTMLInputElement>document.getElementById("semesterStart"));
     var calendarFin = (<HTMLInputElement>document.getElementById("semesterEnd"));
+    
 
     var Inicio = calendarInicio.valueAsDate;
     var Fin = calendarFin.valueAsDate;

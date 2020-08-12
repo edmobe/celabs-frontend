@@ -4,3 +4,6 @@ h1 {
     text-align: center;
 }
 
+input[type="button"] {
+    margin-left: 6px;
+}
