@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Laboratorio } from 'src/app/_models/laboratorio';
 
 @Component({

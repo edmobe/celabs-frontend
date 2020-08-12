@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
-import { NgbDateStruct,NgbCalendar, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
+import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
+import { FormValidatorService } from 'src/app/_services/forms/form-validator.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-semestre',
@@ -9,33 +13,56 @@ import { NgbDateStruct,NgbCalendar, NgbModal } from '@ng-bootstrap/ng-bootstrap'
 })
 export class SemestreComponent implements OnInit {
 
-  constructor(private titleService: TitleService) {
+  semesterConfigForm: FormGroup;
+
+  constructor(
+    private titleService: TitleService,
+    private formGenerator: FormGeneratorService,
+    private formToJson: FormToJsonService
+  ) {
     this.titleService.setTitle('');
-   }
+  }
   modelEnd: NgbDateStruct;
   modelStart: NgbDateStruct;
+
   ngOnInit(): void {
+    this.semesterConfigForm = this.formGenerator.createSemesterConfigForm();
   }
 
-  changeFinMin() : void {
+  post() {
+    alert('Json generado:\n' + JSON.stringify(this.formToJson.createConfigSemesterJson(
+      this.start.value,
+      this.end.value
+    )));
+  }
+
+  get start() {
+    return this.semesterConfigForm.get('start');
+  }
+
+  get end() {
+    return this.semesterConfigForm.get('end');
+  }
+
+  changeFinMin(): void {
     var calendarInicio = (<HTMLInputElement>document.getElementById("semesterStart"));
     var calendarFin = (<HTMLInputElement>document.getElementById("semesterEnd"));
     calendarFin.min = calendarInicio.value;
   }
 
-  saveChanges () : void {
+  saveChanges(): void {
     var calendarInicio = (<HTMLInputElement>document.getElementById("semesterStart"));
     var calendarFin = (<HTMLInputElement>document.getElementById("semesterEnd"));
-    
+
 
     var Inicio = calendarInicio.valueAsDate;
     var Fin = calendarFin.valueAsDate;
 
-    if((Inicio == null) || (Fin == null)){
+    if ((Inicio == null) || (Fin == null)) {
       console.log("Error");
     } else {
       console.log(Inicio, Fin);
     }
-    
+
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LabReservationNormalComponent } from 'src/app/_components/lab-reservation/lab-reservation-normal/lab-reservation-normal.component';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'

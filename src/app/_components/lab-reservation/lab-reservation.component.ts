@@ -21,6 +21,7 @@ export class LabReservationComponent implements OnInit {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
   laboratory: Laboratorio;
+  now: number;
 
   calendarOptions;
   closeResult;
@@ -42,6 +43,7 @@ export class LabReservationComponent implements OnInit {
       }
     });
     const calendar = Calendar.name;
+    this.now = Date.now();
     this.titleService.setTitle('Reservación de laboratorios');
     this.calendarOptions = this.calendarGeneratorService.generateCalendar();
     Object.assign(this.calendarOptions, {
@@ -131,19 +133,33 @@ export class LabReservationComponent implements OnInit {
     const semester = {
       start: '2020-04-20',
       end: '2020-08-24'
-    }
+    };
     return semester;
   }
 
+  // Indica la disponibilidad del labotatorio de esta reservación
   getLabAvailableHours(laboratory: Laboratorio) {
     const availability = [{
-      daysOfWeek: [1, 2, 3, 4, 5],
+      daysOfWeek: [1],
+      startTime: '08:00',
+      endTime: '21:00',
+    },
+    {
+      daysOfWeek: [2, 3, 4, 5],
       startTime: '07:00',
       endTime: '20:00',
     }];
     return availability;
   }
 
+  // Returns server time
+  getServerTime() {
+    // return Date.now();
+    return true;
+  }
+
+  // This function is only used for testing purposes (it should return a string with the URL)
+  // See more at: https://fullcalendar.io/docs/events-json-feed
   private getEvents() {
     const events = [];
     let event;

@@ -32,4 +32,12 @@ export class FormToJsonService {
     };
     return recurrentFormJson;
   }
+
+  public createConfigSemesterJson(start, end) {
+    const configSemesterJson = {
+      start: start,
+      end: end
+    }
+    return configSemesterJson;
+  }
 }
