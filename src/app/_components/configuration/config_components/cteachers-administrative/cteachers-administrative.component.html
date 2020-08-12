@@ -1,37 +1,43 @@
 <div class="container-fluid">
-    <div class="col">
-      <h1>Gestión de Docentes y Administrativos</h1>
-      <h5>Usuarios pendientes de aprobar</h5>
-      <div class="table-wrapper-scroll-y my-custom-scrollbar">
-        <table class="table  table-hover table-condensed text-center">
-          <thead style="position: sticky">
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Correo</th>
-              <th scope="col">Rol</th>
-              <th scope="col">Cedula</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody id = "tableSearch">
-            <tr *ngFor = "let user of users">
-              <td> {{ user.nombre }}</td>
-              <td> {{ user.correo }}</td>
-              <td> {{ user.rol }}</td>
-              <td> {{ user.cedula }} </td>
-              <td>
-                <div>
-                  <input class="btn btn-primary" id = "btn{{user.id}}" type="button" value="Aceptar" (click) = "open(content)">
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  <div class="col">
+    <h1>Gestión de Docentes y Administrativos</h1>
+    <h5>Usuarios pendientes de aprobar</h5>
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <table class="table table-hover table-condensed text-center">
+        <thead style="position: sticky;">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Rol</th>
+            <th scope="col">Cedula</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="tableSearch">
+          <tr *ngFor="let user of users">
+            <td>{{ user.nombre }}</td>
+            <td>{{ user.correo }}</td>
+            <td>{{ user.rol }}</td>
+            <td>{{ user.cedula }}</td>
+            <td>
+              <div>
+                <input
+                  class="btn btn-primary"
+                  id="btn{{ user.id }}"
+                  type="button"
+                  value="Aceptar"
+                  (click)="confirm(content)"
+                />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <hr>
+    <hr />
     <h5>Usuarios activos</h5>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-      <table class="table  table-hover table-condensed text-center">
+      <table class="table table-hover table-condensed text-center">
         <thead>
           <tr>
             <th scope="col">Nombre</th>
@@ -41,54 +47,59 @@
             <th scope="col"></th>
           </tr>
         </thead>
-        <tbody id = "tableSearch">
-          <tr *ngFor = "let user of users1">
-            <td> {{ user.nombre }}</td>
-            <td> {{ user.correo }}</td>
-            <td> {{ user.rol }}</td>
-            <td> {{ user.cedula }} </td>
+        <tbody id="tableSearch">
+          <tr *ngFor="let user of users1">
+            <td>{{ user.nombre }}</td>
+            <td>{{ user.correo }}</td>
+            <td>{{ user.rol }}</td>
+            <td>{{ user.cedula }}</td>
             <td>
               <div>
-                <input class="btn btn-primary" id = "btn{{user.id}}" type="button" value="Aceptar" (click) = "open(content)">
+                <input
+                  class="btn btn-primary"
+                  id="btn{{ user.id }}"
+                  type="button"
+                  value="Aceptar"
+                  (click)="confirm(content)"
+                />
               </div>
             </td>
           </tr>
         </tbody>
       </table>
-  </div>
     </div>
-</div> 
-
+  </div>
+</div>
 
 <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Alerta</h4>
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body text-center">
-        ¿Está seguro que quiere permitir este usuario?
-    </div>
-    <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-primary"
-        (click)="modal.close('Save click')">
-        Aceptar
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary"
-        (click)="modal.close('Cancel click')">
-        Cancelar
-      </button>
-    </div>
-  </ng-template>
-
-
- 
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Alerta</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    ¿Está seguro que quiere permitir este usuario?
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="modal.close('Save click')"
+    >
+      Aceptar
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="modal.close('Cancel click')"
+    >
+      Cancelar
+    </button>
+  </div>
+</ng-template>

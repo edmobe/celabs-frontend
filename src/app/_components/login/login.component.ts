@@ -17,9 +17,7 @@ export class LoginComponent implements OnInit {
     let modalRef;
     modalRef = this.modalService.open(SurveyComponent, { size: 'lg' });
     modalRef.result.then((result) => {
-      if (result) {
-        // Por si se desea hacer algo con la satisfacción
-      }
+      if (result) { }
     }).catch(err => { });
   }
 

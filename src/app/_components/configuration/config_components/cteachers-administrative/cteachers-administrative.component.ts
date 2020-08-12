@@ -3,6 +3,7 @@ import { TitleService } from 'src/app/_services/title.service';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { AlertService } from 'src/app/_services/alert.service';
 interface User {
   id: number;
   nombre: string;
@@ -21,27 +22,46 @@ var buttonSuccess: string = "btn btn-success";
   styleUrls: ['./cteachers-administrative.component.css']
 })
 export class CTeachersAdministrativeComponent implements OnInit {
-  users : User[]
-  users1 : User[] = [
-    {id: 0, nombre: 'Luis Diego Noguera',cedula: 0,correo: 'lnoguera@itcr.ac.cr', rol: 'Docente', permisos: false},
-    {id: 1, nombre: 'Brayan Muñoz Mora',cedula: 117390879,correo: 'brianm.bra@estudiantec.cr', rol: 'Administrativo', permisos: true},
-    {id: 0, nombre: 'Luis Diego Noguera',cedula: 0,correo: 'lnoguera@itcr.ac.cr', rol: 'Docente', permisos: false},
-    {id: 1, nombre: 'Brayan Muñoz Mora',cedula: 117390879,correo: 'brianm.bra@estudiantec.cr', rol: 'Administrativo', permisos: true},
-    {id: 0, nombre: 'Luis Diego Noguera',cedula: 0,correo: 'lnoguera@itcr.ac.cr', rol: 'Docente', permisos: false},
-    {id: 1, nombre: 'Brayan Muñoz Mora',cedula: 117390879,correo: 'brianm.bra@estudiantec.cr', rol: 'Administrativo', permisos: true},
-    {id: 0, nombre: 'Luis Diego Noguera',cedula: 0,correo: 'lnoguera@itcr.ac.cr', rol: 'Docente', permisos: false},
-    {id: 1, nombre: 'Brayan Muñoz Mora',cedula: 117390879,correo: 'brianm.bra@estudiantec.cr', rol: 'Administrativo', permisos: true}
+  users: User[]
+  users1: User[] = [
+    { id: 0, nombre: 'Luis Diego Noguera', cedula: 0, correo: 'lnoguera@itcr.ac.cr', rol: 'Docente', permisos: false },
+    { id: 1, nombre: 'Brayan Muñoz Mora', cedula: 117390879, correo: 'brianm.bra@estudiantec.cr', rol: 'Administrativo', permisos: true },
+    { id: 0, nombre: 'Luis Diego Noguera', cedula: 0, correo: 'lnoguera@itcr.ac.cr', rol: 'Docente', permisos: false },
+    { id: 1, nombre: 'Brayan Muñoz Mora', cedula: 117390879, correo: 'brianm.bra@estudiantec.cr', rol: 'Administrativo', permisos: true },
+    { id: 0, nombre: 'Luis Diego Noguera', cedula: 0, correo: 'lnoguera@itcr.ac.cr', rol: 'Docente', permisos: false },
+    { id: 1, nombre: 'Brayan Muñoz Mora', cedula: 117390879, correo: 'brianm.bra@estudiantec.cr', rol: 'Administrativo', permisos: true },
+    { id: 0, nombre: 'Luis Diego Noguera', cedula: 0, correo: 'lnoguera@itcr.ac.cr', rol: 'Docente', permisos: false },
+    { id: 1, nombre: 'Brayan Muñoz Mora', cedula: 117390879, correo: 'brianm.bra@estudiantec.cr', rol: 'Administrativo', permisos: true }
   ];
-  constructor(private titleService: TitleService,private modalService: NgbModal) {
+  constructor(private titleService: TitleService, private modalService: NgbModal, private alertService: AlertService) {
     this.titleService.setTitle('');
-   }
+  }
   ngOnInit(): void {
   }
 
-  model: NgbDateStruct; 
+  model: NgbDateStruct;
   left = true;
   closeResult = '';
 
+  confirm(content) {
+    console.log(content);
+    this.alertService.confirm(
+      'Alerta',
+      '¿Está seguro de que desea permitir a ese usuario?').then((result) => {
+        if (result) {
+          // Success
+          console.log(true);
+        } else {
+          // No success
+          console.log(false);
+        }
+      }).catch(err => {
+        // Error
+        console.log(false);
+      });
+  }
+
+  /*
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -60,6 +80,7 @@ export class CTeachersAdministrativeComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  
+  */
+
 
 }

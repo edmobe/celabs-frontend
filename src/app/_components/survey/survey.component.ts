@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
+import { AlertService } from '../../_services/alert.service';
 import { FormGroup } from '@angular/forms';
 import { faAngry, faFrown, faSmile, faLaugh } from '@fortawesome/free-regular-svg-icons';
 
@@ -33,7 +33,7 @@ export class SurveyComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private formGenerator: FormGeneratorService) { }
+    private alertService: AlertService) { }
 
   ngOnInit(): void { }
 
@@ -72,10 +72,14 @@ export class SurveyComponent implements OnInit {
     }
   }
 
-
-  postSurvey(satisfaction: number): void {
-    console.log('Enviar encuesta con satisfacción ' + satisfaction);
-    this.activeModal.close(satisfaction);
+  postSuccessful() {
+    this.alertService.alert(this.activeModal, '¡Gracias por su participación!',
+      'Su respuesta se ha registrado exitosamente');
   }
 
+  // POST
+  postSurvey(satisfaction: number): void {
+    console.log('Se registra una satisfacción de ' + satisfaction);
+    this.postSuccessful();
+  }
 }

@@ -38,6 +38,8 @@ import { LabReservationNormalSelectComponent } from './_components/lab-reservati
 import { LabReservationNormalClassComponent } from './_components/lab-reservation/lab-reservation-normal-class/lab-reservation-normal-class.component';
 import { ToastrModule } from 'ngx-toastr';
 import { SurveyComponent } from './_components/survey/survey.component';
+import { ConfirmationComponent } from './_components/alerts/confirmation/confirmation.component';
+import { AlertComponent } from './_components/alerts/alert/alert.component';
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   timeGridPlugin,
@@ -73,7 +75,9 @@ FullCalendarModule.registerPlugins([
     NotFoundComponent,
     LabReservationNormalSelectComponent,
     LabReservationNormalClassComponent,
-    SurveyComponent
+    SurveyComponent,
+    ConfirmationComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
