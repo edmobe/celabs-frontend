@@ -36,7 +36,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NotFoundComponent } from './_components/not-found/not-found.component';
 import { LabReservationNormalSelectComponent } from './_components/lab-reservation/lab-reservation-normal-select/lab-reservation-normal-select.component';
 import { LabReservationNormalClassComponent } from './_components/lab-reservation/lab-reservation-normal-class/lab-reservation-normal-class.component';
-
+import { ToastrModule } from 'ngx-toastr';
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   timeGridPlugin,
@@ -81,7 +81,8 @@ FullCalendarModule.registerPlugins([
     NgbModule,
     ReactiveFormsModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],
