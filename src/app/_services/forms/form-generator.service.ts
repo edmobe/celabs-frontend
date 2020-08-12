@@ -80,13 +80,4 @@ export class FormGeneratorService {
       ]]
     });
   }
-
-  public createSurveyForm() {
-    return this.formBuilder.group({
-      satisfaction: ['', [
-        Validators.required
-      ]]
-    });
-  }
-
 }
