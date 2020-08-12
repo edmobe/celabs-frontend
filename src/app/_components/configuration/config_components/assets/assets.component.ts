@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-interface Activos {
-  codigo : string;
-  descripcion : string;
-}
-
+import { ToastrService } from 'ngx-toastr';
+import { Activo } from '../../../../_models/configuration/activo';
+import { } from '../../../../_services/configuration/activo'
 
 var buttonDanger: string = "btn btn-danger";
 var buttonSuccess: string = "btn btn-success";
@@ -18,15 +16,11 @@ var buttonSuccess: string = "btn btn-success";
 })
 export class AssetsComponent implements OnInit {
 
-  constructor(private titleService: TitleService,private modalService: NgbModal) {
+  constructor(private titleService: TitleService,private modalService: NgbModal,private toastr: ToastrService) {
     this.titleService.setTitle('');
    }
 
-  activos : Activos[] = [
-    {codigo: "CE1001", descripcion : "Monitor"},
-    {codigo: "CE1002", descripcion : "Monitor"}
-  ];
-
+  activos : Activo[];
   ngOnInit(): void {
   }
 
@@ -58,21 +52,21 @@ export class AssetsComponent implements OnInit {
     }
   }
 
-  checkValue (activo: Activos) : void {
+  checkValue (activo: Activo) : void {
 
-    var button = (<HTMLInputElement>document.getElementById("btnS"+activo.codigo));
+    var button = (<HTMLInputElement>document.getElementById("btnS"+activo.id));
     var clase = button.className;
     if (clase == buttonSuccess) {
-      document.getElementById("btnS"+activo.codigo).className = buttonDanger;
+      document.getElementById("btnS"+activo.id).className = buttonDanger;
       button.value = "Deshabilitado";
     } else {
-      document.getElementById("btnS"+activo.codigo).className = buttonSuccess;
+      document.getElementById("btnS"+activo.id).className = buttonSuccess;
       button.value = "Habilitado";
       
     }
   }
 
-  editState (estado : Activos, content) : void {
+  editState (estado : Activo, content) : void {
     this.open(content);
   }
 
