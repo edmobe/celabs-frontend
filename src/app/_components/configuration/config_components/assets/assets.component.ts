@@ -4,7 +4,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Activo } from '../../../../_models/configuration/activo';
-import { } from '../../../../_services/configuration/activo'
+import { AssetsService }  from '../../../../_services/api/configuration/assets.service';
 
 var buttonDanger: string = "btn btn-danger";
 var buttonSuccess: string = "btn btn-success";
@@ -16,12 +16,16 @@ var buttonSuccess: string = "btn btn-success";
 })
 export class AssetsComponent implements OnInit {
 
-  constructor(private titleService: TitleService,private modalService: NgbModal,private toastr: ToastrService) {
+  constructor(private titleService: TitleService,
+    private modalService: NgbModal,
+    private toastr: ToastrService,
+    private serviceAsset: AssetsService) {
     this.titleService.setTitle('');
    }
 
   activos : Activo[];
   ngOnInit(): void {
+    this.activos = this.serviceAsset.getActivos();
   }
 
   deleteAsset(activo : string) : void {
