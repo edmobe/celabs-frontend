@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateDisplayService } from '../../../_services/date-display.service';
+import { Laboratorio } from 'src/app/_models/laboratorio';
+import { FormGeneratorService } from 'src/app/_services/form-generator.service';
 
 @Component({
   selector: 'app-lab-reservation-normal',
@@ -10,34 +12,20 @@ import { DateDisplayService } from '../../../_services/date-display.service';
 export class LabReservationNormalComponent implements OnInit {
 
   @Input() event: any;
-  @Input() laboratory: string;
+  @Input() laboratory: Laboratorio;
   @Input() type: string;
 
   reservationForm: FormGroup;
 
   ngOnInit(): void {
-    this.reservationForm = this.formBuilder.group({
-      title: ['', [
-        Validators.required
-      ]],
-      type: [this.type, [
-        Validators.required
-      ]],
-      laboratory: [this.laboratory, [
-        Validators.required
-      ]],
-      time: [this.dateDisplayService.getSingleDayDisplay(new Date(this.event.start), new Date(this.event.end)), [
-        Validators.required
-      ]]
-    });
-
+    this.reservationForm = this.formGenerator.getBaseForm(this.type, this.laboratory, this.event);
     /*
     // To print the form:
     this.reservationForm.valueChanges.subscribe(console.log);
     */
   }
 
-  constructor(private formBuilder: FormBuilder, private dateDisplayService: DateDisplayService) { }
+  constructor(private formGenerator: FormGeneratorService) { }
 
 
   get title() {

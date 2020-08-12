@@ -21,11 +21,10 @@
             <tr *ngFor = "let activo of activos">
                 <td> {{ activo.codigo }}</td>
                 <td> {{ activo.descripcion }}</td>
-                <td> 
-                    
-                    <a class="fa fa-trash fa-2x" (click)="deleteAsset(activo.codigo)"></a>
-                    
-                </td>
+                <td>
+                  <input type="button" class="btn btn-success" id = "btnS{{activo.codigo}}" (click)="checkValue(activo)" value = "Habilitado">
+                  <input type="button" class="btn btn-primary" id = "btnE{{activo.codigo}}" (click)="editState(activo,content)" value = "Editar">
+              </td>
             </tr>
           </tbody>
         </table>

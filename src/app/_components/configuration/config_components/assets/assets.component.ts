@@ -6,6 +6,11 @@ interface Activos {
   codigo : string;
   descripcion : string;
 }
+
+
+var buttonDanger: string = "btn btn-danger";
+var buttonSuccess: string = "btn btn-success";
+
 @Component({
   selector: 'app-assets',
   templateUrl: './assets.component.html',
@@ -52,5 +57,24 @@ export class AssetsComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+  checkValue (activo: Activos) : void {
+
+    var button = (<HTMLInputElement>document.getElementById("btnS"+activo.codigo));
+    var clase = button.className;
+    if (clase == buttonSuccess) {
+      document.getElementById("btnS"+activo.codigo).className = buttonDanger;
+      button.value = "Deshabilitado";
+    } else {
+      document.getElementById("btnS"+activo.codigo).className = buttonSuccess;
+      button.value = "Habilitado";
+      
+    }
+  }
+
+  editState (estado : Activos, content) : void {
+    this.open(content);
+  }
+
 
 }

@@ -50,7 +50,8 @@ const routes: Routes = [
       { path: 'assets', component: AssetsComponent }
     ]
   },
-  { path: '**', component: NotFoundComponent }
+  { path: 'error', component: NotFoundComponent },
+  { path: '**', redirectTo: 'error', pathMatch: 'full' }
 
 ];
 

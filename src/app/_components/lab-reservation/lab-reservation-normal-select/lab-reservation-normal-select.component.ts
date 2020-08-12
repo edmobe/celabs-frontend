@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LabReservationNormalComponent } from '../lab-reservation-normal/lab-reservation-normal.component';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGeneratorService } from '../../../_services/form-generator.service';
+import { FormGroup } from '@angular/forms';
+import { Laboratorio } from 'src/app/_models/laboratorio';
 
 @Component({
   selector: 'app-lab-reservation-normal-select',
@@ -11,32 +13,26 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class LabReservationNormalSelectComponent implements OnInit {
 
   @Input() event: any;
-  @Input() laboratory: string;
+  @Input() laboratory: Laboratorio;
 
   @ViewChild('baseForm') baseForm: LabReservationNormalComponent;
   @ViewChild('classForm') classForm: LabReservationNormalComponent;
 
   selected: boolean;
   class: boolean;
-  type: string;
-  recurrent: boolean;
 
-  remainingWeeks;
+  type: string;
+  recurrent: boolean = false;
 
   recurrentForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, public activeModal: NgbActiveModal, private changeDetector: ChangeDetectorRef) { }
+  constructor(
+    public activeModal: NgbActiveModal,
+    private changeDetector: ChangeDetectorRef,
+    private formGenerator: FormGeneratorService) { }
 
   ngOnInit(): void {
-    this.remainingWeeks = 17;
-    this.recurrent = false;
-    this.recurrentForm = this.formBuilder.group({
-      recurrence: ['', [
-        Validators.required,
-        Validators.min(1),
-        Validators.pattern('^[1-9][0-9]*$')
-      ]]
-    });
+    this.recurrentForm = this.formGenerator.getRecurrentForm();
   }
 
   checkFormsInvalid(): boolean {
@@ -69,40 +65,24 @@ export class LabReservationNormalSelectComponent implements OnInit {
     this.handleSelected('Clase');
   }
 
-  post(): void {
-    let json = this.getBaseFormJson();
-    if (this.recurrent) {
-      json = Object.assign(json, this.getReccurentFromJson());
-    }
-    if (this.class) {
-      json = Object.assign(json, this.getClassFromJson());
-    }
-    this.activeModal.close('Close click');
-    alert('Json generado:\n' + JSON.stringify(json));
+  createBaseFormJson(): any {
+    return this.formGenerator.createBaseFormJson(
+      this.baseForm.reservationForm.value.title,
+      this.type,
+      this.laboratory.id,
+      this.event.start,
+      this.event.end
+    );
   }
 
-  getBaseFormJson(): any {
-    const baseForm = this.baseForm.reservationForm.value;
-    const baseJson = {
-      title: baseForm.title,
-      type: this.type,
-      laboratory: this.laboratory,
-      start: this.event.start,
-      end: this.event.end,
-    };
-    return baseJson;
+  createClassFromJson(): any {
+    return this.formGenerator.createClassFormJson(
+      this.classForm.reservationForm.value.teacher,
+      this.classForm.reservationForm.value.course
+    );
   }
 
-  getClassFromJson(): any {
-    const classForm = this.classForm.reservationForm.value;
-    const classJson = {
-      teacher: classForm.teacher,
-      course: classForm.course,
-    };
-    return classJson;
-  }
-
-  getReccurentFromJson(): any {
+  createReccurentFromJson(): any {
     const recurrentForm = this.recurrentForm.value;
     const recurrentJson = {
       recurrence: recurrentForm.recurrence
@@ -112,6 +92,18 @@ export class LabReservationNormalSelectComponent implements OnInit {
 
   get recurrence() {
     return this.recurrentForm.get('recurrence');
+  }
+
+  post(): void {
+    let json = this.createBaseFormJson();
+    if (this.recurrent) {
+      json = Object.assign(json, this.createReccurentFromJson());
+    }
+    if (this.class) {
+      json = Object.assign(json, this.createClassFromJson());
+    }
+    this.activeModal.close('Close click');
+    alert('Json generado:\n' + JSON.stringify(json));
   }
 
 }
