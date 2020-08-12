@@ -29,14 +29,13 @@ export class LabReservationPalmadaComponent implements OnInit {
     this.palmadaForm = this.formGenerator.createReservationPalmadaForm(
       this.laboratory.nombre,
       this.operator
-    )
+    );
   }
 
   constructor(
     public activeModal: NgbActiveModal,
     private dateDisplayService: DateDisplayService,
-    private formGenerator: FormGeneratorService
-  ) { }
+    private formGenerator: FormGeneratorService) { }
 
   get palmada() {
     return this.palmadaForm.get('palmada');
@@ -69,8 +68,7 @@ export class LabReservationPalmadaComponent implements OnInit {
     const availablePalmadas = [{
       start: new Date('2020-08-12T21:00:00.000-06:00'),
       end: new Date('2020-08-13T06:00:00.000-06:00')
-    },
-    {
+    }, {
       start: new Date('2020-08-13T21:00:00.000-06:00'),
       end: new Date('2020-08-14T06:00:00.000-06:00')
     }
