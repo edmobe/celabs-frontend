@@ -4,7 +4,10 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Activo } from '../../../../_models/configuration/activo';
-import { AssetsService } from '../../../../_services/api/configuration/assets.service';
+import { AssetsService }  from '../../../../_services/api/configuration/assets.service';
+import { FormGroup } from '@angular/forms';
+import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
+import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
 
 var buttonDanger: string = "btn btn-danger";
 var buttonSuccess: string = "btn btn-success";
@@ -16,19 +19,35 @@ var buttonSuccess: string = "btn btn-success";
 })
 export class AssetsComponent implements OnInit {
 
+  assetConfigForm : FormGroup;
+
   constructor(private titleService: TitleService,
     private modalService: NgbModal,
     private toastr: ToastrService,
-    private serviceAsset: AssetsService) {
+    //private serviceAsset: AssetsService,
+    private formGenerator: FormGeneratorService,
+    private formToJson: FormToJsonService) {
     this.titleService.setTitle('');
   }
 
-  activos: Activo[];
+
+  activos : Activo[] = [{id : "CE1001", nombre : "Monitor"}];
+
   ngOnInit(): void {
-    this.activos = this.serviceAsset.getActivos();
+    //this.activos = this.serviceAsset.getActivos();
+    this.assetConfigForm = this.formGenerator.createAssetConfigForm();
+  }
+  
+  get id () {
+    return this.assetConfigForm.get('id');
   }
 
-  deleteAsset(activo: string): void {
+  get nombre () {
+    return this.assetConfigForm.get('nombre');
+  }
+
+
+  deleteAsset(activo : string) : void {
     console.log(activo);
   }
 

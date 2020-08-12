@@ -80,4 +80,23 @@ export class FormGeneratorService {
       ]]
     });
   }
+  public createAssetConfigForm() {
+    return this.formBuilder.group({
+      id: ['', [
+        Validators.required
+      ]],
+      nombre: ['', [
+        Validators.required
+      ]]
+    });
+  }
+
+  public createSurveyForm() {
+    return this.formBuilder.group({
+      satisfaction: ['', [
+        Validators.required
+      ]]
+    });
+  }
+
 }

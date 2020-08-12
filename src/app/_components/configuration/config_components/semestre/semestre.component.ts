@@ -12,7 +12,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./semestre.component.css']
 })
 export class SemestreComponent implements OnInit {
-
+  
   semesterConfigForm: FormGroup;
 
   constructor(
@@ -42,27 +42,5 @@ export class SemestreComponent implements OnInit {
 
   get end() {
     return this.semesterConfigForm.get('end');
-  }
-
-  changeFinMin(): void {
-    var calendarInicio = (<HTMLInputElement>document.getElementById("semesterStart"));
-    var calendarFin = (<HTMLInputElement>document.getElementById("semesterEnd"));
-    calendarFin.min = calendarInicio.value;
-  }
-
-  saveChanges(): void {
-    var calendarInicio = (<HTMLInputElement>document.getElementById("semesterStart"));
-    var calendarFin = (<HTMLInputElement>document.getElementById("semesterEnd"));
-
-
-    var Inicio = calendarInicio.valueAsDate;
-    var Fin = calendarFin.valueAsDate;
-
-    if ((Inicio == null) || (Fin == null)) {
-      console.log("Error");
-    } else {
-      console.log(Inicio, Fin);
-    }
-
   }
 }
