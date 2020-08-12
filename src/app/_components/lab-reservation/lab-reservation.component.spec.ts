@@ -1,16 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { Calendar } from '@fullcalendar/core';
 import { LabReservationComponent } from './lab-reservation.component';
 
+
 describe('LabReservationComponent', () => {
+  const calendar = Calendar.name;
   let component: LabReservationComponent;
   let fixture: ComponentFixture<LabReservationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LabReservationComponent ]
+      declarations: [LabReservationComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

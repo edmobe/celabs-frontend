@@ -19,11 +19,13 @@ export class ConfirmationComponent implements OnInit {
   // Close with true
   confirm() {
     this.activeModal.close(true);
+    return true;
   }
 
   // Close with false
   cancel() {
     this.activeModal.close(false);
+    return false;
   }
 
 }

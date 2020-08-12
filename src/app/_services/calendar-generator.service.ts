@@ -2,15 +2,11 @@ import { Injectable } from '@angular/core';
 import esLocale from '@fullcalendar/core/locales/es';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import interactionPlugin from '@fullcalendar/interaction';
-import $ from 'jquery';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalendarGeneratorService {
-
-  private weeks = {};
-  private week = 17;
 
   constructor() { }
 

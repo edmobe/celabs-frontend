@@ -19,6 +19,7 @@ export class AlertComponent implements OnInit {
   // Close with code 0
   exit() {
     this.activeModal.close(0);
+    return 0;
   }
 
 }
