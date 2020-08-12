@@ -45,51 +45,23 @@ export class LabReservationComponent implements OnInit {
     this.titleService.setTitle('Reservación de laboratorios');
     this.calendarOptions = this.calendarGeneratorService.generateCalendar();
     Object.assign(this.calendarOptions, {
-      //eventClick: this.handleEventClick.bind(this),
-      //eventMouseEnter: this.handleEventHover.bind(this),
-      //eventMouseLeave: this.handleEventLeave.bind(this),
-      //datesSet: this.handleViewChange.bind(this),
+      select: this.handleDateSelect.bind(this),
+
+      // Referencias del calendario a los getters
       titleFormat: this.getWeek.bind(this),
-      select: this.handleDateSelect.bind(this)
+      validRange: this.getSemesterInterval(),
+      businessHours: this.getLabAvailableHours(this.laboratory),
+      selectAllow: function (info) {
+        if (info.start < Date.now()) {
+          return false;
+        }
+        return true;
+      },
+      events: this.getEvents()
+
     });
 
   }
-
-  /*
-  openModal(content, eventId) {
-    console.log(eventId);
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-  */
-
-  /*
-  handleEventClick(arg) {
-    const event = this.calendarComponent.getApi().getEventById(arg.event.id);
-    if (event.extendedProps.enabled) {
-      if (event.extendedProps.palmada) {
-        this.handlePalmadaSelect();
-      } else {
-        //this.handleEventSelect();
-      }
-    } else {
-      alert('El evento ya finalizó.');
-    }
-  }
-  */
 
   handleDateSelect(arg) {
     const event = {
@@ -130,26 +102,6 @@ export class LabReservationComponent implements OnInit {
     });
   }
 
-  /*
-  handleEventHover(arg) {
-    const event = this.calendarComponent.getApi().getEventById(arg.event.id);
-    if (event.extendedProps.enabled && !event.extendedProps.selected) {
-      event.setProp('backgroundColor', '#01396E');
-    }
-
-  }
-  handleEventLeave(arg) {
-    const event = this.calendarComponent.getApi().getEventById(arg.event.id);
-    if (event.extendedProps.enabled && !event.extendedProps.selected) {
-      event.setProp('backgroundColor', '#0154A0');
-    }
-  }
-  */
-
-  /*
-  handleViewChange(arg) { }
-  */
-
   private openEventModal(event) {
     let modalRef;
     modalRef = this.modalService.open(LabReservationNormalSelectComponent, { size: 'lg' });
@@ -166,10 +118,66 @@ export class LabReservationComponent implements OnInit {
     });
   }
 
+  // Getters
+  // Dadas dos fechas, retorna un string con el nombre de la semana actual
   getWeek(arg) {
     const start: Date = arg.start.marker;
     const end: Date = arg.end.marker;
     return 'Semana 17';
+  }
+
+  // Indica el inicio y final del semestre (puede ser en formato Date)
+  getSemesterInterval() {
+    const semester = {
+      start: '2020-04-20',
+      end: '2020-08-24'
+    }
+    return semester;
+  }
+
+  getLabAvailableHours(laboratory: Laboratorio) {
+    const availability = [{
+      daysOfWeek: [1, 2, 3, 4, 5],
+      startTime: '07:00',
+      endTime: '20:00',
+    }];
+    return availability;
+  }
+
+  private getEvents() {
+    const events = [];
+    let event;
+    event = this.getEventsAux(1, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 10, 7), new Date(2020, 7, 10, 8), true);
+    events.push(event);
+    event = this.getEventsAux(2, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 10, 8), new Date(2020, 7, 10, 9), true);
+    events.push(event);
+    event = this.getEventsAux(3, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 10, 9), new Date(2020, 7, 10, 10), true);
+    events.push(event);
+    event = this.getEventsAux(4, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 11, 14), new Date(2020, 7, 11, 17), true);
+    events.push(event);
+    event = this.getEventsAux(5, 'Bases de Datos - Eduardo Moya', new Date(2020, 7, 11, 17), new Date(2020, 7, 11, 20), true);
+    events.push(event);
+    return events;
+  }
+
+  // This function is only used for testing purposes
+  private getEventsAux(eventId: number, eventTitle: string, eventStart: Date, eventEnd: Date, eventEnabled: boolean) {
+    let eventBackgroundColor;
+    if (eventEnabled) {
+      eventBackgroundColor = '#0154A0';
+    } else {
+      eventBackgroundColor = '#3775B0';
+    }
+    const event = {
+      id: eventId,
+      title: eventTitle,
+      start: eventStart.toISOString(),
+      end: eventEnd.toISOString(),
+      enabled: eventEnabled,
+      selected: false,
+      backgroundColor: eventBackgroundColor
+    };
+    return event;
   }
 
 }

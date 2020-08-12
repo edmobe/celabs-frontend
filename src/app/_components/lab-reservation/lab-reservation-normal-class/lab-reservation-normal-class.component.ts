@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
 
 @Component({
   selector: 'app-lab-reservation-normal-class',
@@ -13,17 +14,10 @@ export class LabReservationNormalClassComponent implements OnInit {
 
   reservationForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formGenerator: FormGeneratorService) { }
 
   ngOnInit(): void {
-    this.reservationForm = this.formBuilder.group({
-      course: ['', [
-        Validators.required
-      ]],
-      teacher: ['', [
-        Validators.required
-      ]]
-    });
+    this.reservationForm = this.formGenerator.createClassForm();
   }
 
   get teacher() {

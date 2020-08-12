@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Laboratorio } from '../_models/laboratorio';
-import { DateDisplayService } from './date-display.service';
+import { Laboratorio } from '../../_models/laboratorio';
+import { DateDisplayService } from '../date-display.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class FormGeneratorService {
 
   constructor(private formBuilder: FormBuilder, private dateDisplayService: DateDisplayService) { }
 
-  public getBaseForm(type: string, laboratory: Laboratorio, event: any) {
+  public createBaseForm(type: string, laboratory: Laboratorio, event: any) {
     return this.formBuilder.group({
       title: ['', [
         Validators.required
@@ -27,34 +27,25 @@ export class FormGeneratorService {
     });
   }
 
-  public getRecurrentForm() {
+  public createClassForm() {
     return this.formBuilder.group({
-      recurrence: ['', [
-        Validators.required,
-        Validators.min(1),
-        Validators.pattern('^[1-9][0-9]*$')
+      course: ['', [
+        Validators.required
+      ]],
+      teacher: ['', [
+        Validators.required
       ]]
     });
   }
 
-  public createBaseFormJson(title: string, type: string, laboratoryId: number, start: Date, end: Date): any {
-    const baseFormJson = {
-      title: title,
-      type: type,
-      laboratory: laboratoryId,
-      start: start,
-      end: end
-    };
-    return baseFormJson;
+  public createRecurrentForm(weeksRemaining: number) {
+    return this.formBuilder.group({
+      recurrence: ['', [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(weeksRemaining),
+        Validators.pattern('^[1-9][0-9]*$')
+      ]]
+    });
   }
-
-  public createClassFormJson(teacherId: number, courseId: number) {
-    const classFormJson = {
-      teacher: teacherId,
-      course: courseId
-    };
-    return classFormJson;
-  }
-
-
 }

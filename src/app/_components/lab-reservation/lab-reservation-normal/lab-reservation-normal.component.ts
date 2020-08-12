@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateDisplayService } from '../../../_services/date-display.service';
 import { Laboratorio } from 'src/app/_models/laboratorio';
-import { FormGeneratorService } from 'src/app/_services/form-generator.service';
+import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
 
 @Component({
   selector: 'app-lab-reservation-normal',
@@ -18,7 +18,7 @@ export class LabReservationNormalComponent implements OnInit {
   reservationForm: FormGroup;
 
   ngOnInit(): void {
-    this.reservationForm = this.formGenerator.getBaseForm(this.type, this.laboratory, this.event);
+    this.reservationForm = this.formGenerator.createBaseForm(this.type, this.laboratory, this.event);
     /*
     // To print the form:
     this.reservationForm.valueChanges.subscribe(console.log);

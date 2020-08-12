@@ -10,7 +10,7 @@
   </button>
 </div>
 <div class="modal-body">
-  <div class="row" *ngIf="!selected">
+  <div class="row" *ngIf="!isSelected">
     <div class="col-12">
       <div class="row">
         <div class="col-12 text-center">
@@ -45,7 +45,7 @@
     </div>
   </div>
   <div>
-    <div class="row" *ngIf="selected">
+    <div class="row" *ngIf="isSelected">
       <div class="col-12">
         <app-lab-reservation-normal
           #baseForm
@@ -55,9 +55,13 @@
         ></app-lab-reservation-normal>
         <app-lab-reservation-normal-class
           #classForm
-          *ngIf="class"
+          *ngIf="isClass"
         ></app-lab-reservation-normal-class>
-        <form class="form-group" [formGroup]="recurrentForm" *ngIf="recurrent">
+        <form
+          class="form-group"
+          [formGroup]="recurrentForm"
+          *ngIf="isRecurrent"
+        >
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>Semanas que tarda el evento</label>
@@ -89,9 +93,9 @@
     </div>
   </div>
 </div>
-<div class="modal-footer" *ngIf="selected">
+<div class="modal-footer" *ngIf="isSelected">
   <div class="form-check mr-auto">
-    <input class="form-check-input" type="checkbox" [(ngModel)]="recurrent" />
+    <input class="form-check-input" type="checkbox" [(ngModel)]="isRecurrent" />
     <label class="form-check-label" for="defaultCheck1">
       Este evento es recurrente.
     </label>
