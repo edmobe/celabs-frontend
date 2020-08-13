@@ -223,4 +223,15 @@ export class FormGeneratorService {
     });
   }
 
+  public createAddCourseForm() {
+    return this.formBuilder.group({
+      code: ['', [
+        Validators.required
+      ]],
+      name: ['', [
+        Validators.required
+      ]]
+    })
+  }
+
 }

@@ -110,4 +110,15 @@ export class FormToJsonService {
 
     return addUserJson;
   }
+
+  public createAddCourseJson(
+    code: string,
+    name: string
+  ) {
+    const addCourseJson = {
+      code: code,
+      name: name
+    };
+    return addCourseJson;
+  }
 }
