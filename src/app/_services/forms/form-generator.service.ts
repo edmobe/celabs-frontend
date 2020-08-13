@@ -21,6 +21,9 @@ export class FormGeneratorService {
       ]],
       password: ['', [
         Validators.required
+      ]],
+      role: ['', [
+        Validators.required
       ]]
     });
   }

@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
           <input
             type="password"
             placeholder="Contraseña"
@@ -35,12 +35,26 @@
             Debe ingresar una contraseña válida.
           </div>
         </div>
+        <div class="row">
+          <select class="form-control" formControlName="role">
+            <option *ngFor="let role of roles" [ngValue]="role">
+              {{ role }}
+            </option>
+          </select>
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="role.invalid && role.touched"
+          >
+            Debe ingresar un rol.
+          </div>
+        </div>
         <div class="row mt-5">
           <div class="col">
             <button
               class="btn btn-primary btn-block"
               [disabled]="loginForm.invalid"
-              routerLink="/home"
+              (click)="post()"
             >
               Iniciar sesión
             </button>
