@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'failures', component: FailuresComponent },
   {
     path: 'configuration',
-    component: ConfigurationComponent,
+    component: ConfigurationComponent, canActivate: [AuthGuard] , data: { roles: ['Administrador'] },
     children: [
       { path: '', redirectTo: 'administrator', pathMatch: 'full' },
       { path: 'administrator', component: AdministratorComponent },

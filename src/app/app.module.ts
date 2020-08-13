@@ -40,12 +40,17 @@ import { ToastrModule } from 'ngx-toastr';
 import { SurveyComponent } from './_components/survey/survey.component';
 import { ConfirmationComponent } from './_components/alerts/confirmation/confirmation.component';
 import { AlertComponent } from './_components/alerts/alert/alert.component';
+
 import { RegistrationComponent } from './_components/registration/registration.component';
+
 import { UserService } from './_services/api/user.service';
 import { AuthGuard } from './auth/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
+
 import { ApproveTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/approve-teachers-administrative/approve-teachers-administrative.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -97,7 +102,8 @@ FullCalendarModule.registerPlugins([
     ReactiveFormsModule,
     FormsModule,
     FontAwesomeModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    HttpClientModule
   ],
   providers: [UserService, AuthGuard,
     {
