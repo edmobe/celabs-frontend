@@ -5,7 +5,7 @@
       <tr>
         <th scope="col">Nombre</th>
         <th scope="col">Correo</th>
-        <th scope="col">Rol</th>
+        <th scope="col">Identificación</th>
         <th scope="col">Permisos de Administrador</th>
       </tr>
     </thead>
@@ -13,7 +13,7 @@
       <tr *ngFor="let user of users">
         <td>{{ user.nombre }}</td>
         <td>{{ user.correo }}</td>
-        <td>{{ user.rol }}</td>
+        <td>{{ user.id }}</td>
         <td>
           <div *ngIf="user.permisos">
             <input
