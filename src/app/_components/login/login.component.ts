@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SurveyComponent } from '../survey/survey.component';
+import { FormGroup } from '@angular/forms';
+import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +11,13 @@ import { SurveyComponent } from '../survey/survey.component';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private modalService: NgbModal) { }
+  loginForm: FormGroup;
 
-  ngOnInit(): void { }
+  constructor(private modalService: NgbModal, private formGenerator: FormGeneratorService) { }
+
+  ngOnInit(): void {
+    this.loginForm = this.formGenerator.createLoginForm();
+  }
 
   openSurvey() {
     let modalRef;
@@ -19,6 +25,14 @@ export class LoginComponent implements OnInit {
     modalRef.result.then((result) => {
       if (result) { }
     }).catch(err => { });
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
   }
 
 }

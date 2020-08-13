@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, EmailValidator } from '@angular/forms';
 import { Laboratorio } from '../../_models/laboratorio';
 import { DateDisplayService } from '../date-display.service';
 import { FormValidatorService } from './form-validator.service';
@@ -11,8 +11,19 @@ export class FormGeneratorService {
 
   constructor(
     private formBuilder: FormBuilder,
-    private dateDisplayService: DateDisplayService,
-    private formValidatorService: FormValidatorService) { }
+    private dateDisplayService: DateDisplayService) { }
+
+  public createLoginForm() {
+    return this.formBuilder.group({
+      email: ['', [
+        Validators.required,
+        Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+      ]],
+      password: ['', [
+        Validators.required
+      ]]
+    });
+  }
 
   public createReservationBaseForm(type: string, laboratory: Laboratorio, event: any) {
     return this.formBuilder.group({
