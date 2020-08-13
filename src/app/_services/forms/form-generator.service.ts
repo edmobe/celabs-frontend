@@ -167,4 +167,18 @@ export class FormGeneratorService {
     });
   }
 
+  public createHoursForm(): FormGroup {
+    return this.formBuilder.group({
+      date: ['', [
+        Validators.required
+      ]],
+      start: ['', [
+        Validators.required
+      ]],
+      end: ['', [
+        Validators.required
+      ]]
+    })
+  }
+
 }

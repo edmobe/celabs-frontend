@@ -21,13 +21,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let hora of horas; index as i">
-            <td>{{ hora.fecha }}</td>
-            <td>{{ hora.horaRegistrada }}</td>
-            <td>{{ hora.horaInicio }}</td>
-            <td>{{ hora.horaFinal }}</td>
-            <td>{{ hora.reportado }}</td>
-            <td>{{ hora.estado }}</td>
+          <tr *ngFor="let hour of hours; index as i">
+            <td>{{ hour.fecha }}</td>
+            <td>{{ hour.horaRegistrada }}</td>
+            <td>{{ hour.horaInicio }}</td>
+            <td>{{ hour.horaFinal }}</td>
+            <td>{{ hour.reportado }}</td>
+            <td>{{ hour.estado }}</td>
           </tr>
         </tbody>
       </table>
@@ -47,48 +47,60 @@
       </button>
     </div>
     <div class="modal-body">
-      <form>
+      <form [formGroup]="hoursForm" class="form-group">
         <div class="form-row">
-          <div class="col">
+          <div class="form-group col-md-4">
             <label>Fecha del turno</label>
-            <div class="input-group">
-              <input
-                class="form-control"
-                name="dp"
-                [(ngModel)]="model"
-                ngbDatepicker
-                #d="ngbDatepicker"
-              />
-              <div class="input-group-append">
-                <button
-                  class="btn btn-outline-secondary calendar fa fa-calendar"
-                  (click)="d.toggle()"
-                  type="button"
-                ></button>
-              </div>
+            <input
+              type="date"
+              class="form-control"
+              placeholder="Fecha"
+              formControlName="date"
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="date.invalid && date.touched"
+              role="alert"
+            >
+              Debe seleccionar una fecha.
             </div>
           </div>
-          <div class="col">
+          <div class="form-group col-md-4">
             <label>Hora de inicio</label>
-            <br />
             <input
-              class="form-control input-lg"
               type="time"
-              id="timePicker"
-              name="input"
-              placeholder="HH:mm:ss"
+              class="form-control"
+              placeholder="Hora de inicio"
+              formControlName="start"
+              [readonly]="date.invalid"
             />
+            <div
+              class="alert alert-danger"
+              *ngIf="start.invalid && start.touched"
+              role="alert"
+            >
+              Debe seleccionar una hora de inicio válida.
+            </div>
           </div>
-          <div class="col">
+          <div class="form-group col-md-4">
             <label>Hora de finalización</label>
-            <br />
             <input
-              class="form-control input-lg"
               type="time"
-              id="timePicker"
-              name="input"
-              placeholder="HH:mm:ss"
+              class="form-control"
+              placeholder="Hora de finalización"
+              formControlName="end"
+              [readonly]="start.invalid"
             />
+            <div
+              class="alert alert-danger"
+              *ngIf="
+                (end.invalid || !validTimes(start.value, end.value)) &&
+                end.touched
+              "
+              role="alert"
+            >
+              Debe seleccionar una hora de finalización válida.
+            </div>
           </div>
         </div>
       </form>
@@ -96,10 +108,11 @@
     <div class="modal-footer">
       <button
         type="button"
+        [disabled]="hoursForm.invalid || !validTimes(start.value, end.value)"
         class="btn btn-primary"
-        (click)="modal.close('Save click')"
+        (click)="post()"
       >
-        Registrar Horas
+        Enviar
       </button>
     </div>
   </ng-template>

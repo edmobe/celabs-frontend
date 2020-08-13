@@ -60,4 +60,18 @@ export class FormToJsonService {
     };
     return inventoryJson;
   }
+
+  public createHoursJson(
+    date: string,
+    start: string,
+    end: string
+  ) {
+    const hoursJson = {
+      date: date,
+      start: start,
+      end: end
+    };
+
+    return hoursJson;
+  }
 }
