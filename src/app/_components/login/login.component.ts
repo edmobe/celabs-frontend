@@ -18,7 +18,6 @@ import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  userClaims: any;
 
   loginForm: FormGroup;
 
@@ -58,11 +57,7 @@ export class LoginComponent implements OnInit {
 
   
 
-  getUserInfo() {
-    this.userService.getUserClaims().subscribe((data: any) => {
-      this.userClaims = data;
-    });
-  }
+  
 
   successfulLogin(json: any) {
     alert('Json generado:\n' + JSON.stringify(json));

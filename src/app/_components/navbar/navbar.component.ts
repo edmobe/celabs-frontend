@@ -30,6 +30,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  //Cerrar sesión
   logout() {
     localStorage.removeItem('userToken');
     this.router.navigate(['/login']);
