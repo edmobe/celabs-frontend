@@ -46,6 +46,7 @@ export class InventoryComponent implements OnInit {
     this.operator = this.getOperator();
     this.amounts = this.getAmounts();
     this.inventoryForm = this.formGenerator.createInventoryForm(this.operator);
+    this.inventories = this.getInventories();
   }
 
   open(content): void {
@@ -55,6 +56,12 @@ export class InventoryComponent implements OnInit {
     }).catch(() => {
       this.inventoryForm.reset();
     });
+  }
+
+  successfulPost(json: any): void {
+    this.inventoryModal.close();
+    this.inventoryForm.reset();
+    alert('Json generado:\n' + JSON.stringify(json));
   }
 
   get laboratory() {
@@ -117,10 +124,8 @@ export class InventoryComponent implements OnInit {
     return 'Eduardo Moya';
   }
 
-  successfulPost(json: any): void {
-    this.inventoryModal.close();
-    this.inventoryForm.reset();
-    alert('Json generado:\n' + JSON.stringify(json));
+  getInventories(): Inventario[] {
+    return [];
   }
 
   // POSTs

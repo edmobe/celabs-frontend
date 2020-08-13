@@ -51,8 +51,8 @@ export class FormGeneratorService {
       ]],
       role: ['', [
         Validators.required
-      ]],
-    })
+      ]]
+    });
   }
 
   public createReservationBaseForm(type: string, laboratory: Laboratorio, event: any): FormGroup {
@@ -178,7 +178,27 @@ export class FormGeneratorService {
       end: ['', [
         Validators.required
       ]]
-    })
+    });
+  }
+
+  public createFailuresFrom(operator: string): FormGroup {
+    return this.formBuilder.group({
+      operator: [operator, [
+        Validators.required
+      ]],
+      dateTime: ['', [
+        Validators.required
+      ]],
+      laboratory: ['', [
+        Validators.required
+      ]],
+      asset: ['', [
+        Validators.required
+      ]],
+      description: ['', [
+        Validators.required
+      ]]
+    });
   }
 
 }

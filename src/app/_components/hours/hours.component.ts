@@ -7,7 +7,7 @@ import { FormGeneratorService } from 'src/app/_services/forms/form-generator.ser
 import { FormValidatorService } from 'src/app/_services/forms/form-validator.service';
 import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
 
-interface Hora {
+interface Hour {
   fecha: string;
   horaRegistrada: string;
   horaInicio: string;
@@ -24,7 +24,7 @@ interface Hora {
 export class HoursComponent implements OnInit {
 
   states: string[];
-  hours: Hora[];
+  hours: Hour[];
 
   hoursForm: FormGroup;
   hoursModal: NgbModalRef;
@@ -42,6 +42,7 @@ export class HoursComponent implements OnInit {
   ngOnInit(): void {
     this.states = this.getStates();
     this.hoursForm = this.formGenerator.createHoursForm();
+    this.hours = this.getHours();
   }
 
   validTimes(start: string, end: string): boolean {
@@ -57,6 +58,12 @@ export class HoursComponent implements OnInit {
     });
   }
 
+  successfulPost(json: any): void {
+    this.hoursModal.close();
+    this.hoursForm.reset();
+    alert('Json generado:\n' + JSON.stringify(json));
+  }
+
   get date() {
     return this.hoursForm.get('date');
   }
@@ -69,14 +76,13 @@ export class HoursComponent implements OnInit {
     return this.hoursForm.get('end');
   }
 
+  // GETs
   getStates() {
     return ['Aprobado', 'Pendiente'];
   }
 
-  successfulPost(json: any): void {
-    this.hoursModal.close();
-    this.hoursForm.reset();
-    alert('Json generado:\n' + JSON.stringify(json));
+  getHours() {
+    return [];
   }
 
   // POST

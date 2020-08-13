@@ -74,4 +74,22 @@ export class FormToJsonService {
 
     return hoursJson;
   }
+
+  public createFailuresJson(
+    operator: string,
+    dateTime: string,
+    laboratoryId: number,
+    asset: string,
+    description: string
+  ) {
+    const failuresJson = {
+      operator: operator,
+      dateTime: new Date(dateTime),
+      laboratory: laboratoryId,
+      asset: asset,
+      description: description
+    }
+
+    return failuresJson;
+  }
 }

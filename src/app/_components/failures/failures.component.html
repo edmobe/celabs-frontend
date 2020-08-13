@@ -19,12 +19,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let averia of averias; index as i">
-            <td>{{ averia.fecha }} {{ averia.hora }}</td>
-            <td>{{ averia.laboratorio }}</td>
-            <td>{{ averia.responsable }}</td>
-            <td>{{ averia.descripcion }}</td>
-            <td>{{ averia.estado }}</td>
+          <tr *ngFor="let failure of failures; index as i">
+            <td>{{ failure.fecha }} {{ failure.hora }}</td>
+            <td>{{ failure.laboratorio }}</td>
+            <td>{{ failure.responsable }}</td>
+            <td>{{ failure.descripcion }}</td>
+            <td>{{ failure.estado }}</td>
           </tr>
         </tbody>
       </table>
@@ -46,63 +46,96 @@
       </button>
     </div>
     <div class="modal-body">
-      <form>
-        <label for="operador">Operador a cargo</label>
-        <input class="form-control py-1" type="text" />
-        <div class="row py-1">
-          <div class="col">
-            <label>Fecha</label>
-            <div class="input-group">
-              <input
-                class="form-control"
-                name="dp"
-                [(ngModel)]="model"
-                ngbDatepicker
-                #d="ngbDatepicker"
-                [ngClass]="my_group"
-              />
-              <div class="input-group-append">
-                <button
-                  class="btn btn-outline-secondary calendar fa fa-calendar"
-                  (click)="d.toggle()"
-                  type="button"
-                ></button>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <label>Hora</label>
-            <br />
+      <form [formGroup]="failuresForm" class="form-group">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>Operador a cargo</label>
             <input
-              class="form-control input-lg"
-              type="time"
-              id="timePicker"
-              name="input"
-              placeholder="HH:mm:ss"
+              type="text"
+              class="form-control"
+              placeholder="Operador"
+              formControlName="operator"
+              readonly
             />
           </div>
-          <div class="col">
-            <label for="sel1">Laboratorio</label>
-            <select class="form-control" id="sel1">
-              <option *ngFor="let lab of laboratorios"> {{ lab }}</option>
-            </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label>Fecha</label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              placeholder="Fecha"
+              formControlName="dateTime"
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="dateTime.invalid && dateTime.touched"
+              role="alert"
+            >
+              Debe seleccionar una fecha válida.
+            </div>
           </div>
-          <div class="col">
-            <label for="asset">Activo</label>
-            <select class="form-control" id="asset">
-              <option *ngFor="let asset of assets"> {{ asset }}</option>
+          <div class="form-group col-md-4">
+            <label>Laboratorio</label>
+            <select class="form-control" formControlName="laboratory">
+              <option
+                *ngFor="let laboratory of laboratories"
+                [ngValue]="laboratory"
+              >
+                {{ laboratory.nombre }}
+              </option>
             </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="laboratory.invalid && laboratory.touched"
+              role="alert"
+            >
+              Debe seleccionar un laboratorio.
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Activo</label>
+            <select class="form-control" formControlName="asset">
+              <option *ngFor="let asset of assets" [ngValue]="asset">
+                {{ asset }}
+              </option>
+            </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="asset.invalid && asset.touched"
+              role="alert"
+            >
+              Debe seleccionar un activo.
+            </div>
           </div>
         </div>
-        <label class="py-1" for="descripcion">Descripcion</label>
-        <textarea class="form-control" rows="5" id="comment"></textarea>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label>Descripción</label>
+            <textarea
+              class="form-control"
+              rows="5"
+              placeholder="Descripción"
+              formControlName="description"
+            ></textarea>
+            <div
+              class="alert alert-danger"
+              *ngIf="description.invalid && description.touched"
+              role="alert"
+            >
+              Debe brindar una descripción.
+            </div>
+          </div>
+        </div>
       </form>
     </div>
     <div class="modal-footer">
       <button
         type="button"
+        [disabled]="failuresForm.invalid"
         class="btn btn-primary"
-        (click)="modal.close('Save click')"
+        (click)="post()"
       >
         Enviar
       </button>
