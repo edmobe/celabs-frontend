@@ -36,13 +36,13 @@ const routes: Routes = [
     ],
   },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent/*, canActivate: [AuthGuard] */ },
   { path: 'inventory', component: InventoryComponent },
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
   {
     path: 'admin',
-    component: ConfigurationComponent, canActivate: [AuthGuard], data: { roles: ['Administrador'] },
+    component: ConfigurationComponent, /*canActivate: [AuthGuard], data: { roles: ['Administrador'] },*/
     children: [
       { path: '', redirectTo: 'administrator', pathMatch: 'full' },
       { path: 'administrator', component: AdministratorComponent },
