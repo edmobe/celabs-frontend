@@ -1,5 +1,7 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { TitleService } from './../../_services/title.service';
+import { UserService } from 'src/app/_services/api/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,19 +11,28 @@ import { TitleService } from './../../_services/title.service';
 export class NavbarComponent implements OnInit {
 
   title: String;
-  user: String;
-
-  constructor(private titleService: TitleService) {
+  userClaims: any;
+  constructor(private titleService: TitleService,
+    private userService: UserService, 
+    private router: Router) {
     this.titleService.getTitle().subscribe(appTitle => this.title = appTitle);
   }
 
   ngOnInit(): void {
-    this.user = this.getUser();
+    this.getUserInfo();
   }
 
-  // GETs
-  getUser() {
-    return 'Ejemplo Martínez';
+
+  //Obtiene la información del usuario logueado
+  getUserInfo() {
+    this.userService.getUserClaims().subscribe((data: any) => {
+      this.userClaims = data;
+    });
+  }
+
+  logout() {
+    localStorage.removeItem('userToken');
+    this.router.navigate(['/login']);
   }
 
 }

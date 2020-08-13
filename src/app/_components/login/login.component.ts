@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
   onSubmit(userName, password) {
     this.userService.userAuthentication(userName, password).subscribe((data: any) => {
       localStorage.setItem('userToken', data.access_token);
+      this.toastr.success('Bienvenido', 'Sesión iniciada')
       this.router.navigate(['/home']);
     },
       (err: HttpErrorResponse) => {
@@ -55,10 +56,7 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  logout() {
-    localStorage.removeItem('userToken');
-    this.router.navigate(['/login']);
-  }
+  
 
   getUserInfo() {
     this.userService.getUserClaims().subscribe((data: any) => {
@@ -94,7 +92,8 @@ export class LoginComponent implements OnInit {
       this.password.value,
       this.role.value
     );
-    this.successfulLogin(json);
+    this.onSubmit(this.email.value,this.password.value)
+    //this.successfulLogin(json);
   }
 
 }

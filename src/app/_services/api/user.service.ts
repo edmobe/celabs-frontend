@@ -31,7 +31,7 @@ export class UserService {
   }
 
   getUserClaims(){
-    return this.http.get(this.apiService.getUrl()+'GetUserClaims');
+    return this.http.get(this.apiService.getUrl()+'/GetUserClaims');
     //,    {headers: new HttpHeaders({'Authorization':'Bearer '+localStorage.getItem('userToken')})});
 
 
