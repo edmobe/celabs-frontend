@@ -9,16 +9,19 @@ import { TitleService } from './../../_services/title.service';
 export class NavbarComponent implements OnInit {
 
   title: String;
+  user: String;
 
   constructor(private titleService: TitleService) {
     this.titleService.getTitle().subscribe(appTitle => this.title = appTitle);
   }
 
   ngOnInit(): void {
+    this.user = this.getUser();
   }
 
-  
-    
- 
-  
+  // GETs
+  getUser() {
+    return 'Ejemplo Martínez';
+  }
+
 }

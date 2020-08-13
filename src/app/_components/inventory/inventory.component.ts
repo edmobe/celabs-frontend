@@ -46,15 +46,22 @@ export class InventoryComponent implements OnInit {
     this.operator = this.getOperator();
     this.amounts = this.getAmounts();
     this.inventoryForm = this.formGenerator.createInventoryForm(this.operator);
+    this.inventories = this.getInventories();
   }
 
   open(content): void {
     this.inventoryModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
-    this.inventoryModal.result.then((result) => {
-      if (result) {
-        console.log(result);
-      }
-    }).catch(err => { });
+    this.inventoryModal.result.then(() => {
+      this.inventoryForm.reset();
+    }).catch(() => {
+      this.inventoryForm.reset();
+    });
+  }
+
+  successfulPost(json: any): void {
+    this.inventoryModal.close();
+    this.inventoryForm.reset();
+    alert('Json generado:\n' + JSON.stringify(json));
   }
 
   get laboratory() {
@@ -117,9 +124,13 @@ export class InventoryComponent implements OnInit {
     return 'Eduardo Moya';
   }
 
+  getInventories(): Inventario[] {
+    return [];
+  }
+
   // POSTs
   post() {
-    let json = this.formToJson.createInventoryJson(
+    const json = this.formToJson.createInventoryJson(
       this.operator,
       this.inventoryForm.value.laboratory.id,
       this.inventoryForm.value.completeComputers,
@@ -128,11 +139,7 @@ export class InventoryComponent implements OnInit {
       this.inventoryForm.value.chairs,
       this.inventoryForm.value.extinguishers
     );
-    // Successful POST
-    // Close with code 0
-    this.inventoryModal.close();
-    this.inventoryForm.reset();
-    alert('Json generado:\n' + JSON.stringify(json));
+    this.successfulPost(json);
   }
 
 }

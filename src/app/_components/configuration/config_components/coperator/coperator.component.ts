@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Laboratorio } from 'src/app/_models/laboratorio';
+import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
+import { FormGroup } from '@angular/forms';
+import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
 
 interface User {
   id: number;
   nombre: string;
   correo: string;
-  carnet: number;
 }
-
-var buttonDanger: string = "btn btn-danger";
-var buttonSuccess: string = "btn btn-success";
 
 @Component({
   selector: 'app-coperator',
@@ -19,52 +18,145 @@ var buttonSuccess: string = "btn btn-success";
   styleUrls: ['./coperator.component.css']
 })
 export class CoperatorComponent implements OnInit {
-  model: NgbDateStruct;
-  estados: string[] = ["Pendiente de Atención", "Completado", "En proceso", "Reportado"];
-  laboratorios: string[] = ["F2-07", "F2-09", "F2-10"];
-  left = true;
-  time = { hour: 13, minute: 30 };
-  closeResult = '';
-  meridian = true;
-  users : User[] = [
-    {id: 0, nombre: 'Luis Diego Noguera',correo: 'lnoguera@itcr.ac.cr', carnet: 0},
-    {id: 1, nombre: 'Brayan Muñoz Mora',correo: 'brianm.bra@estudiantec.cr', carnet: 2017042094}
-  ];
-  constructor(private titleService: TitleService, private modalService: NgbModal) {
+  buttonDanger: string = 'btn btn-danger';
+  buttonSuccess: string = 'btn btn-success';
+
+  states: string[];
+  laboratories: Laboratorio[];
+  operators: User[];
+
+  addOperatorForm: FormGroup;
+  addOperatorModal: NgbModalRef;
+
+  constructor(
+    private titleService: TitleService,
+    private modalService: NgbModal,
+    private formGenerator: FormGeneratorService,
+    private formToJson: FormToJsonService) {
     this.titleService.setTitle('');
-   }
+  }
   ngOnInit(): void {
+    this.laboratories = this.getLaboratories();
+    this.operators = this.getOperators();
+    this.states = this.getStates();
+    this.addOperatorForm = this.formGenerator.createAddOperatorForm();
   }
 
-  open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'md', centered: true }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  checkValue(id: number): void {
+    var button = (<HTMLInputElement>document.getElementById('btn' + id));
+    var clase = button.className;
+    if (clase == this.buttonSuccess) {
+      // POST
+      // if POST is successful
+      if (this.postDeny(id)) {
+        document.getElementById('btn' + id).className = this.buttonDanger;
+        button.value = 'Denegado';
+      }
+    } else {
+      // POST
+      // if POST is successful
+      if (this.postAllow(id)) {
+        document.getElementById('btn' + id).className = this.buttonSuccess;
+        button.value = 'Permitido';
+      }
+    }
+  }
+
+  open(content): void {
+    this.addOperatorModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
+    this.addOperatorModal.result.then(() => {
+      this.addOperatorForm.reset();
+    }).catch(() => {
+      this.addOperatorForm.reset();
     });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  successfulNewOperatorPost(json: any): void {
+    this.addOperatorModal.close();
+    this.addOperatorForm.reset();
+    alert('Json generado:\n' + JSON.stringify(json));
   }
 
-  checkValue (id: number) : void {
-    var button = (<HTMLInputElement>document.getElementById("btn"+id));
-    var clase = button.className;
-    if (clase == buttonSuccess) {
-      document.getElementById("btn"+id).className = buttonDanger;
-      button.value = "Denegado";
-    } else {
-      document.getElementById("btn"+id).className = buttonSuccess;
-      button.value = "Permitido";
-      
+  get name() {
+    return this.addOperatorForm.get('name');
+  }
+
+  get middleName() {
+    return this.addOperatorForm.get('middleName');
+  }
+
+  get lastName() {
+    return this.addOperatorForm.get('lastName');
+  }
+
+  get id() {
+    return this.addOperatorForm.get('id');
+  }
+
+  get username() {
+    return this.addOperatorForm.get('username');
+  }
+
+  // GETs
+  getStates(): string[] {
+    return ['Pendiente de Atención', 'Completado', 'En proceso', 'Reportado'];
+  }
+
+  getLaboratories(): Laboratorio[] {
+    return [{
+      nombre: 'F2-04',
+      id: 4
+    }, {
+      nombre: 'F2-05',
+      id: 5
+    }, {
+      nombre: 'F2-06',
+      id: 6
+    }, {
+      nombre: 'F2-07',
+      id: 7
+    }, {
+      nombre: 'F2-08',
+      id: 8
+    }, {
+      nombre: 'F2-09',
+      id: 9
+    }];
+  }
+
+  getOperators() {
+    return [{
+      id: 0,
+      nombre: 'Luis Diego Noguera',
+      correo: 'lnoguera@itcr.ac.cr',
+    }, {
+      id: 1,
+      nombre: 'Brayan Muñoz Mora',
+      correo: 'brianm.bra@estudiantec.cr',
     }
+    ];
+  }
+
+  // POSTs
+  postNewOperator(): void {
+    const json = this.formToJson.createAddUserJson(
+      this.name.value,
+      this.middleName.value,
+      this.lastName.value,
+      this.id.value,
+      this.username.value
+    );
+    this.successfulNewOperatorPost(json);
+  }
+
+  postDeny(userId: number): boolean {
+    console.log(userId);
+    return true;
+  }
+
+  postAllow(userId: number): boolean {
+    console.log(userId);
+    return true;
   }
 
 }

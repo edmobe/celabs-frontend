@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateStruct,NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { Laboratorio } from 'src/app/_models/laboratorio';
+import { FormGroup } from '@angular/forms';
+import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
+import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
 
-interface Averia {
+interface Failure {
   fecha: string;
   hora: string;
   descripcion: string;
@@ -19,43 +23,114 @@ interface Averia {
 })
 export class FailuresComponent implements OnInit {
 
-  model: NgbDateStruct;
-  estados: string[] = ["Pendiente de Atención", "Completado", "En proceso", "Reportado"];
-  laboratorios: string[] = ["F2-07", "F2-09", "F2-10"];
-  assets: string[] = ["CE1001", "CE1002", "CE1003"];
-  left = true;
-  averias: Averia[] = [];
-  time = { hour: 13, minute: 30 };
-  closeResult = '';
-  meridian = true;
+  states: string[];
+  laboratories: Laboratorio[];
+  assets: string[];
+  failures: Failure[];
 
-  constructor(private titleService: TitleService, private modalService: NgbModal,private calendar: NgbCalendar) {
+  failuresForm: FormGroup;
+  failuresModal: NgbModalRef;
+
+  constructor(
+    private titleService: TitleService,
+    private modalService: NgbModal,
+    private formGenerator: FormGeneratorService,
+    private formToJson: FormToJsonService) {
     this.titleService.setTitle('Reporte de averías');
   }
 
   ngOnInit(): void {
-   }
-
-  toggleMeridian() {
-    this.meridian = !this.meridian;
+    this.states = this.getStates();
+    this.laboratories = this.getLaboratories();
+    this.assets = this.getAssets();
+    this.failuresForm = this.formGenerator.createFailuresFrom(
+      this.getOperator()
+    );
   }
 
-
-  open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  open(content): void {
+    this.failuresModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
+    this.failuresModal.result.then(() => {
+      this.failuresForm.reset();
+    }).catch(() => {
+      this.failuresForm.reset();
     });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  successfulPost(json: any): void {
+    this.failuresModal.close();
+    this.failuresForm.reset();
+    alert('Json generado:\n' + JSON.stringify(json));
   }
+
+  get dateTime() {
+    return this.failuresForm.get('dateTime');
+  }
+
+  get laboratory() {
+    return this.failuresForm.get('laboratory');
+  }
+
+  get asset() {
+    return this.failuresForm.get('asset');
+  }
+
+  get description() {
+    return this.failuresForm.get('description');
+  }
+
+  // GETs
+  getOperator() {
+    return 'Eduardo Moya';
+  }
+
+  getStates() {
+    return ['Pendiente de Atención', 'Completado', 'En proceso', 'Reportado'];
+  }
+
+  getAssets() {
+    return ['CE1001', 'CE1002', 'CE1003'];
+  }
+
+  getLaboratories(): Laboratorio[] {
+    return [{
+      nombre: 'F2-04',
+      id: 4
+    }, {
+      nombre: 'F2-05',
+      id: 5
+    }, {
+      nombre: 'F2-06',
+      id: 6
+    }, {
+      nombre: 'F2-07',
+      id: 7
+    }, {
+      nombre: 'F2-08',
+      id: 8
+    }, {
+      nombre: 'F2-09',
+      id: 9
+    }];
+  }
+
+  getFailures(): Failure[] {
+    return [];
+  }
+
+  // POST
+  post() {
+    const json = this.formToJson.createFailuresJson(
+      this.getOperator(),
+      this.dateTime.value,
+      this.laboratory.value.id,
+      this.asset.value,
+      this.description.value
+    );
+
+    // Successful post
+    this.successfulPost(json);
+  }
+
+
 }

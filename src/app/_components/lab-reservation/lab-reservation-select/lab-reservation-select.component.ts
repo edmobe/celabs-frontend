@@ -20,6 +20,7 @@ export class LabReservationSelectComponent implements OnInit {
     this.laboratories = this.getLaboratories();
   }
 
+  // GETs
   getLaboratories(): Laboratorio[] {
     return [{
       nombre: 'F2-04',

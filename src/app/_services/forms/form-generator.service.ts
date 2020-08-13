@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, EmailValidator, FormGroup } from '@angular/forms';
 import { Laboratorio } from '../../_models/laboratorio';
 import { DateDisplayService } from '../date-display.service';
 import { FormValidatorService } from './form-validator.service';
@@ -11,10 +11,51 @@ export class FormGeneratorService {
 
   constructor(
     private formBuilder: FormBuilder,
-    private dateDisplayService: DateDisplayService,
-    private formValidatorService: FormValidatorService) { }
+    private dateDisplayService: DateDisplayService) { }
 
-  public createReservationBaseForm(type: string, laboratory: Laboratorio, event: any) {
+  public createLoginForm(): FormGroup {
+    return this.formBuilder.group({
+      email: ['', [
+        Validators.required,
+        Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+      ]],
+      password: ['', [
+        Validators.required
+      ]]
+    });
+  }
+
+  public createRegistrationForm(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', [
+        Validators.required
+      ]],
+      middleName: ['', [
+        Validators.required
+      ]],
+      lastName: ['', [
+        Validators.required
+      ]],
+      id: ['', [
+        Validators.required
+      ]],
+      username: ['', [
+        Validators.required
+      ]],
+      password: ['', [
+        Validators.required
+      ]],
+      email: ['', [
+        Validators.required,
+        Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+      ]],
+      role: ['', [
+        Validators.required
+      ]]
+    });
+  }
+
+  public createReservationBaseForm(type: string, laboratory: Laboratorio, event: any): FormGroup {
     return this.formBuilder.group({
       title: ['', [
         Validators.required
@@ -31,7 +72,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createReservationClassForm() {
+  public createReservationClassForm(): FormGroup {
     return this.formBuilder.group({
       course: ['', [
         Validators.required
@@ -42,7 +83,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createReservationRecurrentForm(weeksRemaining: number) {
+  public createReservationRecurrentForm(weeksRemaining: number): FormGroup {
     return this.formBuilder.group({
       recurrence: ['', [
         Validators.required,
@@ -53,7 +94,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createReservationPalmadaForm(laboratory: string, operator: string) {
+  public createReservationPalmadaForm(laboratory: string, operator: string): FormGroup {
     return this.formBuilder.group({
       title: ['', [
         Validators.required
@@ -70,7 +111,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createSemesterConfigForm() {
+  public createSemesterConfigForm(): FormGroup {
     return this.formBuilder.group({
       start: ['', [
         Validators.required
@@ -81,7 +122,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createAssetConfigForm() {
+  public createAssetConfigForm(): FormGroup {
     return this.formBuilder.group({
       id: ['', [
         Validators.required
@@ -92,7 +133,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createSurveyForm() {
+  public createSurveyForm(): FormGroup {
     return this.formBuilder.group({
       satisfaction: ['', [
         Validators.required
@@ -100,7 +141,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createInventoryForm(operator: string) {
+  public createInventoryForm(operator: string): FormGroup {
     return this.formBuilder.group({
       operator: [operator, [
         Validators.required
@@ -124,6 +165,73 @@ export class FormGeneratorService {
         Validators.required
       ]]
     });
+  }
+
+  public createHoursForm(): FormGroup {
+    return this.formBuilder.group({
+      date: ['', [
+        Validators.required
+      ]],
+      start: ['', [
+        Validators.required
+      ]],
+      end: ['', [
+        Validators.required
+      ]]
+    });
+  }
+
+  public createFailuresFrom(operator: string): FormGroup {
+    return this.formBuilder.group({
+      operator: [operator, [
+        Validators.required
+      ]],
+      dateTime: ['', [
+        Validators.required
+      ]],
+      laboratory: ['', [
+        Validators.required
+      ]],
+      asset: ['', [
+        Validators.required
+      ]],
+      description: ['', [
+        Validators.required
+      ]]
+    });
+  }
+
+  public createAddOperatorForm() {
+    return this.formBuilder.group({
+      name: ['', [
+        Validators.required
+      ]],
+      middleName: ['', [
+        Validators.required
+      ]],
+      lastName: ['', [
+        Validators.required
+      ]],
+      id: ['', [
+        Validators.required,
+        Validators.pattern('^[0-9]{4,15}$')
+      ]],
+      username: ['', [
+        Validators.required,
+        Validators.pattern('^[a-z0-9_-]{4,15}$')
+      ]]
+    });
+  }
+
+  public createAddCourseForm() {
+    return this.formBuilder.group({
+      code: ['', [
+        Validators.required
+      ]],
+      name: ['', [
+        Validators.required
+      ]]
+    })
   }
 
 }

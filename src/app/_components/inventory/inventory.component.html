@@ -1,230 +1,168 @@
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-/>
-<div>
-  <button class="m-3 btn btn-primary" (click)="open(content)">
-    Añadir nuevo reporte
-  </button>
-</div>
-<div class="panel panel-default">
-  <div class="panel-body">
-    <table class="table table-striped table-hover table-condensed text-center">
-      <thead>
-        <tr>
-          <th scope="col">Fecha</th>
-          <th scope="col">Reporte</th>
-          <th scope="col">Visualizar</th>
-          <th scope="col">Descargar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let inventory of inventories; index as i">
-          <td>{{ inventory.fecha }}</td>
-          <td>{{ inventory.reporte }}</td>
-        </tr>
-      </tbody>
-    </table>
+<div class="container">
+  <div>
+    <button class="m-3 btn btn-primary" (click)="open(content)">
+      Añadir nuevo reporte de inventario
+    </button>
   </div>
-</div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <table
+        class="table table-striped table-hover table-condensed text-center"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Reporte</th>
+            <th scope="col">Visualizar</th>
+            <th scope="col">Descargar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let inventory of inventories; index as i">
+            <td>{{ inventory.fecha }}</td>
+            <td>{{ inventory.reporte }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Nuevo reporte</h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="inventoryForm" class="form-group">
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label>Operador a cargo</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Operador"
-            formControlName="operator"
-            readonly
-          />
-        </div>
-        <div class="form-group col-md-6">
-          <label>Laboratorio</label>
-          <select class="form-control" formControlName="laboratory">
-            <option
-              *ngFor="let laboratory of laboratories"
-              [ngValue]="laboratory"
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        Nuevo reporte de inventario
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="inventoryForm" class="form-group">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Operador a cargo</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Operador"
+              formControlName="operator"
+              readonly
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label>Laboratorio</label>
+            <select class="form-control" formControlName="laboratory">
+              <option
+                *ngFor="let laboratory of laboratories"
+                [ngValue]="laboratory"
+              >
+                {{ laboratory.nombre }}
+              </option>
+            </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="laboratory.invalid && laboratory.touched"
+              role="alert"
             >
-              {{ laboratory.nombre }}
-            </option>
-          </select>
-          <div
-            class="alert alert-danger"
-            *ngIf="laboratory.invalid && laboratory.touched"
-            role="alert"
-          >
-            Debe seleccionar un laboratorio.
+              Debe seleccionar un laboratorio.
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label>Computadoras completas</label>
-          <select class="form-control" formControlName="completeComputers">
-            <option *ngFor="let amount of amounts" [ngValue]="amount">
-              {{ amount }}
-            </option>
-          </select>
-          <div
-            class="alert alert-danger"
-            *ngIf="completeComputers.invalid && completeComputers.touched"
-            role="alert"
-          >
-            Debe indicar una cantidad de computadoras completas.
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Computadoras completas</label>
+            <select class="form-control" formControlName="completeComputers">
+              <option *ngFor="let amount of amounts" [ngValue]="amount">
+                {{ amount }}
+              </option>
+            </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="completeComputers.invalid && completeComputers.touched"
+              role="alert"
+            >
+              Debe indicar una cantidad de computadoras completas.
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Computadoras incompletas</label>
+            <select class="form-control" formControlName="incompleteComputers">
+              <option *ngFor="let amount of amounts" [ngValue]="amount">
+                {{ amount }}
+              </option>
+            </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="incompleteComputers.invalid && incompleteComputers.touched"
+              role="alert"
+            >
+              Debe indicar una cantidad de computadoras incompletas.
+            </div>
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label>Computadoras incompletas</label>
-          <select class="form-control" formControlName="incompleteComputers">
-            <option *ngFor="let amount of amounts" [ngValue]="amount">
-              {{ amount }}
-            </option>
-          </select>
-          <div
-            class="alert alert-danger"
-            *ngIf="incompleteComputers.invalid && incompleteComputers.touched"
-            role="alert"
-          >
-            Debe indicar una cantidad de computadoras incompletas.
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label>Proyectores</label>
+            <select class="form-control" formControlName="projectors">
+              <option *ngFor="let amount of amounts" [ngValue]="amount">
+                {{ amount }}
+              </option>
+            </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="projectors.invalid && projectors.touched"
+              role="alert"
+            >
+              Debe indicar una cantidad de proyectores.
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Sillas</label>
+            <select class="form-control" formControlName="chairs">
+              <option *ngFor="let amount of amounts" [ngValue]="amount">
+                {{ amount }}
+              </option>
+            </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="chairs.invalid && chairs.touched"
+              role="alert"
+            >
+              Debe indicar una cantidad de sillas.
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Extintores</label>
+            <select class="form-control" formControlName="extinguishers">
+              <option *ngFor="let amount of amounts" [ngValue]="amount">
+                {{ amount }}
+              </option>
+            </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="extinguishers.invalid && extinguishers.touched"
+              role="alert"
+            >
+              Debe indicar una cantidad de extintores.
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label>Proyectores</label>
-          <select class="form-control" formControlName="projectors">
-            <option *ngFor="let amount of amounts" [ngValue]="amount">
-              {{ amount }}
-            </option>
-          </select>
-          <div
-            class="alert alert-danger"
-            *ngIf="projectors.invalid && projectors.touched"
-            role="alert"
-          >
-            Debe indicar una cantidad de proyectores.
-          </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label>Sillas</label>
-          <select class="form-control" formControlName="chairs">
-            <option *ngFor="let amount of amounts" [ngValue]="amount">
-              {{ amount }}
-            </option>
-          </select>
-          <div
-            class="alert alert-danger"
-            *ngIf="chairs.invalid && chairs.touched"
-            role="alert"
-          >
-            Debe indicar una cantidad de sillas.
-          </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label>Extintores</label>
-          <select class="form-control" formControlName="extinguishers">
-            <option *ngFor="let amount of amounts" [ngValue]="amount">
-              {{ amount }}
-            </option>
-          </select>
-          <div
-            class="alert alert-danger"
-            *ngIf="extinguishers.invalid && extinguishers.touched"
-            role="alert"
-          >
-            Debe indicar una cantidad de extintores.
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button
-      type="button"
-      [disabled]="inventoryForm.invalid"
-      class="btn btn-primary"
-      (click)="post()"
-    >
-      Enviar
-    </button>
-  </div>
-</ng-template>
-<!--
-      <div class="form-group row">
-        <label for="inputPcComplet" class="col-sm-8 col-form-label"
-          >Cantidad de computadoras completas</label
-        >
-        <div class="col-sm-4">
-          <select class="form-control" id="inputPcComplet">
-            <option *ngFor="let cant of cantidad"> {{ cant }}</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="inputPcIncomplet" class="col-sm-8 col-form-label"
-          >Cantidad de computadoras incompletas</label
-        >
-        <div class="col-sm-4">
-          <select class="form-control" id="inputPcIncomplet">
-            <option *ngFor="let cant of cantidad"> {{ cant }}</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="inputProyect" class="col-sm-8 col-form-label"
-          >Cantidad de proyectores</label
-        >
-        <div class="col-sm-4">
-          <select class="form-control" id="inputProyect">
-            <option *ngFor="let cant of cantidad"> {{ cant }}</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="inputSillas" class="col-sm-8 col-form-label"
-          >Cantidad de sillas</label
-        >
-        <div class="col-sm-4">
-          <select class="form-control" id="inputSillas">
-            <option *ngFor="let cant of cantidad"> {{ cant }}</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="inputExtint" class="col-sm-8 col-form-label"
-          >Cantidad de extintores</label
-        >
-        <div class="col-sm-4">
-          <select class="form-control" id="inputExtint">
-            <option *ngFor="let cant of cantidad"> {{ cant }}</option>
-          </select>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-primary"
-      (click)="modal.close('Save click')"
-    >
-      Registrar Inventario
-    </button>
-  </div>
-</ng-template>
--->
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        [disabled]="inventoryForm.invalid"
+        class="btn btn-primary"
+        (click)="post()"
+      >
+        Enviar
+      </button>
+    </div>
+  </ng-template>
+</div>

@@ -1,37 +1,29 @@
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-/>
-<div class="container-fluid">
-    <div class="col">
-      <h1>Lista de Cursos</h1>
-      <div>
-        <button class="mb-3 btn btn-primary" (click)="open(content)">Añadir Curso</button>
-      </div>
-      <div class="table-responsive">
-        <table class="table table-hover table-condensed text-center">
-          <thead>
-            <tr>
-              <th scope="col">Código</th>
-              <th scope="col">Nombre</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody id = "tableSearch">
-            <tr *ngFor = "let activo of activos">
-                <td> {{ activo.codigo }}</td>
-                <td> {{ activo.nombre }}</td>
-                <td> 
-                    
-                    <a class="fa fa-trash fa-2x" (click)="deleteAsset(activo.codigo)"></a>
-                    
-                </td>
-            </tr>
-          </tbody>
-        </table>
-    </div>
-    </div>
-</div> 
+<h1>Lista de Cursos</h1>
+<div>
+  <button class="mb-3 btn btn-primary" (click)="open(content)">
+    Añadir Curso
+  </button>
+</div>
+<div class="table-responsive">
+  <table class="table table-hover table-condensed text-center">
+    <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Nombre</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody id="tableSearch">
+      <tr *ngFor="let course of courses">
+        <td>{{ course.codigo }}</td>
+        <td>{{ course.nombre }}</td>
+        <td>
+          <a class="fa fa-trash fa-2x" (click)="delete(course)"></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <ng-template #content let-modal>
   <div class="modal-header">
@@ -40,31 +32,57 @@
       type="button"
       class="close"
       aria-label="Close"
-      (click)="modal.dismiss('Cross click')">
+      (click)="modal.dismiss('Cross click')"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-      <form>
-          <div class="form-row">
-              <div class="form-group col">
-                  <label for="codeAsset">Código</label>
-                  <input type="text" class="form-control" id="codeAsset">
-              </div>
+    <form [formGroup]="addCourseForm" class="form-group">
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="codeAsset">Código</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Código del curso"
+            formControlName="code"
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="code.invalid && code.touched"
+            role="alert"
+          >
+            Debe ingresar un código válido.
           </div>
-          <div class="form-row">
-              <div class="form-group col">
-                  <label for="nameCourse">Nombre</label>
-                  <input type="text" class="form-control" id="nameCourse">
-              </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="nameCourse">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre del curso"
+            formControlName="name"
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="name.invalid && name.touched"
+            role="alert"
+          >
+            Debe ingresar un nombre válido.
           </div>
-      </form>
+        </div>
+      </div>
+    </form>
   </div>
   <div class="modal-footer">
     <button
       type="button"
       class="btn btn-primary"
-      (click)="modal.close('Save click')"
+      [disabled]="addCourseForm.invalid"
+      (click)="post()"
     >
       Guardar
     </button>

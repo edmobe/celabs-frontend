@@ -1,89 +1,153 @@
-<div class="register-page">
+<div class="container mt-5 mb-5">
   <div class="form">
-    <div class="container">
-      <h2 class="text-center">Crear cuenta</h2>
-      <form class="register-form">
-        <div class="row mt-5">
-          <div class="col">
-            <div class="row">
-              <label for="inputNombre">Nombre</label>
-              <input
-                type="text"
-                class="form-control"
-                id="inputNombre"
-                placeholder="Nombre"
-              />
-            </div>
+    <form class="form-group" [formGroup]="registrationForm">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="inputNombre">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre"
+            formControlName="name"
+          />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="name.invalid && name.touched"
+          >
+            Debe ingresar un nombre válido.
           </div>
         </div>
-        <div class="row">
-          <label for="inputApellido">Primer Apellido</label>
+        <div class="form-group col-md-4">
+          <label for="inputNombre">Primer Apellido</label>
           <input
             type="text"
             class="form-control"
-            id="inputApellido"
-            placeholder="Apellido"
+            placeholder="Primer Apellido"
+            formControlName="middleName"
           />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="middleName.invalid && middleName.touched"
+          >
+            Debe ingresar un primer apellido válido.
+          </div>
         </div>
-        <div class="row">
-          <label for="inputApellido2">Segundo Apellido</label>
+        <div class="form-group col-md-4">
+          <label for="inputNombre">Segundo Apellido</label>
           <input
             type="text"
             class="form-control"
-            id="inputApellido2"
-            placeholder="Apellido2"
+            placeholder="Segundo Apellido"
+            formControlName="lastName"
           />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="lastName.invalid && lastName.touched"
+          >
+            Debe ingresar un segundo apellido válido.
+          </div>
         </div>
-        <div class="row">
-          <label for="inputCedula">Cedula</label>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="inputNombre">Cédula</label>
           <input
             type="text"
             class="form-control"
-            id="inputCedula"
-            placeholder="Cedula"
+            placeholder="Cédula"
+            formControlName="id"
           />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="id.invalid && id.touched"
+          >
+            Debe ingresar una cédula válida.
+          </div>
         </div>
-        <div class="row">
-          <label for="inputUsuario">Usuario</label>
+        <div class="form-group col-md-4">
+          <label for="inputNombre">Usuario</label>
           <input
             type="text"
             class="form-control"
-            id="inputUsuario"
-            placeholder="Usuario"
+            id="inputApellido1"
+            placeholder="Nombre de usuario"
+            formControlName="username"
           />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="username.invalid && username.touched"
+          >
+            Debe ingresar un nombre de usuario válido.
+          </div>
         </div>
-        <div class="row">
-          <label for="inputCorreo">Correo</label>
-          <input
-            type="email"
-            class="form-control"
-            id="inputCorreo"
-            placeholder="Correo"
-          />
-        </div>
-        <div class="row">
-          <label for="inputContraseña">Contraseña</label>
+        <div class="form-group col-md-4">
+          <label for="inputNombre">Contraseña</label>
           <input
             type="password"
             class="form-control"
-            id="inputContraseña"
+            id="inputApellido2"
             placeholder="Contraseña"
+            formControlName="password"
           />
-        </div>
-        <div class="row">
-          <label for="inputRol">Rol</label>
-          <select class="form-control" id="inputExtint">
-            <option *ngFor="let rol of roles"> {{ rol }}</option>
-          </select>
-        </div>
-        <div class="row mt-5">
-          <div class="col">
-            <button class="btn btn-primary btn-block" routerLink="/home">
-              Crear
-            </button>
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="password.invalid && password.touched"
+          >
+            Debe ingresar una contraseña válida.
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputNombre">Correo</label>
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Correo"
+            formControlName="email"
+          />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="email.invalid && email.touched"
+          >
+            Debe ingresar un correo válido.
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label>Rol</label>
+          <select class="form-control" formControlName="role">
+            <option *ngFor="let role of roles" [ngValue]="role">
+              {{ role }}
+            </option>
+          </select>
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="role.invalid && role.touched"
+          >
+            Debe ingresar un rol.
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          <button
+            class="btn btn-primary btn-block"
+            routerLink="/home"
+            [disabled]="registrationForm.invalid"
+          >
+            Confirmar registro
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

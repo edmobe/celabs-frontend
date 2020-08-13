@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SurveyComponent } from '../survey/survey.component';
+<<<<<<< HEAD
 import {UserService} from '../../_services/api/user.service'
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { from } from 'rxjs';
+=======
+import { FormGroup } from '@angular/forms';
+import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
+>>>>>>> master
 
 @Component({
   selector: 'app-login',
@@ -14,13 +19,21 @@ import { from } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 
+<<<<<<< HEAD
   userClaims: any;
   constructor(private modalService: NgbModal, 
     private userService: UserService, 
     private router:Router,
     private toastr: ToastrService) { }
+=======
+  loginForm: FormGroup;
+>>>>>>> master
 
-  ngOnInit(): void { }
+  constructor(private modalService: NgbModal, private formGenerator: FormGeneratorService) { }
+
+  ngOnInit(): void {
+    this.loginForm = this.formGenerator.createLoginForm();
+  }
 
   openSurvey() {
     let modalRef;
@@ -42,6 +55,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   logout(){
     localStorage.removeItem('userToken');
     this.router.navigate(['/login']);
@@ -52,4 +66,14 @@ export class LoginComponent implements OnInit {
       this.userClaims=data;
     });
   }
+=======
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
+>>>>>>> master
 }

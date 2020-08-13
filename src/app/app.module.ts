@@ -42,6 +42,7 @@ import { ConfirmationComponent } from './_components/alerts/confirmation/confirm
 import { AlertComponent } from './_components/alerts/alert/alert.component';
 <<<<<<< Updated upstream
 import { RegistrationComponent } from './_components/registration/registration.component';
+<<<<<<< HEAD
 =======
 import { UserService } from './_services/api/user.service';
 import { AuthGuard } from './auth/auth.guard';
@@ -49,6 +50,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 
 >>>>>>> Stashed changes
+=======
+import { ApproveTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/approve-teachers-administrative/approve-teachers-administrative.component';
+>>>>>>> master
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   timeGridPlugin,
@@ -87,7 +91,8 @@ FullCalendarModule.registerPlugins([
     SurveyComponent,
     ConfirmationComponent,
     AlertComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ApproveTeachersAdministrativeComponent
   ],
   imports: [
     BrowserModule,

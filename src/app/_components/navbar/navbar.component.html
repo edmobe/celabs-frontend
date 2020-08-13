@@ -45,13 +45,32 @@
         >
       </li>
     </ul>
-    <a class="button" href="">
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSzN5z5xHfh4Uy09Q8rMtrvgG1I2hJjTcOL_A&usqp=CAU"
-      />
-
-      <div class="logout">Salir</div>
-    </a>
+    <form class="form-inline">
+      <span class="text-white align-middle">
+        {{ user }}
+      </span>
+    </form>
+    <div
+      ngbDropdown
+      class="d-inline-block"
+      placement="bottom-right"
+      display="dynamic"
+    >
+      <div class="row no-gutters">
+        <button class="btn" id="dropdownMenuButton" ngbDropdownToggle>
+          <img
+            src="https://icon-library.com/images/white-profile-icon/white-profile-icon-6.jpg"
+            height="25"
+          />
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+          <button ngbDropdownItem routerLink="/configuration">
+            Configuración
+          </button>
+          <button ngbDropdownItem routerLink="/login">Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>
 

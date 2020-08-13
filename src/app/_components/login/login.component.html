@@ -2,32 +2,60 @@
   <div class="form">
     <div class="container">
       <h2 class="text-center">CE Labs XTEC</h2>
-      <form class="login-form">
+      <form class="login-form" [formGroup]="loginForm">
         <div class="row mt-5">
           <div class="col">
-            <div class="row">
-              <input type="text" placeholder="Usuario" />
+            <div class="row mb-3">
+              <input
+                type="text"
+                placeholder="Correo institucional"
+                formControlName="email"
+              />
+              <div
+                class="alert alert-danger text-left"
+                role="alert"
+                *ngIf="email.invalid && email.touched"
+              >
+                Debe ingresar un correo válido.
+              </div>
             </div>
           </div>
         </div>
         <div class="row">
-          <input type="password" placeholder="Contraseña" />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            formControlName="password"
+          />
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="password.invalid && password.touched"
+          >
+            Debe ingresar una contraseña válida.
+          </div>
         </div>
         <div class="row mt-5">
           <div class="col">
-            <button class="btn btn-primary btn-block" routerLink="/home">
+            <button
+              class="btn btn-primary btn-block"
+              [disabled]="loginForm.invalid"
+              routerLink="/home"
+            >
               Iniciar sesión
             </button>
           </div>
         </div>
-        <div>
-          <a routerLink="/register">Registrarse</a>
+        <div class="row mt-2">
+          <div class="col">
+            <a routerLink="/register">Registrarse</a>
+          </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-<div class="container mb-5">
+<div class="container">
   <div class="row">
     <div class="col-12 text-center">
       <button class="btn btn-primary" (click)="openSurvey()">
@@ -35,5 +63,11 @@
       </button>
     </div>
   </div>
+  <div class="row mt-2">
+    <div class="col-12">
+      <p class="text-center">
+        Último deployment el 10 de agosto a la 09:11 p.m.
+      </p>
+    </div>
+  </div>
 </div>
-<p class="text-center">Último deployment el 10 de agosto a la 09:11 p.m.</p>

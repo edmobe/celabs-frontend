@@ -60,4 +60,65 @@ export class FormToJsonService {
     };
     return inventoryJson;
   }
+
+  public createHoursJson(
+    date: string,
+    start: string,
+    end: string
+  ) {
+    const hoursJson = {
+      date: date,
+      start: start,
+      end: end
+    };
+
+    return hoursJson;
+  }
+
+  public createFailuresJson(
+    operator: string,
+    dateTime: string,
+    laboratoryId: number,
+    asset: string,
+    description: string
+  ) {
+    const failuresJson = {
+      operator: operator,
+      dateTime: new Date(dateTime),
+      laboratory: laboratoryId,
+      asset: asset,
+      description: description
+    }
+
+    return failuresJson;
+  }
+
+  public createAddUserJson(
+    name: string,
+    middleName: string,
+    lastName: string,
+    id: string,
+    userName: string
+  ) {
+    const addUserJson = {
+      name: name,
+      middleName: middleName,
+      lastName: lastName,
+      id: parseInt(id, 10),
+      userName: userName
+    }
+
+    return addUserJson;
+  }
+
+  public createAddCourseJson(
+    code: string,
+    name: string
+  ) {
+    const addCourseJson = {
+      code: code,
+      name: name
+    };
+    return addCourseJson;
+  }
 }

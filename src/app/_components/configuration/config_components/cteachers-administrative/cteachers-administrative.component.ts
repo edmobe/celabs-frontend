@@ -1,20 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
-import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService } from 'src/app/_services/alert.service';
+import { ApproveTeachersAdministrativeComponent } from './approve-teachers-administrative/approve-teachers-administrative.component'
 interface User {
   id: number;
   nombre: string;
   correo: string;
   rol: string;
-  cedula: number;
   permisos: boolean;
 }
-
-var buttonDanger: string = "btn btn-danger";
-var buttonSuccess: string = "btn btn-success";
 
 @Component({
   selector: 'app-cteachers-administrative',
@@ -22,65 +17,122 @@ var buttonSuccess: string = "btn btn-success";
   styleUrls: ['./cteachers-administrative.component.css']
 })
 export class CTeachersAdministrativeComponent implements OnInit {
-  users: User[]
-  users1: User[] = [
-    { id: 0, nombre: 'Luis Diego Noguera', cedula: 0, correo: 'lnoguera@itcr.ac.cr', rol: 'Docente', permisos: false },
-    { id: 1, nombre: 'Brayan Muñoz Mora', cedula: 117390879, correo: 'brianm.bra@estudiantec.cr', rol: 'Administrativo', permisos: true },
-    { id: 0, nombre: 'Luis Diego Noguera', cedula: 0, correo: 'lnoguera@itcr.ac.cr', rol: 'Docente', permisos: false },
-    { id: 1, nombre: 'Brayan Muñoz Mora', cedula: 117390879, correo: 'brianm.bra@estudiantec.cr', rol: 'Administrativo', permisos: true },
-    { id: 0, nombre: 'Luis Diego Noguera', cedula: 0, correo: 'lnoguera@itcr.ac.cr', rol: 'Docente', permisos: false },
-    { id: 1, nombre: 'Brayan Muñoz Mora', cedula: 117390879, correo: 'brianm.bra@estudiantec.cr', rol: 'Administrativo', permisos: true },
-    { id: 0, nombre: 'Luis Diego Noguera', cedula: 0, correo: 'lnoguera@itcr.ac.cr', rol: 'Docente', permisos: false },
-    { id: 1, nombre: 'Brayan Muñoz Mora', cedula: 117390879, correo: 'brianm.bra@estudiantec.cr', rol: 'Administrativo', permisos: true }
-  ];
-  constructor(private titleService: TitleService, private modalService: NgbModal, private alertService: AlertService) {
+  buttonDanger: string = 'btn btn-danger';
+  buttonSuccess: string = 'btn btn-success';
+
+  teachersAdministratives: User[];
+
+  requestsModal: NgbModalRef;
+
+  constructor(private titleService: TitleService, private modalService: NgbModal) {
     this.titleService.setTitle('');
   }
+
   ngOnInit(): void {
+    this.teachersAdministratives = this.getTeachersAdministratives();
   }
 
-  model: NgbDateStruct;
-  left = true;
-  closeResult = '';
-
-  confirm(content) {
-    console.log(content);
-    this.alertService.confirm(
-      'Alerta',
-      '¿Está seguro de que desea permitir a ese usuario?').then((result) => {
-        if (result) {
-          // Success
-          console.log(true);
-        } else {
-          // No success
-          console.log(false);
-        }
-      }).catch(err => {
-        // Error
-        console.log(false);
-      });
+  openRequests() {
+    this.requestsModal = this.modalService.open(
+      ApproveTeachersAdministrativeComponent,
+      { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
+    this.requestsModal.result.then(() => { }).catch(() => { });
   }
 
-  /*
-  open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
+  checkValue(id: number): void {
+    var button = (<HTMLInputElement>document.getElementById('btn' + id));
+    var clase = button.className;
+    if (clase == this.buttonSuccess) {
+      // POST
+      // if POST is successful
+      if (this.postDeny(id)) {
+        document.getElementById('btn' + id).className = this.buttonDanger;
+        button.value = 'Denegado';
+      }
     } else {
-      console.log(this.closeResult);
-      return `with: ${reason}`;
+      // POST
+      // if POST is successful
+      if (this.postAllow(id)) {
+        document.getElementById('btn' + id).className = this.buttonSuccess;
+        button.value = 'Permitido';
+      }
     }
   }
-  */
 
+  // GETs
+  getTeachersAdministratives(): User[] {
+    return [{
+      id: 0,
+      nombre: 'Luis Diego Noguera',
+      correo: 'lnoguera@itcr.ac.cr',
+      rol: 'Docente',
+      permisos: false
+    }, {
+      id: 1,
+      nombre: 'Brayan Muñoz Mora',
+      correo: 'brianm.bra@estudiantec.cr',
+      rol: 'Administrativo',
+      permisos: true
+    }, {
+      id: 2,
+      nombre: 'Luis Diego Noguera',
+      correo: 'lnoguera@itcr.ac.cr',
+      rol: 'Docente',
+      permisos: false
+    }, {
+      id: 3,
+      nombre: 'Brayan Muñoz Mora',
+      correo: 'brianm.bra@estudiantec.cr',
+      rol: 'Administrativo',
+      permisos: true
+    }, {
+      id: 4,
+      nombre: 'Luis Diego Noguera',
+      correo: 'lnoguera@itcr.ac.cr',
+      rol: 'Docente',
+      permisos: false
+    }, {
+      id: 5,
+      nombre: 'Brayan Muñoz Mora',
+      correo: 'brianm.bra@estudiantec.cr',
+      rol: 'Administrativo',
+      permisos: true
+    }, {
+      id: 6,
+      nombre: 'Luis Diego Noguera',
+      correo: 'lnoguera@itcr.ac.cr',
+      rol: 'Docente',
+      permisos: false
+    }, {
+      id: 7,
+      nombre: 'Brayan Muñoz Mora',
+      correo: 'brianm.bra@estudiantec.cr',
+      rol: 'Administrativo',
+      permisos: true
+    }, {
+      id: 8,
+      nombre: 'Luis Diego Noguera',
+      correo: 'lnoguera@itcr.ac.cr',
+      rol: 'Docente',
+      permisos: false
+    }, {
+      id: 9,
+      nombre: 'Brayan Muñoz Mora',
+      correo: 'brianm.bra@estudiantec.cr',
+      rol: 'Administrativo',
+      permisos: true
+    }];
+  }
+
+  // POSTs
+  postDeny(userId: number): boolean {
+    console.log(userId);
+    return true;
+  }
+
+  postAllow(userId: number): boolean {
+    console.log(userId);
+    return true;
+  }
 
 }
