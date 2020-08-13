@@ -20,7 +20,7 @@ import { SemestreComponent } from './_components/configuration/config_components
 import { CoursesComponent } from './_components/configuration/config_components/courses/courses.component';
 import { AssetsComponent } from './_components/configuration/config_components/assets/assets.component';
 import { NotFoundComponent } from './_components/not-found/not-found.component';
-import {AuthGuard} from './auth/auth.guard'
+import { AuthGuard } from './auth/auth.guard'
 import { from } from 'rxjs';
 
 
@@ -36,13 +36,13 @@ const routes: Routes = [
     ],
   },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'home', component: HomeComponent, canActivate:[AuthGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'inventory', component: InventoryComponent },
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
   {
-    path: 'configuration',
-    component: ConfigurationComponent, canActivate: [AuthGuard] , data: { roles: ['Administrador'] },
+    path: 'admin',
+    component: ConfigurationComponent, canActivate: [AuthGuard], data: { roles: ['Administrador'] },
     children: [
       { path: '', redirectTo: 'administrator', pathMatch: 'full' },
       { path: 'administrator', component: AdministratorComponent },
@@ -70,4 +70,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
