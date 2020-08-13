@@ -14,33 +14,33 @@ export class LabReservationSelectComponent implements OnInit {
 
   constructor(private titleService: TitleService, 
     private laboratoryService: LaboratoryService) {
-    this.laboratories = laboratoryService.getLaboratories();
+    //this.laboratories = laboratoryService.getLaboratories();
     this.titleService.setTitle('Seleccione un laboratorio');
   }
 
   ngOnInit(): void {
-    this.laboratories = this.getLaboratories();
+    this.laboratories = this.laboratoryService.getLaboratories();
   }
 
   // GETs
   getLaboratories(): Laboratorio[] {
     return [{
-      nombre: 'F2-04',
+      codigo: 'F2-04',
       id: 4
     }, {
-      nombre: 'F2-05',
+      codigo: 'F2-05',
       id: 5
     }, {
-      nombre: 'F2-06',
+      codigo: 'F2-06',
       id: 6
     }, {
-      nombre: 'F2-07',
+      codigo: 'F2-07',
       id: 7
     }, {
-      nombre: 'F2-08',
+      codigo: 'F2-08',
       id: 8
     }, {
-      nombre: 'F2-09',
+      codigo: 'F2-09',
       id: 9
     }];
   }

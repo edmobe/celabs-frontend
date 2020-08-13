@@ -66,7 +66,7 @@ export class FormGeneratorService {
       type: [type, [
         Validators.required
       ]],
-      laboratory: [laboratory.nombre, [
+      laboratory: [laboratory.codigo, [
         Validators.required
       ]],
       time: [this.dateDisplayService.getSingleDayDisplay(new Date(event.start), new Date(event.end)), [
