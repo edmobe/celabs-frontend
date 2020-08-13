@@ -76,7 +76,7 @@
             />
             <div
               class="alert alert-danger"
-              *ngIf="start.invalid && start.touched"
+              *ngIf="start.invalid && start.touched && date.valid"
               role="alert"
             >
               Debe seleccionar una hora de inicio válida.
@@ -95,7 +95,8 @@
               class="alert alert-danger"
               *ngIf="
                 (end.invalid || !validTimes(start.value, end.value)) &&
-                end.touched
+                end.touched &&
+                start.valid
               "
               role="alert"
             >

@@ -92,4 +92,22 @@ export class FormToJsonService {
 
     return failuresJson;
   }
+
+  public createAddUserJson(
+    name: string,
+    middleName: string,
+    lastName: string,
+    id: string,
+    userName: string
+  ) {
+    const addUserJson = {
+      name: name,
+      middleName: middleName,
+      lastName: lastName,
+      id: parseInt(id, 10),
+      userName: userName
+    }
+
+    return addUserJson;
+  }
 }

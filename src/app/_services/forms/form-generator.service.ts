@@ -201,4 +201,26 @@ export class FormGeneratorService {
     });
   }
 
+  public createAddOperatorForm() {
+    return this.formBuilder.group({
+      name: ['', [
+        Validators.required
+      ]],
+      middleName: ['', [
+        Validators.required
+      ]],
+      lastName: ['', [
+        Validators.required
+      ]],
+      id: ['', [
+        Validators.required,
+        Validators.pattern('^[0-9]{4,15}$')
+      ]],
+      username: ['', [
+        Validators.required,
+        Validators.pattern('^[a-z0-9_-]{4,15}$')
+      ]]
+    });
+  }
+
 }
