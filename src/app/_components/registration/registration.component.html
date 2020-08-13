@@ -1,0 +1,89 @@
+<div class="register-page">
+  <div class="form">
+    <div class="container">
+      <h2 class="text-center">Crear cuenta</h2>
+      <form class="register-form">
+        <div class="row mt-5">
+          <div class="col">
+            <div class="row">
+              <label for="inputNombre">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputNombre"
+                placeholder="Nombre"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <label for="inputApellido">Primer Apellido</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputApellido"
+            placeholder="Apellido"
+          />
+        </div>
+        <div class="row">
+          <label for="inputApellido2">Segundo Apellido</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputApellido2"
+            placeholder="Apellido2"
+          />
+        </div>
+        <div class="row">
+          <label for="inputCedula">Cedula</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputCedula"
+            placeholder="Cedula"
+          />
+        </div>
+        <div class="row">
+          <label for="inputUsuario">Usuario</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputUsuario"
+            placeholder="Usuario"
+          />
+        </div>
+        <div class="row">
+          <label for="inputCorreo">Correo</label>
+          <input
+            type="email"
+            class="form-control"
+            id="inputCorreo"
+            placeholder="Correo"
+          />
+        </div>
+        <div class="row">
+          <label for="inputContraseña">Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            id="inputContraseña"
+            placeholder="Contraseña"
+          />
+        </div>
+        <div class="row">
+          <label for="inputRol">Rol</label>
+          <select class="form-control" id="inputExtint">
+            <option *ngFor="let rol of roles"> {{ rol }}</option>
+          </select>
+        </div>
+        <div class="row mt-5">
+          <div class="col">
+            <button class="btn btn-primary btn-block" routerLink="/home">
+              Crear
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
