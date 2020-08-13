@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './_components/login/login.component';
+import { RegistrationComponent } from './_components/registration/registration.component';
 import { DashboardComponent } from './_components/dashboard/dashboard.component';
 import { HomeComponent } from './_components/home/home.component';
 import { InventoryComponent } from './_components/inventory/inventory.component';
@@ -23,11 +24,13 @@ import { NotFoundComponent } from './_components/not-found/not-found.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegistrationComponent },
   {
-    path: 'reservations', children: [
+    path: 'reservations',
+    children: [
       { path: 'calendar', component: LabReservationComponent },
-      { path: '', component: LabReservationSelectComponent, pathMatch: 'full' }
-    ]
+      { path: '', component: LabReservationSelectComponent, pathMatch: 'full' },
+    ],
   },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'home', component: HomeComponent },
@@ -42,22 +45,26 @@ const routes: Routes = [
       { path: 'administrator', component: AdministratorComponent },
       { path: 'operators', component: CoperatorComponent },
       { path: 'supportTeam', component: CsupportTeamComponent },
-      { path: 'teachersadministrative', component: CTeachersAdministrativeComponent },
+      {
+        path: 'teachersadministrative',
+        component: CTeachersAdministrativeComponent,
+      },
       { path: 'failuresStatus', component: FailuresStatusComponent },
-      { path: 'laboratoryAvailability', component: LaboratoryAvailabilityComponent },
+      {
+        path: 'laboratoryAvailability',
+        component: LaboratoryAvailabilityComponent,
+      },
       { path: 'semester', component: SemestreComponent },
       { path: 'courses', component: CoursesComponent },
-      { path: 'assets', component: AssetsComponent }
-    ]
+      { path: 'assets', component: AssetsComponent },
+    ],
   },
   { path: 'error', component: NotFoundComponent },
-  { path: '**', redirectTo: 'error', pathMatch: 'full' }
-
+  { path: '**', redirectTo: 'error', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class AppRoutingModule { }
+export class AppRoutingModule {}

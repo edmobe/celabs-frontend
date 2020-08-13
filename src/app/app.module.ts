@@ -40,6 +40,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { SurveyComponent } from './_components/survey/survey.component';
 import { ConfirmationComponent } from './_components/alerts/confirmation/confirmation.component';
 import { AlertComponent } from './_components/alerts/alert/alert.component';
+import { RegistrationComponent } from './_components/registration/registration.component';
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   timeGridPlugin,
@@ -77,7 +78,8 @@ FullCalendarModule.registerPlugins([
     LabReservationNormalClassComponent,
     SurveyComponent,
     ConfirmationComponent,
-    AlertComponent
+    AlertComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
