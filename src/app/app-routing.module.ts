@@ -20,6 +20,9 @@ import { SemestreComponent } from './_components/configuration/config_components
 import { CoursesComponent } from './_components/configuration/config_components/courses/courses.component';
 import { AssetsComponent } from './_components/configuration/config_components/assets/assets.component';
 import { NotFoundComponent } from './_components/not-found/not-found.component';
+import {AuthGuard} from './auth/auth.guard'
+import { from } from 'rxjs';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -33,7 +36,7 @@ const routes: Routes = [
     ],
   },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate:[AuthGuard] },
   { path: 'inventory', component: InventoryComponent },
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
