@@ -1,49 +1,46 @@
-<div class="container-fluid">
-  <div class="col">
-    <h1>Gestión de Operadores</h1>
-    <button class="btn btn-primary mb-2" (click)="open(content)">
-      Añadir Operador
-    </button>
-    <div class="table-responsive">
-      <table class="table table-hover table-condensed text-center">
-        <thead>
-          <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Identificación</th>
-            <th scope="col">Permisos de Operador</th>
-          </tr>
-        </thead>
-        <tbody id="tableSearch">
-          <tr *ngFor="let operator of operators">
-            <td>{{ operator.nombre }}</td>
-            <td>{{ operator.correo }}</td>
-            <td>{{ operator.id }}</td>
-            <td>
-              <div *ngIf="operator.permisos">
-                <input
-                  class="btn btn-success"
-                  id="btn{{ operator.id }}"
-                  type="button"
-                  value="Permitido"
-                  (click)="checkValue(operator.id)"
-                />
-              </div>
-              <div *ngIf="!operator.permisos">
-                <input
-                  class="btn btn-danger"
-                  id="btn{{ operator.id }}"
-                  type="button"
-                  value="Denegado"
-                  (click)="checkValue(operator.id)"
-                />
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<h1>Gestión de Operadores</h1>
+<button class="btn btn-primary mb-2" (click)="open(content)">
+  Añadir Operador
+</button>
+<div class="table-responsive">
+  <table class="table table-hover table-condensed text-center">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Identificación</th>
+        <th scope="col">Permisos de Operador</th>
+      </tr>
+    </thead>
+    <tbody id="tableSearch">
+      <tr *ngFor="let operator of operators">
+        <td>{{ operator.nombre }}</td>
+        <td>{{ operator.correo }}</td>
+        <td>{{ operator.id }}</td>
+        <td>
+          <div *ngIf="operator.permisos">
+            <input
+              class="btn btn-success"
+              id="btn{{ operator.id }}"
+              type="button"
+              value="Permitido"
+              (click)="checkValue(operator.id)"
+            />
+          </div>
+          <div *ngIf="!operator.permisos">
+            <input
+              class="btn btn-danger"
+              id="btn{{ operator.id }}"
+              type="button"
+              value="Denegado"
+              (click)="checkValue(operator.id)"
+            />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr />
 </div>
 
 <ng-template #content let-modal>

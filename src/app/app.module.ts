@@ -41,6 +41,7 @@ import { SurveyComponent } from './_components/survey/survey.component';
 import { ConfirmationComponent } from './_components/alerts/confirmation/confirmation.component';
 import { AlertComponent } from './_components/alerts/alert/alert.component';
 import { RegistrationComponent } from './_components/registration/registration.component';
+import { ApproveTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/approve-teachers-administrative/approve-teachers-administrative.component';
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   timeGridPlugin,
@@ -79,7 +80,8 @@ FullCalendarModule.registerPlugins([
     SurveyComponent,
     ConfirmationComponent,
     AlertComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ApproveTeachersAdministrativeComponent
   ],
   imports: [
     BrowserModule,

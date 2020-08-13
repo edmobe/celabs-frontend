@@ -4,37 +4,38 @@
     <thead>
       <tr>
         <th scope="col">Nombre</th>
-        <th scope="col">Correo</th>
         <th scope="col">Identificación</th>
+        <th scope="col">Correo</th>
         <th scope="col">Permisos de Administrador</th>
       </tr>
     </thead>
     <tbody id="tableSearch">
-      <tr *ngFor="let user of users">
-        <td>{{ user.nombre }}</td>
-        <td>{{ user.correo }}</td>
-        <td>{{ user.id }}</td>
+      <tr *ngFor="let admin of admins">
+        <td>{{ admin.nombre }}</td>
+        <td>{{ admin.id }}</td>
+        <td>{{ admin.correo }}</td>
         <td>
-          <div *ngIf="user.permisos">
+          <div *ngIf="admin.permisos">
             <input
               class="btn btn-success"
-              id="btn{{ user.id }}"
+              id="btn{{ admin.id }}"
               type="button"
               value="Permitido"
-              (click)="checkValue(user.id)"
+              (click)="checkValue(admin.id)"
             />
           </div>
-          <div *ngIf="!user.permisos">
+          <div *ngIf="!admin.permisos">
             <input
               class="btn btn-danger"
-              id="btn{{ user.id }}"
+              id="btn{{ admin.id }}"
               type="button"
               value="Denegado"
-              (click)="checkValue(user.id)"
+              (click)="checkValue(admin.id)"
             />
           </div>
         </td>
       </tr>
     </tbody>
   </table>
+  <hr />
 </div>

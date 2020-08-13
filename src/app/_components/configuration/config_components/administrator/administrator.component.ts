@@ -18,13 +18,13 @@ export class AdministratorComponent implements OnInit {
   buttonDanger: string = 'btn btn-danger';
   buttonSuccess: string = 'btn btn-success';
 
-  users: User[];
+  admins: User[];
 
   constructor(private titleService: TitleService) {
     this.titleService.setTitle('');
   }
   ngOnInit(): void {
-    this.users = this.getAdmins();
+    this.admins = this.getAdmins();
   }
 
   checkValue(id: number): void {
