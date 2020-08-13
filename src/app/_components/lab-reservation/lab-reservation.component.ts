@@ -101,6 +101,8 @@ export class LabReservationComponent implements OnInit {
       if (result) {
         console.log(result);
       }
+    }).catch(err => {
+      this.calendarComponent.getApi().unselect();
     });
   }
 

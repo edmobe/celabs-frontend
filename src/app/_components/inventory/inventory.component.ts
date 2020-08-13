@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Laboratorio } from 'src/app/_models/laboratorio';
+import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
+import { FormGroup } from '@angular/forms';
+import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
 
 interface Inventario {
   fecha: string;
@@ -14,80 +18,121 @@ interface Inventario {
   styleUrls: ['./inventory.component.scss'],
 })
 export class InventoryComponent implements OnInit {
+
+  states: string[];
+  laboratories: Laboratorio[];
+  amounts: number[];
+  inventories: Inventario[];
+  operator: string;
+
+  left: boolean = true;
+  time = { hour: 13, minute: 30 };
+  meridian = true;
+  closeResult = '';
+
+  inventoryForm: FormGroup;
+  inventoryModal: NgbModalRef;
+
   constructor(
     private titleService: TitleService,
-    private modalService: NgbModal
-  ) {
+    private modalService: NgbModal,
+    private formGenerator: FormGeneratorService,
+    private formToJson: FormToJsonService) {
     this.titleService.setTitle('Reporte de inventario');
   }
 
-  ngOnInit(): void {}
-  estados: string[] = ['Aprobado', 'Pendiente'];
-  laboratorios: string[] = ['F2-07', 'F2-09', 'F2-10'];
-  cantidad: number[] = [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24,
-    25,
-    26,
-    27,
-    28,
-    29,
-    30,
-  ];
-  left = true;
-  inventarios: Inventario[] = [];
-  time = { hour: 13, minute: 30 };
-  closeResult = '';
-  meridian = true;
-
-  toggleMeridian() {
-    this.meridian = !this.meridian;
+  ngOnInit(): void {
+    this.laboratories = this.getLaboratories();
+    this.operator = this.getOperator();
+    this.amounts = this.getAmounts();
+    this.inventoryForm = this.formGenerator.createInventoryForm(this.operator);
   }
 
-  open(content) {
-    this.modalService
-      .open(content, { ariaLabelledBy: 'modal-basic-title' })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+  open(content): void {
+    this.inventoryModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
+    this.inventoryModal.result.then((result) => {
+      if (result) {
+        console.log(result);
+      }
+    }).catch(err => { });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  get laboratory() {
+    return this.inventoryForm.get('laboratory');
   }
-  model: NgbDateStruct;
+
+  get completeComputers() {
+    return this.inventoryForm.get('completeComputers');
+  }
+
+  get incompleteComputers() {
+    return this.inventoryForm.get('incompleteComputers');
+  }
+
+  get projectors() {
+    return this.inventoryForm.get('projectors');
+  }
+
+  get chairs() {
+    return this.inventoryForm.get('chairs');
+  }
+
+  get extinguishers() {
+    return this.inventoryForm.get('extinguishers');
+  }
+
+  // GETs
+
+  getAmounts(): number[] {
+    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+  }
+
+  getStates(): string[] {
+    return ['Aprobado', 'Pendiente'];
+  }
+
+  getLaboratories(): Laboratorio[] {
+    return [{
+      nombre: 'F2-04',
+      id: 4
+    }, {
+      nombre: 'F2-05',
+      id: 5
+    }, {
+      nombre: 'F2-06',
+      id: 6
+    }, {
+      nombre: 'F2-07',
+      id: 7
+    }, {
+      nombre: 'F2-08',
+      id: 8
+    }, {
+      nombre: 'F2-09',
+      id: 9
+    }];
+  }
+
+  getOperator(): string {
+    return 'Eduardo Moya';
+  }
+
+  // POSTs
+  post() {
+    let json = this.formToJson.createInventoryJson(
+      this.operator,
+      this.inventoryForm.value.laboratory.id,
+      this.inventoryForm.value.completeComputers,
+      this.inventoryForm.value.incompleteComputers,
+      this.inventoryForm.value.projectors,
+      this.inventoryForm.value.chairs,
+      this.inventoryForm.value.extinguishers
+    );
+    // Successful POST
+    // Close with code 0
+    this.inventoryModal.close();
+    this.inventoryForm.reset();
+    alert('Json generado:\n' + JSON.stringify(json));
+  }
+
 }

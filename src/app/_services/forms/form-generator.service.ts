@@ -100,4 +100,30 @@ export class FormGeneratorService {
     });
   }
 
+  public createInventoryForm(operator: string) {
+    return this.formBuilder.group({
+      operator: [operator, [
+        Validators.required
+      ]],
+      laboratory: ['', [
+        Validators.required
+      ]],
+      completeComputers: ['', [
+        Validators.required
+      ]],
+      incompleteComputers: ['', [
+        Validators.required
+      ]],
+      projectors: ['', [
+        Validators.required
+      ]],
+      chairs: ['', [
+        Validators.required
+      ]],
+      extinguishers: ['', [
+        Validators.required
+      ]]
+    });
+  }
+
 }

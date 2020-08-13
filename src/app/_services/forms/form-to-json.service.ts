@@ -40,4 +40,24 @@ export class FormToJsonService {
     }
     return configSemesterJson;
   }
+
+  public createInventoryJson(
+    operator: string,
+    laboratoryId: number,
+    completeComputers: number,
+    incompleteComputers: number,
+    projectors: number,
+    chairs: number,
+    extinguishers: number) {
+    const inventoryJson = {
+      operator: operator,
+      laboratory: laboratoryId,
+      completeComputers: completeComputers,
+      incompleteComputers: incompleteComputers,
+      projectors: projectors,
+      chairs: chairs,
+      extinguishers: extinguishers
+    };
+    return inventoryJson;
+  }
 }

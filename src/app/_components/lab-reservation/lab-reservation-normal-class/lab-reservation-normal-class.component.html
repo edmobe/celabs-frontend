@@ -7,18 +7,6 @@
           {{ course }}</option
         >
       </select>
-    </div>
-    <div class="form-group col-md-6">
-      <label>Profesor a cargo</label>
-      <select class="form-control" formControlName="teacher">
-        <option *ngFor="let teacher of teachers" [ngValue]="teacher">
-          {{ teacher }}</option
-        >
-      </select>
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
       <div
         class="alert alert-danger"
         *ngIf="course.invalid && course.touched"
@@ -28,6 +16,12 @@
       </div>
     </div>
     <div class="form-group col-md-6">
+      <label>Profesor a cargo</label>
+      <select class="form-control" formControlName="teacher">
+        <option *ngFor="let teacher of teachers" [ngValue]="teacher">
+          {{ teacher }}</option
+        >
+      </select>
       <div
         class="alert alert-danger"
         *ngIf="teacher.invalid && teacher.touched"

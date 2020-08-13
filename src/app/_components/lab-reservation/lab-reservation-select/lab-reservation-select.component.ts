@@ -17,11 +17,11 @@ export class LabReservationSelectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getLaboratories();
+    this.laboratories = this.getLaboratories();
   }
 
-  getLaboratories(): void {
-    this.laboratories = [{
+  getLaboratories(): Laboratorio[] {
+    return [{
       nombre: 'F2-04',
       id: 4
     }, {
