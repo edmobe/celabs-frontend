@@ -1,10 +1,22 @@
 <div class="container mt-5 mb-5">
   <div class="form">
-    <form class="form-group">
+    <form class="form-group" [formGroup]="registrationForm">
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="inputNombre">Nombre</label>
-          <input type="text" class="form-control" placeholder="Nombre" />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre"
+            formControlName="name"
+          />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="name.invalid && name.touched"
+          >
+            Debe ingresar un nombre válido.
+          </div>
         </div>
         <div class="form-group col-md-4">
           <label for="inputNombre">Primer Apellido</label>
@@ -12,7 +24,15 @@
             type="text"
             class="form-control"
             placeholder="Primer Apellido"
+            formControlName="middleName"
           />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="middleName.invalid && middleName.touched"
+          >
+            Debe ingresar un primer apellido válido.
+          </div>
         </div>
         <div class="form-group col-md-4">
           <label for="inputNombre">Segundo Apellido</label>
@@ -20,13 +40,33 @@
             type="text"
             class="form-control"
             placeholder="Segundo Apellido"
+            formControlName="lastName"
           />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="lastName.invalid && lastName.touched"
+          >
+            Debe ingresar un segundo apellido válido.
+          </div>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="inputNombre">Cédula</label>
-          <input type="number" class="form-control" placeholder="Cédula" />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Cédula"
+            formControlName="id"
+          />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="id.invalid && id.touched"
+          >
+            Debe ingresar una cédula válida.
+          </div>
         </div>
         <div class="form-group col-md-4">
           <label for="inputNombre">Usuario</label>
@@ -34,8 +74,16 @@
             type="text"
             class="form-control"
             id="inputApellido1"
-            placeholder="Primer Apellido"
+            placeholder="Nombre de usuario"
+            formControlName="username"
           />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="username.invalid && username.touched"
+          >
+            Debe ingresar un nombre de usuario válido.
+          </div>
         </div>
         <div class="form-group col-md-4">
           <label for="inputNombre">Contraseña</label>
@@ -43,29 +91,60 @@
             type="password"
             class="form-control"
             id="inputApellido2"
-            placeholder="Segundo Apellido"
+            placeholder="Contraseña"
+            formControlName="password"
           />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="password.invalid && password.touched"
+          >
+            Debe ingresar una contraseña válida.
+          </div>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="inputNombre">Correo</label>
-          <input type="number" class="form-control" placeholder="Cédula" />
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Correo"
+            formControlName="email"
+          />
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="email.invalid && email.touched"
+          >
+            Debe ingresar un correo válido.
+          </div>
         </div>
         <div class="form-group col-md-6">
           <label>Rol</label>
-          <select class="form-control">
+          <select class="form-control" formControlName="role">
             <option *ngFor="let role of roles" [ngValue]="role">
               {{ role }}
             </option>
           </select>
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="role.invalid && role.touched"
+          >
+            Debe ingresar un rol.
+          </div>
         </div>
       </div>
       <div class="row mt-5">
         <div class="col-12 text-center">
-          <button class="btn btn-primary btn-block" routerLink="/home">
-            Registrarme
+          <button
+            class="btn btn-primary btn-block"
+            routerLink="/home"
+            [disabled]="registrationForm.invalid"
+          >
+            Confirmar registro
           </button>
         </div>
       </div>

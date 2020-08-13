@@ -45,23 +45,30 @@
         >
       </li>
     </ul>
+    <form class="form-inline">
+      <span class="text-white align-middle">
+        {{ user }}
+      </span>
+    </form>
     <div
       ngbDropdown
       class="d-inline-block"
       placement="bottom-right"
       display="dynamic"
     >
-      <button class="btn" id="dropdownMenuButton" ngbDropdownToggle>
-        <img
-          src="https://icon-library.com/images/white-profile-icon/white-profile-icon-6.jpg"
-          height="25"
-        />
-      </button>
-      <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
-        <button ngbDropdownItem routerLink="/configuration">
-          Configuración
+      <div class="row no-gutters">
+        <button class="btn" id="dropdownMenuButton" ngbDropdownToggle>
+          <img
+            src="https://icon-library.com/images/white-profile-icon/white-profile-icon-6.jpg"
+            height="25"
+          />
         </button>
-        <button ngbDropdownItem routerLink="/login">Cerrar sesión</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+          <button ngbDropdownItem routerLink="/configuration">
+            Configuración
+          </button>
+          <button ngbDropdownItem routerLink="/login">Cerrar sesión</button>
+        </div>
       </div>
     </div>
   </div>

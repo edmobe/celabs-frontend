@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators, EmailValidator } from '@angular/forms';
+import { FormBuilder, Validators, EmailValidator, FormGroup } from '@angular/forms';
 import { Laboratorio } from '../../_models/laboratorio';
 import { DateDisplayService } from '../date-display.service';
 import { FormValidatorService } from './form-validator.service';
@@ -13,7 +13,7 @@ export class FormGeneratorService {
     private formBuilder: FormBuilder,
     private dateDisplayService: DateDisplayService) { }
 
-  public createLoginForm() {
+  public createLoginForm(): FormGroup {
     return this.formBuilder.group({
       email: ['', [
         Validators.required,
@@ -25,7 +25,37 @@ export class FormGeneratorService {
     });
   }
 
-  public createReservationBaseForm(type: string, laboratory: Laboratorio, event: any) {
+  public createRegistrationForm(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', [
+        Validators.required
+      ]],
+      middleName: ['', [
+        Validators.required
+      ]],
+      lastName: ['', [
+        Validators.required
+      ]],
+      id: ['', [
+        Validators.required
+      ]],
+      username: ['', [
+        Validators.required
+      ]],
+      password: ['', [
+        Validators.required
+      ]],
+      email: ['', [
+        Validators.required,
+        Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+      ]],
+      role: ['', [
+        Validators.required
+      ]],
+    })
+  }
+
+  public createReservationBaseForm(type: string, laboratory: Laboratorio, event: any): FormGroup {
     return this.formBuilder.group({
       title: ['', [
         Validators.required
@@ -42,7 +72,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createReservationClassForm() {
+  public createReservationClassForm(): FormGroup {
     return this.formBuilder.group({
       course: ['', [
         Validators.required
@@ -53,7 +83,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createReservationRecurrentForm(weeksRemaining: number) {
+  public createReservationRecurrentForm(weeksRemaining: number): FormGroup {
     return this.formBuilder.group({
       recurrence: ['', [
         Validators.required,
@@ -64,7 +94,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createReservationPalmadaForm(laboratory: string, operator: string) {
+  public createReservationPalmadaForm(laboratory: string, operator: string): FormGroup {
     return this.formBuilder.group({
       title: ['', [
         Validators.required
@@ -81,7 +111,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createSemesterConfigForm() {
+  public createSemesterConfigForm(): FormGroup {
     return this.formBuilder.group({
       start: ['', [
         Validators.required
@@ -92,7 +122,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createAssetConfigForm() {
+  public createAssetConfigForm(): FormGroup {
     return this.formBuilder.group({
       id: ['', [
         Validators.required
@@ -103,7 +133,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createSurveyForm() {
+  public createSurveyForm(): FormGroup {
     return this.formBuilder.group({
       satisfaction: ['', [
         Validators.required
@@ -111,7 +141,7 @@ export class FormGeneratorService {
     });
   }
 
-  public createInventoryForm(operator: string) {
+  public createInventoryForm(operator: string): FormGroup {
     return this.formBuilder.group({
       operator: [operator, [
         Validators.required
