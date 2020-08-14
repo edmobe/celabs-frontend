@@ -12,19 +12,11 @@ export class UserService {
   constructor(private http: HttpClient,
     private apiService: ApiService) { }
 
-  /*registerUser(usuario : UsuarioModel){
-    const body: User = {
-      username: usuario.username,
-      contrasena: usuario.contrasena,
-      correo: usuario.contrasena,
-      nombre: usuario.nombre,
-      apellido1: usuario.apellido1,
-      apellido2: usuario.apellido2,
-
-    }
+  registerUser(usuario : any){
+    
     var reqHeader = new HttpHeaders({ 'No-Auth':'True' });
-    return this.http.post(this.apiService.getUrl() + '/User/Register', body, {headers: reqHeader});
-  }*/
+    return this.http.post(this.apiService.getUrl() + '/User/Register', usuario, {headers: reqHeader});
+  }
 
   userAuthentication(userName, password) {
     var data = "username=" + userName + "&password=" + password + "&grant_type=password";
