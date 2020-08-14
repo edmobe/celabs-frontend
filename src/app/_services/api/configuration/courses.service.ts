@@ -22,7 +22,7 @@ export class CoursesService {
 
 
 
-  public postCourses(curso : Curso) : string {
+  public postCourses(curso : Curso) : void {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
@@ -45,7 +45,7 @@ export class CoursesService {
     }, error => this.toastr.error('Error', 'Vuelva a intentarlo de nuevo'));
   }
 
-  public updateActivo (id : string, curso : Curso) : string {
+  public updateActivo (id : string, curso : Curso) : void {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
@@ -57,7 +57,7 @@ export class CoursesService {
       nombre: curso.nombre
     };
 
-    this.http.put(this.apiService.getUrl() + '/putAsset/'+id,body,httpOptions).subscribe(res => {
+    this.http.put(this.apiService.getUrl() + '/putCourse/'+id,body,httpOptions).subscribe(res => {
       this.toastr.success('Éxito','Curso actualizado')
     }, error => this.toastr.error('Error', 'Vuelva a intentarlo de nuevo'));
   }
