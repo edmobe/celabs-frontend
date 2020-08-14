@@ -67,7 +67,7 @@ export class AssetsComponent implements OnInit {
   }
 
   // POSTs
-  postAssert() {
+  postAsset() {
     var activo:Activo={
       id: this.id.value,
       nombre: this.nombre.value

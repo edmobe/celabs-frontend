@@ -28,7 +28,7 @@ export class AssetsService {
       nombre: activo.nombre
     };
 
-    this.http.post(this.apiService.getUrl() + '/postAsset',body,httpOptions).subscribe(res => {
+    this.http.post(this.apiService.getUrl() + '/postAsset/',body,httpOptions).subscribe(res => {
       res => this.result = res
     }, error => this.result = error);
     return this.result;
