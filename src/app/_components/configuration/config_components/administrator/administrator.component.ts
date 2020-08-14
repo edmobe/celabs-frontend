@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
+import { AccountService } from 'src/app/_services/api/account.service';
+import { Admin } from 'src/app/_models/admin.model';
 
-interface User {
-  id: number;
-  nombre: string;
-  correo: string;
-  rol: string;
-  permisos: boolean;
-}
+
 
 @Component({
   selector: 'app-administrator',
@@ -18,13 +14,14 @@ export class AdministratorComponent implements OnInit {
   buttonDanger: string = 'btn btn-danger';
   buttonSuccess: string = 'btn btn-success';
 
-  admins: User[];
+  admins: Admin[];
 
-  constructor(private titleService: TitleService) {
+  constructor(private titleService: TitleService,
+    private accountService: AccountService) {
     this.titleService.setTitle('');
   }
   ngOnInit(): void {
-    this.admins = this.getAdmins();
+    this.admins = this.accountService.getAdmins();
   }
 
   checkValue(id: number): void {
@@ -47,33 +44,16 @@ export class AdministratorComponent implements OnInit {
     }
   }
 
-  // GETs
-  getAdmins(): User[] {
-    return [
-      {
-        id: 0,
-        nombre: 'Luis Diego Noguera',
-        correo: 'lnoguera@itcr.ac.cr',
-        rol: 'admininistrador',
-        permisos: false
-      },
-      {
-        id: 1,
-        nombre: 'Brayan Muñoz Mora',
-        correo: 'brianm.bra@estudiantec.cr',
-        rol: 'admininistrador',
-        permisos: true
-      }
-    ]
-  }
-
+ 
   // POSTs
   postDeny(userId: number): boolean {
+    this.accountService.updateAdminAccess(userId,false);
     console.log(userId);
     return true;
   }
 
   postAllow(userId: number): boolean {
+    this.accountService.updateAdminAccess(userId,true);
     console.log(userId);
     return true;
   }

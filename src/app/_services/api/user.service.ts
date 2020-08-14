@@ -27,7 +27,6 @@ export class UserService {
   getUserClaims(){
     return this.http.get(this.apiService.getUrl()+'/GetUserClaims');
 
-
   }
   
 

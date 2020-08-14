@@ -11,26 +11,26 @@
     </thead>
     <tbody id="tableSearch">
       <tr *ngFor="let admin of admins">
-        <td>{{ admin.nombre }}</td>
-        <td>{{ admin.id }}</td>
+        <td>{{ admin.nombreC }}</td>
+        <td>{{ admin.cedula }}</td>
         <td>{{ admin.correo }}</td>
         <td>
-          <div *ngIf="admin.permisos">
+          <div *ngIf="admin.aprobado">
             <input
               class="btn btn-success"
-              id="btn{{ admin.id }}"
+              id="btn{{ admin.cedula }}"
               type="button"
               value="Permitido"
-              (click)="checkValue(admin.id)"
+              (click)="checkValue(admin.cedula)"
             />
           </div>
-          <div *ngIf="!admin.permisos">
+          <div *ngIf="!admin.aprobado">
             <input
               class="btn btn-danger"
-              id="btn{{ admin.id }}"
+              id="btn{{ admin.cedula }}"
               type="button"
               value="Denegado"
-              (click)="checkValue(admin.id)"
+              (click)="checkValue(admin.cedula)"
             />
           </div>
         </td>
