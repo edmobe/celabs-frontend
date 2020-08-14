@@ -68,10 +68,6 @@ export class LabReservationComponent implements OnInit {
 
   }
 
-  updateTime() {
-    this.now = this.updateTime();
-  }
-
   handleDateSelect(arg) {
     const event = {
       start: arg.startStr,
