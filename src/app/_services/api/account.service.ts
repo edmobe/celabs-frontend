@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Admin } from '../../_models/admin.model';
+import { ApiService } from '../api/api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
