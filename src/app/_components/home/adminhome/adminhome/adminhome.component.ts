@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TitleService } from 'src/app/_services/title.service';
 
 @Component({
   selector: 'app-adminhome',
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./adminhome.component.scss'],
 })
 export class AdminhomeComponent implements OnInit {
-  constructor() {}
+  constructor(private titleService: TitleService) {
+    this.titleService.setTitle('CE Labs XTEC');
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
