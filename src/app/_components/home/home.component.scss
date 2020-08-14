@@ -14,7 +14,7 @@ a {
   -webkit-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
-  padding: 150px;
+  padding: 90px;
 }
 
 .big {
@@ -35,6 +35,7 @@ a {
   -webkit-transition: -webkit-transform 0.3s ease-out;
   -o-transition: -o-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
+  margin-top: 10px
 }
 
 .flip-front {
@@ -49,7 +50,7 @@ a {
 
 .flip-back {
   color: #fff;
-  background-color: #01396e;
+  background-color: #0154a0;
   border: 2px solid #313131;
   -webkit-transform: rotateX(90deg) translateZ(25px);
   -ms-transform: rotateX(90deg) translateZ(25px);
