@@ -46,6 +46,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ApproveTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/approve-teachers-administrative/approve-teachers-administrative.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ApproveSlapComponent } from './_components/configuration/config_components/approve-slap/approve-slap.component';
+import { AprobarReservasComponent } from './_components/configuration/config_components/aprobar-reservas/aprobar-reservas.component';
 
 
 FullCalendarModule.registerPlugins([
@@ -87,7 +89,9 @@ FullCalendarModule.registerPlugins([
     ConfirmationComponent,
     AlertComponent,
     RegistrationComponent,
-    ApproveTeachersAdministrativeComponent
+    ApproveTeachersAdministrativeComponent,
+    ApproveSlapComponent,
+    AprobarReservasComponent
   ],
   imports: [
     BrowserModule,
