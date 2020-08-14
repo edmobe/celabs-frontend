@@ -1,14 +1,16 @@
 <div class="container">
   <div>
-    <button class="m-3 btn btn-primary" (click)="open(content)">
+    <button
+      class="m-3 btn btn-primary"
+      (click)="open('Nuevo reporte de horas')"
+      *ngIf="!admin"
+    >
       Añadir nuevo reporte de horas
     </button>
   </div>
   <div class="panel panel-default">
     <div class="panel-body">
-      <table
-        class="table table-striped table-hover table-condensed text-center"
-      >
+      <table class="table table-hover table-condensed text-center">
         <thead>
           <tr>
             <th scope="col">Fecha</th>
@@ -17,104 +19,32 @@
             <th scope="col">Hora de finalización</th>
             <th scope="col">Reportado</th>
             <th scope="col">Estado</th>
-            <th scope="col">Editar</th>
+            <th *ngIf="!admin" scope="col">Editar</th>
+            <th *ngIf="admin" scope="col">Aprobar</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let hour of hours; index as i">
             <td>{{ hour.fecha }}</td>
-            <td>{{ hour.horaRegistrada }}</td>
+            <td>{{ hour.horasRegistradas }}</td>
             <td>{{ hour.horaInicio }}</td>
             <td>{{ hour.horaFinal }}</td>
             <td>{{ hour.reportado }}</td>
             <td>{{ hour.estado }}</td>
+            <td *ngIf="!admin">
+              <a
+                class="fa fa-pencil-square-o fa-2x"
+                (click)="open('Editar reporte de horas', hour)"
+              ></a>
+            </td>
+            <td *ngIf="admin">
+              <button class="btn btn-primary" (click)="approve(hour)">
+                Aprobar
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Nuevo reporte de horas</h4>
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="modal.dismiss('Cross click')"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form [formGroup]="hoursForm" class="form-group">
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <label>Fecha del turno</label>
-            <input
-              type="date"
-              class="form-control"
-              placeholder="Fecha"
-              formControlName="date"
-            />
-            <div
-              class="alert alert-danger"
-              *ngIf="date.invalid && date.touched"
-              role="alert"
-            >
-              Debe seleccionar una fecha.
-            </div>
-          </div>
-          <div class="form-group col-md-4">
-            <label>Hora de inicio</label>
-            <input
-              type="time"
-              class="form-control"
-              placeholder="Hora de inicio"
-              formControlName="start"
-              [readonly]="date.invalid"
-            />
-            <div
-              class="alert alert-danger"
-              *ngIf="start.invalid && start.touched && date.valid"
-              role="alert"
-            >
-              Debe seleccionar una hora de inicio válida.
-            </div>
-          </div>
-          <div class="form-group col-md-4">
-            <label>Hora de finalización</label>
-            <input
-              type="time"
-              class="form-control"
-              placeholder="Hora de finalización"
-              formControlName="end"
-              [readonly]="start.invalid"
-            />
-            <div
-              class="alert alert-danger"
-              *ngIf="
-                (end.invalid || !validTimes(start.value, end.value)) &&
-                end.touched &&
-                start.valid
-              "
-              role="alert"
-            >
-              Debe seleccionar una hora de finalización válida.
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button
-        type="button"
-        [disabled]="hoursForm.invalid || !validTimes(start.value, end.value)"
-        class="btn btn-primary"
-        (click)="post()"
-      >
-        Enviar
-      </button>
-    </div>
-  </ng-template>
 </div>

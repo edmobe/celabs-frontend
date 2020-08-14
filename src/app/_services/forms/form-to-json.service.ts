@@ -74,7 +74,22 @@ export class FormToJsonService {
     return inventoryJson;
   }
 
-  public createHoursJson(
+  public createNewHoursJson(
+    date: string,
+    start: string,
+    end: string
+  ) {
+    const hoursJson = {
+      date: date,
+      start: start,
+      end: end
+    };
+
+    return hoursJson;
+  }
+
+  public createEditHoursJson(
+    id: number,
     date: string,
     start: string,
     end: string

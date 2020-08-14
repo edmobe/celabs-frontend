@@ -43,6 +43,7 @@ import { AlertComponent } from './_components/alerts/alert/alert.component';
 import { RegistrationComponent } from './_components/registration/registration.component';
 import { ApproveTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/approve-teachers-administrative/approve-teachers-administrative.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HoursModalComponent } from './_components/hours/hours-modal/hours-modal.component';
 import { ApproveSlapComponent } from './_components/configuration/config_components/approve-slap/approve-slap.component';
 import { AprobarReservasComponent } from './_components/configuration/config_components/aprobar-reservas/aprobar-reservas.component';
 import { AdminhomeComponent } from './_components/home/adminhome/adminhome/adminhome.component';
@@ -86,6 +87,7 @@ FullCalendarModule.registerPlugins([
     AlertComponent,
     RegistrationComponent,
     ApproveTeachersAdministrativeComponent,
+    HoursModalComponent,
     ApproveSlapComponent,
     AprobarReservasComponent,
     AdminhomeComponent

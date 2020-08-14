@@ -169,15 +169,19 @@ export class FormGeneratorService {
     });
   }
 
-  public createHoursForm(): FormGroup {
+  public createHoursForm(
+    date: string,
+    start: string,
+    end: string
+  ): FormGroup {
     return this.formBuilder.group({
-      date: ['', [
+      date: [date, [
         Validators.required
       ]],
-      start: ['', [
+      start: [start, [
         Validators.required
       ]],
-      end: ['', [
+      end: [end, [
         Validators.required
       ]]
     });
