@@ -198,4 +198,17 @@ export class FormToJsonService {
     };
     return updateProfileJson;
   }
+
+  public createDayAvailabilityJson(
+    dayId: number,
+    start: string,
+    end: string
+  ) {
+    const dayAvailabilityJson = {
+      dayId: dayId,
+      start: start,
+      end: end
+    };
+    return dayAvailabilityJson;
+  }
 }

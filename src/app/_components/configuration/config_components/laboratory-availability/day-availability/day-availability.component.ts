@@ -60,7 +60,15 @@ export class DayAvailabilityComponent implements OnInit {
 
   // POST
   post() {
-    console.log('Post');
+    const json = this.formToJson.createDayAvailabilityJson(
+      this.dayId,
+      this.start.value,
+      this.end.value
+    );
+
+    alert('Json generado:\n' + JSON.stringify(json));
+
+    // POST successful
     this.changed = false;
   }
 
