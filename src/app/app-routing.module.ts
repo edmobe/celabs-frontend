@@ -45,7 +45,7 @@ const routes: Routes = [
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
   {
-    path: 'admin',
+    path: 'admin', canActivate:[AuthGuard],data:{roles:['Administrador']},
     component: ConfigurationComponent,
     children: [
       { path: '', redirectTo: 'administrator', pathMatch: 'full' },
