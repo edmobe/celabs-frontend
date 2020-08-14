@@ -25,11 +25,6 @@ export class InventoryComponent implements OnInit {
   inventories: Inventario[];
   operator: string;
 
-  left: boolean = true;
-  time = { hour: 13, minute: 30 };
-  meridian = true;
-  closeResult = '';
-
   inventoryForm: FormGroup;
   inventoryModal: NgbModalRef;
 

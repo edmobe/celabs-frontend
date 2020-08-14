@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
 import { UserService } from 'src/app/_services/api/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
 
 @Component({
   selector: 'app-registration',
@@ -16,8 +17,9 @@ export class RegistrationComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  constructor(private titleService: TitleService, 
+  constructor(private titleService: TitleService,
     private formGenerator: FormGeneratorService,
+    private formToJson: FormToJsonService,
     private userService: UserService,
     private toastr: ToastrService) {
     this.titleService.setTitle('Registrarse');
@@ -59,6 +61,23 @@ export class RegistrationComponent implements OnInit {
   get role() {
     return this.registrationForm.get('role');
   }
+
+  // POST
+  post() {
+    const json = this.formToJson.createResiterJson(
+      this.name.value,
+      this.middleName.value,
+      this.lastName.value,
+      this.id.value,
+      this.username.value,
+      this.password.value,
+      this.email.value,
+      this.role.value
+    );
+    alert('Json generado:\n' + JSON.stringify(json));
+  }
+
+
   /*OnSubmit() {
     this.userService.registerUser( )
       .subscribe((data: any) => {
@@ -71,8 +90,5 @@ export class RegistrationComponent implements OnInit {
       });
   }*/
 
-  
-  
 
-  
 }
