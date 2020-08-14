@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './_components/login/login.component';
@@ -40,14 +41,11 @@ import { SurveyComponent } from './_components/survey/survey.component';
 import { ConfirmationComponent } from './_components/alerts/confirmation/confirmation.component';
 import { AlertComponent } from './_components/alerts/alert/alert.component';
 import { RegistrationComponent } from './_components/registration/registration.component';
-import { UserService } from './_services/api/user.service';
-import { AuthGuard } from './auth/auth.guard';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './auth/auth.interceptor';
 import { ApproveTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/approve-teachers-administrative/approve-teachers-administrative.component';
 import { HttpClientModule } from '@angular/common/http';
-
-
+import { ApproveSlapComponent } from './_components/configuration/config_components/approve-slap/approve-slap.component';
+import { AprobarReservasComponent } from './_components/configuration/config_components/aprobar-reservas/aprobar-reservas.component';
+import { AdminhomeComponent } from './_components/home/adminhome/adminhome/adminhome.component';
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   timeGridPlugin,
@@ -87,7 +85,10 @@ FullCalendarModule.registerPlugins([
     ConfirmationComponent,
     AlertComponent,
     RegistrationComponent,
-    ApproveTeachersAdministrativeComponent
+    ApproveTeachersAdministrativeComponent,
+    ApproveSlapComponent,
+    AprobarReservasComponent,
+    AdminhomeComponent
   ],
   imports: [
     BrowserModule,
@@ -98,15 +99,9 @@ FullCalendarModule.registerPlugins([
     ReactiveFormsModule,
     FormsModule,
     FontAwesomeModule,
-    ToastrModule.forRoot(),
-    HttpClientModule
+    ToastrModule.forRoot()
   ],
-  providers: [UserService, AuthGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }],
+  providers: [],
   bootstrap: [AppComponent],
   entryComponents: [LabReservationNormalComponent, LabReservationPalmadaComponent]
 })

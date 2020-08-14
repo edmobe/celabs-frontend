@@ -27,7 +27,7 @@ export class LabReservationPalmadaComponent implements OnInit {
     this.availablePalmadasForThisWeek = this.getAvailablePalmadasForThisWeek();
     this.operator = this.getOperator();
     this.palmadaForm = this.formGenerator.createReservationPalmadaForm(
-      this.laboratory.nombre,
+      this.laboratory.codigo,
       this.operator
     );
   }
@@ -63,7 +63,7 @@ export class LabReservationPalmadaComponent implements OnInit {
       ' hasta ' +
       this.endInterval.toDateString() +
       ' en el laboratorio ' +
-      this.laboratory.nombre);
+      this.laboratory.codigo);
 
     const availablePalmadas = [{
       start: new Date('2020-08-12T21:00:00.000-06:00'),

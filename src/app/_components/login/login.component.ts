@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
 
   roles: string[];
 
-  constructor(private modalService: NgbModal,
+  constructor(
+    private modalService: NgbModal,
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService,
@@ -41,13 +42,12 @@ export class LoginComponent implements OnInit {
     modalRef.result.then((result) => {
       if (result) { }
     }).catch(err => { });
-
   }
 
-  onSubmit(userName, password) {
-    this.userService.userAuthentication(userName, password).subscribe((data: any) => {
+  onSubmit(username, password) {
+    this.userService.userAuthentication(username, password).subscribe((data: any) => {
       localStorage.setItem('userToken', data.access_token);
-      this.toastr.success('Bienvenido', 'Sesión iniciada')
+      this.toastr.success('Bienvenido', 'Sesión iniciada');
       this.router.navigate(['/home']);
     },
       (err: HttpErrorResponse) => {
@@ -55,16 +55,12 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  
-
-  
-
   successfulLogin(json: any) {
     alert('Json generado:\n' + JSON.stringify(json));
   }
 
-  get email() {
-    return this.loginForm.get('email');
+  get username() {
+    return this.loginForm.get('username');
   }
 
   get password() {
@@ -83,11 +79,11 @@ export class LoginComponent implements OnInit {
   // POSTs
   post() {
     const json = this.formToJson.createLoginJson(
-      this.email.value,
+      this.username.value,
       this.password.value,
       this.role.value
     );
-    this.onSubmit(this.email.value,this.password.value)
+    this.onSubmit(this.username.value, this.password.value);
     //this.successfulLogin(json);
   }
 

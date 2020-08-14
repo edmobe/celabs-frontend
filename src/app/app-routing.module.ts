@@ -4,6 +4,7 @@ import { LoginComponent } from './_components/login/login.component';
 import { RegistrationComponent } from './_components/registration/registration.component';
 import { DashboardComponent } from './_components/dashboard/dashboard.component';
 import { HomeComponent } from './_components/home/home.component';
+import { AdminhomeComponent } from './_components/home/adminhome/adminhome/adminhome.component';
 import { InventoryComponent } from './_components/inventory/inventory.component';
 import { HoursComponent } from './_components/hours/hours.component';
 import { FailuresComponent } from './_components/failures/failures.component';
@@ -22,7 +23,8 @@ import { AssetsComponent } from './_components/configuration/config_components/a
 import { NotFoundComponent } from './_components/not-found/not-found.component';
 import { AuthGuard } from './auth/auth.guard'
 import { from } from 'rxjs';
-
+import { ApproveSlapComponent } from './_components/configuration/config_components/approve-slap/approve-slap.component';
+import { AprobarReservasComponent } from './_components/configuration/config_components/aprobar-reservas/aprobar-reservas.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -36,13 +38,14 @@ const routes: Routes = [
     ],
   },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent },
+  { path: 'adminHome', component: AdminhomeComponent },
   { path: 'inventory', component: InventoryComponent },
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
   {
-    path: 'admin',
-    component: ConfigurationComponent, canActivate: [AuthGuard], data: { roles: ['Administrador'] },
+    path: 'configuration',
+    component: ConfigurationComponent,
     children: [
       { path: '', redirectTo: 'administrator', pathMatch: 'full' },
       { path: 'administrator', component: AdministratorComponent },
@@ -51,6 +54,14 @@ const routes: Routes = [
       {
         path: 'teachersadministrative',
         component: CTeachersAdministrativeComponent,
+      },
+      {
+        path: 'approveSlap',
+        component: ApproveSlapComponent,
+      },
+      {
+        path: 'aprobarReservas',
+        component: AprobarReservasComponent,
       },
       { path: 'failuresStatus', component: FailuresStatusComponent },
       {
@@ -70,4 +81,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
