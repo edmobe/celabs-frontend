@@ -1,7 +1,8 @@
 <h1>Gestión de Docentes y Administrativos</h1>
 <button class="btn btn-primary mb-2" (click)="openRequests()">
-  Ver solicitudes pendientes
+  Ver solicitudes pendientes  <span class="badge badge-light">{{ pending }} </span>
 </button>
+
 <div class="row">
   <div class="col-12">
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
