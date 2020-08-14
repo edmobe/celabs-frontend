@@ -25,7 +25,7 @@ export class RegistrationComponent implements OnInit {
     private userService: UserService,
     private toastr: ToastrService,
     private router: Router) {
-    this.titleService.setTitle('Registrarse');
+    this.titleService.setTitle('');
   }
 
   ngOnInit(): void {
@@ -77,7 +77,7 @@ export class RegistrationComponent implements OnInit {
       this.email.value,
       this.role.value
     );
-    
+
     alert('Json generado:\n' + JSON.stringify(json));
     this.OnSubmit();
   }
@@ -92,7 +92,7 @@ export class RegistrationComponent implements OnInit {
       apellido1: this.middleName.value,
       apellido2: this.lastName.value,
       cedula: this.password.value,
-      rol:this.role.value,
+      rol: this.role.value,
       apoyo: false,
       administrador: false
 
@@ -100,12 +100,12 @@ export class RegistrationComponent implements OnInit {
     this.userService.registerUser(body)
       .subscribe((data: any) => {
         if (data.Succeeded == true) {
-          this.toastr.success('Usuario registrado','Espere el correo de confirmación');
+          this.toastr.success('Usuario registrado', 'Espere el correo de confirmación');
           this.router.navigate(['/login']);
         }
         else
           this.toastr.error(data.Errors[0]);
-          this.router.navigate(['/register']);
+        this.router.navigate(['/register']);
       });
   }
 

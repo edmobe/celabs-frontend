@@ -229,6 +229,29 @@ export class FormGeneratorService {
     });
   }
 
+  public createProfileForm(
+    name: string,
+    middleName: string,
+    lastName: string,
+    email: string
+  ) {
+    return this.formBuilder.group({
+      name: [name, [
+        Validators.required
+      ]],
+      middleName: [middleName, [
+        Validators.required
+      ]],
+      lastName: [lastName, [
+        Validators.required
+      ]],
+      email: [email, [
+        Validators.required,
+        Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+      ]]
+    });
+  }
+
   public createAddCourseForm() {
     return this.formBuilder.group({
       code: ['', [
