@@ -50,6 +50,7 @@ import { HoursModalComponent } from './_components/hours/hours-modal/hours-modal
 import { ApproveSlapComponent } from './_components/configuration/config_components/approve-slap/approve-slap.component';
 import { AprobarReservasComponent } from './_components/configuration/config_components/aprobar-reservas/aprobar-reservas.component';
 import { AdminhomeComponent } from './_components/home/adminhome/adminhome/adminhome.component';
+import { InventoryReportComponent } from './_components/inventory/inventory-report/inventory-report.component';
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   timeGridPlugin,
@@ -93,7 +94,8 @@ FullCalendarModule.registerPlugins([
     ApproveSlapComponent,
     AprobarReservasComponent,
     AdminhomeComponent,
-    HoursModalComponent
+    HoursModalComponent,
+    InventoryReportComponent
   ],
   imports: [
     BrowserModule,
