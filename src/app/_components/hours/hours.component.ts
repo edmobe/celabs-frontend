@@ -19,7 +19,6 @@ interface Hour {
   styleUrls: ['./hours.component.scss'],
 })
 export class HoursComponent implements OnInit {
-
   hours: Hour[];
   admin: boolean;
 
@@ -27,7 +26,8 @@ export class HoursComponent implements OnInit {
 
   constructor(
     private titleService: TitleService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal
+  ) {
     this.titleService.setTitle('Reporte de horas');
   }
 
@@ -37,11 +37,13 @@ export class HoursComponent implements OnInit {
   }
 
   public open(title: string, hour?: any): void {
-    const modalRef = this.modalService.open(
-      HoursModalComponent, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
+    const modalRef = this.modalService.open(HoursModalComponent, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.hour = hour;
-    modalRef.result.then(() => { }).catch(() => { });
+    modalRef.result.then(() => {}).catch(() => {});
   }
 
   edit(hour): void {
@@ -56,28 +58,30 @@ export class HoursComponent implements OnInit {
 
   // Cuidado con el formato de las horas -> HH:MM
   getHours() {
-    return [{
-      id: 1,
-      fecha: '2020-01-03',
-      horasRegistradas: '2',
-      horaInicio: '07:30',
-      horaFinal: '09:20',
-      reportado: '09:30',
-      estado: 'Pendiente'
-    }, {
-      id: 2,
-      fecha: '2020-03-03',
-      horasRegistradas: '4',
-      horaInicio: '07:30',
-      horaFinal: '11:20',
-      reportado: '11:30',
-      estado: 'Pendiente'
-    }];
+    return [
+      {
+        id: 1,
+        fecha: '2020-01-03',
+        horasRegistradas: '2',
+        horaInicio: '07:30',
+        horaFinal: '09:20',
+        reportado: '09:30',
+        estado: 'Pendiente',
+      },
+      {
+        id: 2,
+        fecha: '2020-03-03',
+        horasRegistradas: '4',
+        horaInicio: '07:30',
+        horaFinal: '11:20',
+        reportado: '11:30',
+        estado: 'Pendiente',
+      },
+    ];
   }
 
   // POSTs
   approve(hour): void {
     console.log(hour);
   }
-
 }

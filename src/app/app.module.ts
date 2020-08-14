@@ -15,7 +15,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigurationComponent } from './_components/configuration/configuration.component';
 import { LabReservationNormalComponent } from './_components/lab-reservation/lab-reservation-normal/lab-reservation-normal.component';
 import { LabReservationPalmadaComponent } from './_components/lab-reservation/lab-reservation-palmada/lab-reservation-palmada.component';
@@ -93,7 +93,7 @@ FullCalendarModule.registerPlugins([
     ApproveSlapComponent,
     AprobarReservasComponent,
     AdminhomeComponent,
-    HoursModalComponent
+    HoursModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,15 +105,23 @@ FullCalendarModule.registerPlugins([
     FormsModule,
     FontAwesomeModule,
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
-  providers: [UserService, AuthGuard,
+  providers: [
+    UserService,
+    AuthGuard,
+    NgbActiveModal,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
-  entryComponents: [LabReservationNormalComponent, LabReservationPalmadaComponent]
+  entryComponents: [
+    LabReservationNormalComponent,
+    LabReservationPalmadaComponent,
+  ],
 })
-export class AppModule { }
+export class AppModule {}
