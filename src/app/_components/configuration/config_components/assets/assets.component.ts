@@ -26,7 +26,8 @@ export class AssetsComponent implements OnInit {
     private titleService: TitleService,
     private modalService: NgbModal,
     private toastr: ToastrService,
-    private formGenerator: FormGeneratorService) {
+    private formGenerator: FormGeneratorService,
+    private assetsService: AssetsService) {
     this.titleService.setTitle('');
   }
 
@@ -56,29 +57,30 @@ export class AssetsComponent implements OnInit {
     });
   }
 
-  public delete(asset): void {
-    console.log(asset);
+  public delete(id:string): void {
+    this.assetsService.deleteActivo(id);
   }
 
   // GETs
-  getAssets() {
-    return [{ id: 'CE1001', nombre: 'Monitor', enabled: true }];
+  getAssets(): Activo[] {
+    return this.assetsService.getActivos();
   }
 
   // POSTs
-  postDeny(userId: number): boolean {
-    console.log(userId);
-    return true;
+  postAsset() {
+    var activo:Activo={
+      id: this.id.value,
+      nombre: this.nombre.value
+    }
+    this.assetsService.postActivo(activo);
+    //return true;
   }
 
-  postAllow(userId: number): boolean {
-    console.log(userId);
-    return true;
+  putAssert(idOld: string, activo:Activo) {
+    this.assetsService.updateActivo(idOld,activo);
   }
 
-  deleteAsset(activo: string): void {
-    console.log(activo);
-  }
 
+//modal.close('Save click')
 
 }

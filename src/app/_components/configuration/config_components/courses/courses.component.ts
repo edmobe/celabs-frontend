@@ -5,6 +5,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
 import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
+import { CoursesService } from 'src/app/_services/api/courses.service';
 
 interface Cursos {
   codigo: string;
@@ -27,7 +28,8 @@ export class CoursesComponent implements OnInit {
     private titleService: TitleService,
     private modalService: NgbModal,
     private formGenerator: FormGeneratorService,
-    private formToJson: FormToJsonService) {
+    private formToJson: FormToJsonService,
+    private coursesService: CoursesService) {
     this.titleService.setTitle('');
   }
 
@@ -61,6 +63,7 @@ export class CoursesComponent implements OnInit {
 
   // GETs
   public getCourses(): Cursos[] {
+    //return this.coursesService
     return [
       { codigo: 'CE1001', nombre: 'Introducción a la programación' },
       { codigo: 'CE1002', nombre: 'Taller de programación' }
