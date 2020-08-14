@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/_services/alert.service';
+import { SlapService } from 'src/app/_services/api/slap.service';
+import { VPalmada } from 'src/app/_models/v-palmada.model';
+
 
 interface Palmada {
   id: number,
@@ -17,20 +20,21 @@ interface Palmada {
 })
 export class ApproveSlapComponent implements OnInit {
 
-  pendingSlaps: Palmada[];
-  constructor(private alertService: AlertService) { }
+  pendingSlaps: VPalmada[];
+  constructor(private alertService: AlertService,
+  private slapService: SlapService) { }
 
   ngOnInit(): void {
     this.pendingSlaps = this.getPalmadas();
   }
 
-  confirm(userId: number) {
+  confirm(id: number) {
     this.alertService.confirm(
       'Alerta',
       '¿Está seguro de que desea aprobar esta palmada?').then((result) => {
         if (result) {
           // Success
-          this.postAllow(userId);
+          this.postAllow(id);
         } else {
           // No success
           console.log(false);
@@ -42,12 +46,14 @@ export class ApproveSlapComponent implements OnInit {
   }
 
   //GETs
-  getPalmadas(): Palmada[] {
-    return [{ id: 1, operador: "Brayan", idLaboratorio: "F2-07", motivo: "Proyecto", fechaPalmada: "10", fechaSolicitud: "10" }]
+  getPalmadas(): VPalmada[] {
+    return this.slapService.getSlaps();
+    //return [{ id: 1, operador: "Brayan", idLaboratorio: "F2-07", motivo: "Proyecto", fechaPalmada: "10", fechaSolicitud: "10" }]
   }
 
   // POSTs
   postAllow(palmadaId: number): void {
     console.log({ palmada: palmadaId });
+    this.slapService.updateStatus(palmadaId);
   }
 }
