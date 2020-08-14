@@ -15,9 +15,8 @@ export class FormGeneratorService {
 
   public createLoginForm(): FormGroup {
     return this.formBuilder.group({
-      email: ['', [
-        Validators.required,
-        //Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+      username: ['', [
+        Validators.required
       ]],
       password: ['', [
         Validators.required
@@ -114,12 +113,12 @@ export class FormGeneratorService {
     });
   }
 
-  public createSemesterConfigForm(): FormGroup {
+  public createSemesterConfigForm(start: string, end: string): FormGroup {
     return this.formBuilder.group({
-      start: ['', [
+      start: [start, [
         Validators.required
       ]],
-      end: ['', [
+      end: [end, [
         Validators.required
       ]]
     });
@@ -170,15 +169,19 @@ export class FormGeneratorService {
     });
   }
 
-  public createHoursForm(): FormGroup {
+  public createHoursForm(
+    date: string,
+    start: string,
+    end: string
+  ): FormGroup {
     return this.formBuilder.group({
-      date: ['', [
+      date: [date, [
         Validators.required
       ]],
-      start: ['', [
+      start: [start, [
         Validators.required
       ]],
-      end: ['', [
+      end: [end, [
         Validators.required
       ]]
     });

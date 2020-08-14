@@ -46,8 +46,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ApproveTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/approve-teachers-administrative/approve-teachers-administrative.component';
 import { HttpClientModule } from '@angular/common/http';
-
-
+import { HoursModalComponent } from './_components/hours/hours-modal/hours-modal.component';
+import { ApproveSlapComponent } from './_components/configuration/config_components/approve-slap/approve-slap.component';
+import { AprobarReservasComponent } from './_components/configuration/config_components/aprobar-reservas/aprobar-reservas.component';
+import { AdminhomeComponent } from './_components/home/adminhome/adminhome/adminhome.component';
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   timeGridPlugin,
@@ -87,7 +89,11 @@ FullCalendarModule.registerPlugins([
     ConfirmationComponent,
     AlertComponent,
     RegistrationComponent,
-    ApproveTeachersAdministrativeComponent
+    ApproveTeachersAdministrativeComponent,
+    ApproveSlapComponent,
+    AprobarReservasComponent,
+    AdminhomeComponent,
+    HoursModalComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,7 @@
                 <label> Inicio del Semestre</label>
                 <input
                   type="date"
+                  id = "startA"
                   class="form-control"
                   placeholder="Fecha inicial"
                   formControlName="start"
@@ -23,6 +24,7 @@
                   class="form-control"
                   placeholder="Fecha inicial"
                   formControlName="end"
+                  [readonly] ="start.invalid"
                   [min]="start.value"
                 />
               </div>
@@ -40,7 +42,7 @@
               <div class="form-group col-md-6">
                 <div
                   class="alert alert-danger"
-                  *ngIf="end.invalid && end.touched"
+                  *ngIf="(end.invalid && end.touched) || !validDates()"
                   role="alert"
                 >
                   Debe seleccionar una fecha final válida.
@@ -54,7 +56,7 @@
         <div class="col-12 text-right">
           <button
             class="btn btn-primary"
-            [disabled]="semesterConfigForm.invalid"
+            [disabled]="semesterConfigForm.invalid || !validDates()"
             type="button"
             (click)="post()"
           >

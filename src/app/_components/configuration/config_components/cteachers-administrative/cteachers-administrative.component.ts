@@ -19,6 +19,7 @@ interface User {
 export class CTeachersAdministrativeComponent implements OnInit {
   buttonDanger: string = 'btn btn-danger';
   buttonSuccess: string = 'btn btn-success';
+  pending: number;
 
   teachersAdministratives: User[];
 
@@ -30,6 +31,7 @@ export class CTeachersAdministrativeComponent implements OnInit {
 
   ngOnInit(): void {
     this.teachersAdministratives = this.getTeachersAdministratives();
+    this.pending = this.getPendings();
   }
 
   openRequests() {
@@ -60,6 +62,10 @@ export class CTeachersAdministrativeComponent implements OnInit {
   }
 
   // GETs
+  getPendings () : number {
+    return 4;
+  }
+
   getTeachersAdministratives(): User[] {
     return [{
       id: 0,

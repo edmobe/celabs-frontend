@@ -26,14 +26,13 @@ export class ApproveTeachersAdministrativeComponent implements OnInit {
     this.pendingTeachersAdministratives = this.getPendingTeachersAdministratives();
   }
 
-  confirm(userId: number) {
+  confirm(userId: string) {
     this.alertService.confirm(
       'Alerta',
       '¿Está seguro de que desea permitir a ese usuario?').then((result) => {
         if (result) {
           // Success
-          console.log(userId);
-          console.log(true);
+          this.postAllow(userId);
         } else {
           // No success
           console.log(false);
@@ -42,6 +41,10 @@ export class ApproveTeachersAdministrativeComponent implements OnInit {
         // Error
         console.log(false);
       });
+  }
+  // POSTs
+  postAllow(userId : string) : void {
+    console.log(userId);
   }
 
   // GETs
