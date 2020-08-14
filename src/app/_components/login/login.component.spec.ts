@@ -1,57 +1,81 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from '../../_services/api/user.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { FormGeneratorService } from '../../_services/forms/form-generator.service';
+import { FormToJsonService } from '../../_services/forms/form-to-json.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import { LoginComponent } from './login.component';
-
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [LoginComponent],
-    }).compileComponents();
-  }));
-
   beforeEach(() => {
+    const ngbModalStub = () => ({ open: (surveyComponent, object) => ({}) });
+    const userServiceStub = () => ({
+      userAuthentication: (username, password) => ({ subscribe: (f) => f({}) }),
+    });
+    const routerStub = () => ({ navigate: (array) => ({}) });
+    const toastrServiceStub = () => ({
+      success: (string, string1) => ({}),
+      error: (string, string1) => ({}),
+    });
+    const formGeneratorServiceStub = () => ({ createLoginForm: () => ({}) });
+    const formToJsonServiceStub = () => ({
+      createLoginJson: (value, value1, value2) => ({}),
+    });
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [LoginComponent],
+      providers: [
+        { provide: NgbModal, useFactory: ngbModalStub },
+        { provide: UserService, useFactory: userServiceStub },
+        { provide: Router, useFactory: routerStub },
+        { provide: ToastrService, useFactory: toastrServiceStub },
+        { provide: FormGeneratorService, useFactory: formGeneratorServiceStub },
+        { provide: FormToJsonService, useFactory: formToJsonServiceStub },
+      ],
+    });
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
-
-  it('should create', () => {
+  it('can load instance', () => {
     expect(component).toBeTruthy();
   });
-
-  /*
-  // nuevo test de usabilidad
-  it('should run GetterDeclaration #username', async () => {
-    component.loginForm = component.loginForm || {};
-    component.loginForm.get = jest.fn();
-    const username = component.username;
-    expect(component.loginForm.get).toHaveBeenCalled();
+  describe('ngOnInit', () => {
+    it('makes expected calls', () => {
+      const formGeneratorServiceStub: FormGeneratorService = fixture.debugElement.injector.get(
+        FormGeneratorService
+      );
+      spyOn(component, 'getRoles').and.callThrough();
+      spyOn(formGeneratorServiceStub, 'createLoginForm').and.callThrough();
+      component.ngOnInit();
+      expect(component.getRoles).toHaveBeenCalled();
+      expect(formGeneratorServiceStub.createLoginForm).toHaveBeenCalled();
+    });
   });
-
-  // nuevo test de usabilidad
-  it('should run #ngOnInit()', async () => {
-    component.getRoles = jest.fn();
-    component.formGenerator = component.formGenerator || {};
-    component.formGenerator.createLoginForm = jest.fn();
-    component.ngOnInit();
-    expect(component.getRoles).toHaveBeenCalled();
-    expect(component.formGenerator.createLoginForm).toHaveBeenCalled();
+  describe('openSurvey', () => {
+    it('makes expected calls', () => {
+      const ngbModalStub: NgbModal = fixture.debugElement.injector.get(
+        NgbModal
+      );
+      spyOn(ngbModalStub, 'open').and.callThrough();
+      component.openSurvey();
+      expect(ngbModalStub.open).toHaveBeenCalled();
+    });
   });
-
-  // nuevo test de usabilidad
-  it('should run #successfulLogin()', async () => {
-
-    component.successfulLogin({});
-
+  describe('post', () => {
+    it('makes expected calls', () => {
+      const formToJsonServiceStub: FormToJsonService = fixture.debugElement.injector.get(
+        FormToJsonService
+      );
+      spyOn(component, 'onSubmit').and.callThrough();
+      spyOn(formToJsonServiceStub, 'createLoginJson').and.callThrough();
+      component.post();
+      expect(component.onSubmit).toHaveBeenCalled();
+      expect(formToJsonServiceStub.createLoginJson).toHaveBeenCalled();
+    });
   });
-
-  // nuevo test de usabilidad
-  it('should run #getRoles()', async () => {
-
-    component.getRoles();
-
-  });*/
 });

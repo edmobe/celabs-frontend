@@ -1,53 +1,40 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TitleService } from '../../_services/title.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HoursComponent } from './hours.component';
-
 describe('HoursComponent', () => {
   let component: HoursComponent;
   let fixture: ComponentFixture<HoursComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [HoursComponent],
-    }).compileComponents();
-  }));
-
   beforeEach(() => {
+    const titleServiceStub = () => ({ setTitle: (string) => ({}) });
+    const ngbModalStub = () => ({
+      open: (hoursModalComponent, object) => ({
+        componentInstance: { title: {}, hour: {} },
+        result: { then: () => ({ catch: () => ({}) }) },
+      }),
+    });
+    TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [HoursComponent],
+      providers: [
+        { provide: TitleService, useFactory: titleServiceStub },
+        { provide: NgbModal, useFactory: ngbModalStub },
+      ],
+    });
     fixture = TestBed.createComponent(HoursComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
-
-  it('should create', () => {
+  it('can load instance', () => {
     expect(component).toBeTruthy();
   });
-
-  // nuevo test unitario
-  it('should run #ngOnInit()', async () => {
-    component.getHours = jest.fn();
-    component.getAdmin = jest.fn();
-    component.ngOnInit();
-    expect(component.getHours).toHaveBeenCalled();
-    expect(component.getAdmin).toHaveBeenCalled();
-  });
-
-  // nuevo test unitario
-  it('should run #edit()', async () => {
-    component.edit({});
-  });
-
-  // nuevo test unitario
-  it('should run #getAdmin()', async () => {
-    component.getAdmin();
-  });
-
-  // nuevo test unitario
-  it('should run #getHours()', async () => {
-    component.getHours();
-  });
-
-  // nuevo test unitario
-  it('should run #approve()', async () => {
-    component.approve({});
+  describe('ngOnInit', () => {
+    it('makes expected calls', () => {
+      spyOn(component, 'getHours').and.callThrough();
+      spyOn(component, 'getAdmin').and.callThrough();
+      component.ngOnInit();
+      expect(component.getHours).toHaveBeenCalled();
+      expect(component.getAdmin).toHaveBeenCalled();
+    });
   });
 });
