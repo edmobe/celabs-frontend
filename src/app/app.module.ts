@@ -53,6 +53,7 @@ import { AdminhomeComponent } from './_components/home/adminhome/adminhome/admin
 import { InventoryReportComponent } from './_components/inventory/inventory-report/inventory-report.component';
 import { ProfileComponent } from './_components/profile/profile.component';
 import { DayAvailabilityComponent } from './_components/configuration/config_components/laboratory-availability/day-availability/day-availability.component';
+import { EmailComponent } from './_components/configuration/config_components/email/email.component';
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   timeGridPlugin,
@@ -99,7 +100,8 @@ FullCalendarModule.registerPlugins([
     HoursModalComponent,
     InventoryReportComponent,
     ProfileComponent,
-    DayAvailabilityComponent
+    DayAvailabilityComponent,
+    EmailComponent
   ],
   imports: [
     BrowserModule,
