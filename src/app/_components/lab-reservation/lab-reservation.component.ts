@@ -47,7 +47,6 @@ export class LabReservationComponent implements OnInit {
       }
     });
     const calendar = Calendar.name;
-    this.now = Date.now();
     this.titleService.setTitle('Reservación de laboratorios');
     this.calendarOptions = this.calendarGeneratorService.generateCalendar();
     Object.assign(this.calendarOptions, {
