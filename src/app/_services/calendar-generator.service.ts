@@ -16,6 +16,7 @@ export class CalendarGeneratorService {
       aspectRatio: 0.618,
       expandRows: true,
       initialView: 'timeGridWeek',
+      nowIndicator: true,
       slotDuration: '01:00:00',
       selectOverlap: false,
       themeSystem: 'bootstrap',

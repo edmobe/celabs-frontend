@@ -21,12 +21,16 @@ export class LabReservationComponent implements OnInit {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
   laboratory: Laboratorio;
-  now: number;
+  now = "cargando...";
 
   calendarOptions;
   closeResult;
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    setInterval(() => {
+      this.now = this.getTime();
+    }, 1000);
+  }
 
   constructor(
     private titleService: TitleService,
@@ -63,6 +67,10 @@ export class LabReservationComponent implements OnInit {
 
     });
 
+  }
+
+  updateTime() {
+    this.now = this.updateTime();
   }
 
   handleDateSelect(arg) {
@@ -128,6 +136,14 @@ export class LabReservationComponent implements OnInit {
     const start: Date = arg.start.marker;
     const end: Date = arg.end.marker;
     return 'Semana 17';
+  }
+
+  getTime() {
+    const d = new Date();
+    const s = d.getSeconds();
+    const m = d.getMinutes();
+    const h = d.getHours();
+    return h + ':' + m + ':' + s;
   }
 
   // Indica el inicio y final del semestre (puede ser en formato Date)
