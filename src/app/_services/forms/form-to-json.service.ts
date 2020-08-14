@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { faObjectGroup } from '@fortawesome/free-regular-svg-icons';
 
 @Injectable({
   providedIn: 'root'
@@ -174,4 +175,10 @@ export class FormToJsonService {
     return addCourseJson;
   }
 
+  public createFailureStatesJson(state: string) {
+    const failureStatesJson = {
+      state: state
+    };
+    return failureStatesJson;
+  }
 }

@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { state } from '@angular/animations';
+import { FormGroup } from '@angular/forms';
+import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
+import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
 
 interface Estados {
-  estado : string;
+  estado: string;
 }
-
-
-var buttonDanger: string = "btn btn-danger";
-var buttonSuccess: string = "btn btn-success";
 
 @Component({
   selector: 'app-failures-status',
@@ -19,60 +18,60 @@ var buttonSuccess: string = "btn btn-success";
 })
 export class FailuresStatusComponent implements OnInit {
 
-  constructor(private titleService: TitleService, private modalService: NgbModal) {
+  failureStatesForm: FormGroup;
+  failureStatesModal: NgbModalRef;
+
+  constructor(
+    private titleService: TitleService,
+    private modalService: NgbModal,
+    private formGenerator: FormGeneratorService,
+    private formToJson: FormToJsonService) {
     this.titleService.setTitle('');
-   }
-
-   estados : Estados[] = [
-    {estado: "Pendiente"},
-    {estado: "Atención"}
-  ];
-
-  ngOnInit(): void {
+    this.failureStatesForm = this.formGenerator.createFailureStatesForm();
   }
 
-  model: NgbDateStruct; 
-  left = true;
-  closeResult = '';
+  states: Estados[];
 
-  open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  ngOnInit(): void {
+    this.states = this.getStates();
+  }
+
+  open(content): void {
+    this.failureStatesModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
+    this.failureStatesModal.result.then(() => {
+      this.failureStatesForm.reset();
+    }).catch(() => {
+      this.failureStatesForm.reset();
     });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  successfulNewState(json: any): void {
+    this.failureStatesModal.close();
+    this.failureStatesForm.reset();
+    alert('Json generado:\n' + JSON.stringify(json));
   }
 
-  checkValue (state: string) : void {
-
-    var button = (<HTMLInputElement>document.getElementById("btnS"+state));
-    var clase = button.className;
-    if (clase == buttonSuccess) {
-      document.getElementById("btnS"+state).className = buttonDanger;
-      button.value = "Deshabilitado";
-    } else {
-      document.getElementById("btnS"+state).className = buttonSuccess;
-      button.value = "Habilitado";
-      
-    }
+  get state() {
+    return this.failureStatesForm.get('state');
   }
 
-  editState (estado : Estados, content) : void {
-    this.open(content);
-    (<HTMLInputElement>document.getElementById("nameState")).value = estado.estado;
-    (<HTMLInputElement>document.getElementById("modal-basic-title")).textContent ="Editar estado";
-    
-    
+  // GETs
+  public getStates() {
+    return [
+      { estado: 'Pendiente' },
+      { estado: 'Atención' }
+    ];
   }
 
+  // POSTs
+  public post(): void {
+    const json = this.formToJson.createFailureStatesJson(
+      this.state.value
+    );
+    this.successfulNewState(json);
+  }
+
+  public delete(state): void {
+    console.log(state);
+  }
 }

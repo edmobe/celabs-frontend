@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/_services/alert.service';
 
 interface Palmada {
-    id: number,
-    operador : string,
-    idLaboratorio : string,
-    motivo : string,
-    fechaSolicitud : string,
-    fechaPalmada : string,
+  id: number,
+  operador: string,
+  idLaboratorio: string,
+  motivo: string,
+  fechaSolicitud: string,
+  fechaPalmada: string,
 }
 
 @Component({
@@ -23,7 +23,7 @@ export class ApproveSlapComponent implements OnInit {
   ngOnInit(): void {
     this.pendingSlaps = this.getPalmadas();
   }
-  
+
   confirm(userId: number) {
     this.alertService.confirm(
       'Alerta',
@@ -43,11 +43,11 @@ export class ApproveSlapComponent implements OnInit {
 
   //GETs
   getPalmadas(): Palmada[] {
-    return [{id: 1, operador: "Brayan", idLaboratorio: "F2-07", motivo: "Proyecto", fechaPalmada: "10", fechaSolicitud: "10"}]
+    return [{ id: 1, operador: "Brayan", idLaboratorio: "F2-07", motivo: "Proyecto", fechaPalmada: "10", fechaSolicitud: "10" }]
   }
 
   // POSTs
-  postAllow(userId : number) : void {
-    console.log(userId);
+  postAllow(palmadaId: number): void {
+    console.log({ palmada: palmadaId });
   }
 }

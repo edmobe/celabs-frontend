@@ -237,7 +237,15 @@ export class FormGeneratorService {
       name: ['', [
         Validators.required
       ]]
-    })
+    });
+  }
+
+  public createFailureStatesForm() {
+    return this.formBuilder.group({
+      state: ['', [
+        Validators.required
+      ]]
+    });
   }
 
 }
