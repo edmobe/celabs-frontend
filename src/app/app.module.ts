@@ -15,7 +15,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigurationComponent } from './_components/configuration/configuration.component';
 import { LabReservationNormalComponent } from './_components/lab-reservation/lab-reservation-normal/lab-reservation-normal.component';
 import { LabReservationPalmadaComponent } from './_components/lab-reservation/lab-reservation-palmada/lab-reservation-palmada.component';
@@ -50,6 +50,8 @@ import { HoursModalComponent } from './_components/hours/hours-modal/hours-modal
 import { ApproveSlapComponent } from './_components/configuration/config_components/approve-slap/approve-slap.component';
 import { AprobarReservasComponent } from './_components/configuration/config_components/aprobar-reservas/aprobar-reservas.component';
 import { AdminhomeComponent } from './_components/home/adminhome/adminhome/adminhome.component';
+import { InventoryReportComponent } from './_components/inventory/inventory-report/inventory-report.component';
+import { ProfileComponent } from './_components/profile/profile.component';
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   timeGridPlugin,
@@ -93,7 +95,9 @@ FullCalendarModule.registerPlugins([
     ApproveSlapComponent,
     AprobarReservasComponent,
     AdminhomeComponent,
-    HoursModalComponent
+    HoursModalComponent,
+    InventoryReportComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -105,15 +109,23 @@ FullCalendarModule.registerPlugins([
     FormsModule,
     FontAwesomeModule,
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
-  providers: [UserService, AuthGuard,
+  providers: [
+    UserService,
+    AuthGuard,
+    NgbActiveModal,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
-  entryComponents: [LabReservationNormalComponent, LabReservationPalmadaComponent]
+  entryComponents: [
+    LabReservationNormalComponent,
+    LabReservationPalmadaComponent,
+  ],
 })
 export class AppModule { }

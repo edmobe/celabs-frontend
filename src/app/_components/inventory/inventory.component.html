@@ -6,21 +6,21 @@
   </div>
   <div class="panel panel-default">
     <div class="panel-body">
-      <table
-        class="table table-striped table-hover table-condensed text-center"
-      >
+      <table class="table table-hover table-condensed text-center">
         <thead>
           <tr>
             <th scope="col">Fecha</th>
             <th scope="col">Reporte</th>
             <th scope="col">Visualizar</th>
-            <th scope="col">Descargar</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let inventory of inventories; index as i">
             <td>{{ inventory.fecha }}</td>
             <td>{{ inventory.reporte }}</td>
+            <td *ngIf="!admin">
+              <a class="fa fa-eye fa-2x" (click)="view(inventory.reporte)"></a>
+            </td>
           </tr>
         </tbody>
       </table>

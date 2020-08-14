@@ -50,10 +50,10 @@
         >
       </li>
     </ul>
-    <div *ngIf="userClaims != NULL">
+    <div *ngIf="userClaims">
       <form class="form-inline">
         <span class="text-white align-middle">
-          {{userClaims.FirstName}} {{userClaims.LastName}}
+          {{ userClaims.FirstName }} {{ userClaims.LastName }}
         </span>
       </form>
     </div>
@@ -71,8 +71,8 @@
           />
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
-          <button ngbDropdownItem routerLink="/configuration">
-            Configuración
+          <button ngbDropdownItem routerLink="/profile">
+            Mi perfil
           </button>
           <button ngbDropdownItem (click)="logout()">Cerrar sesión</button>
         </div>

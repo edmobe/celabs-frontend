@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
-import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Laboratorio } from 'src/app/_models/laboratorio';
 import { FormGroup } from '@angular/forms';
 import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
@@ -40,6 +39,7 @@ export class FailuresComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.failures = this.getFailures();
     this.states = this.getStates();
     this.laboratories = this.getLaboratories();
     this.assets = this.getAssets();
@@ -84,6 +84,24 @@ export class FailuresComponent implements OnInit {
     return 'Eduardo Moya';
   }
 
+  getFailures(): Failure[] {
+    return [{
+      fecha: '12-07-2020',
+      hora: '09:30',
+      descripcion: 'Computadora sin internet',
+      estado: 'Pendiente de Atención',
+      responsable: 'Ejemplo Martínez',
+      laboratorio: 'F2-04',
+    }, {
+      fecha: '14-05-2020',
+      hora: '19:20',
+      descripcion: 'Teclado descompuesto',
+      estado: 'En proceso',
+      responsable: 'Alternativa Sánchez',
+      laboratorio: 'F2-07',
+    }];
+  }
+
   getStates() {
     return ['Pendiente de Atención', 'Completado', 'En proceso', 'Reportado'];
   }
@@ -112,10 +130,6 @@ export class FailuresComponent implements OnInit {
       codigo: 'F2-09',
       id: 9
     }];
-  }
-
-  getFailures(): Failure[] {
-    return [];
   }
 
   // POST

@@ -21,10 +21,11 @@ import { SemestreComponent } from './_components/configuration/config_components
 import { CoursesComponent } from './_components/configuration/config_components/courses/courses.component';
 import { AssetsComponent } from './_components/configuration/config_components/assets/assets.component';
 import { NotFoundComponent } from './_components/not-found/not-found.component';
-import { AuthGuard } from './auth/auth.guard'
+import { AuthGuard } from './auth/auth.guard';
 import { from } from 'rxjs';
 import { ApproveSlapComponent } from './_components/configuration/config_components/approve-slap/approve-slap.component';
 import { AprobarReservasComponent } from './_components/configuration/config_components/aprobar-reservas/aprobar-reservas.component';
+import { ProfileComponent } from './_components/profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -70,9 +71,10 @@ const routes: Routes = [
       },
       { path: 'semester', component: SemestreComponent },
       { path: 'courses', component: CoursesComponent },
-      { path: 'assets', component: AssetsComponent },
-    ],
+      { path: 'assets', component: AssetsComponent }
+    ]
   },
+  { path: 'profile', component: ProfileComponent },
   { path: 'error', component: NotFoundComponent },
   { path: '**', redirectTo: 'error', pathMatch: 'full' },
 ];
@@ -81,4 +83,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
