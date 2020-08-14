@@ -3,6 +3,7 @@ import { TitleService } from 'src/app/_services/title.service';
 import { FormGroup } from '@angular/forms';
 import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
 import { AlertService } from 'src/app/_services/alert.service';
+import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +19,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private titleService: TitleService,
     private formService: FormGeneratorService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private formToJson: FormToJsonService) {
     this.titleService.setTitle('Perfil de usuario');
   }
 
@@ -68,9 +70,14 @@ export class ProfileComponent implements OnInit {
     return this.profileForm.get('email');
   }
 
+  get role() {
+    return this.profileForm.get('email');
+  }
+
   // GETs
   getUser() {
     return {
+      id: 1,
       name: 'Eduardo',
       middleName: 'Moya',
       lastName: 'Bello',
@@ -81,6 +88,14 @@ export class ProfileComponent implements OnInit {
 
   // POSTs
   updateProfile() {
+    const json = this.formToJson.createUpdateProfileJson(
+      this.user.id,
+      this.name.value,
+      this.middleName.value,
+      this.lastName.value,
+      this.email.value
+    );
+    alert('Json generado:\n' + JSON.stringify(json));
     this.changed = false;
   }
 

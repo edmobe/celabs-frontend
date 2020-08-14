@@ -8,8 +8,8 @@ import { FormGroup, Form } from '@angular/forms';
 
 
 interface Semester {
-    startDate: string;
-    endDate: string;
+  startDate: string;
+  endDate: string;
 }
 
 @Component({
@@ -18,42 +18,42 @@ interface Semester {
   styleUrls: ['./semestre.component.css']
 })
 export class SemestreComponent implements OnInit {
-  
+
   semesterConfigForm: FormGroup;
 
   constructor(
     private titleService: TitleService,
     private formGenerator: FormGeneratorService,
     private formToJson: FormToJsonService,
-    private formValidator : FormValidatorService
+    private formValidator: FormValidatorService
   ) {
     this.titleService.setTitle('');
   }
   modelEnd: NgbDateStruct;
   modelStart: NgbDateStruct;
-  semestre : Semester;
-  
+  semestre: Semester;
 
   ngOnInit(): void {
     this.semestre = this.getInterval();
     this.semesterConfigForm = this.formGenerator.createSemesterConfigForm(this.semestre.startDate, this.semestre.endDate);
-    
   }
 
-  validDates () : boolean {
-    return this.formValidator.checkStartEndDateValid(this.start.value,this.end.value);
+  validDates(): boolean {
+    return this.formValidator.checkStartEndDateValid(this.start.value, this.end.value);
   }
 
   //GETs
-  getInterval () : Semester {
-    return {startDate : "2020-01-10", endDate : "2020-08-10"}
+  getInterval(): Semester {
+    return { startDate: "2020-01-10", endDate: "2020-08-10" }
   }
+
   //POSTs
   post() {
-    alert('Json generado:\n' + JSON.stringify(this.formToJson.createConfigSemesterJson(
+    const json = this.formToJson.createConfigSemesterJson(
       this.start.value,
       this.end.value
-    )));
+    );
+    alert('Json generado:\n' + JSON.stringify(json));
   }
 
   get start() {

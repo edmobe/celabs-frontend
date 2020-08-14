@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { faObjectGroup } from '@fortawesome/free-regular-svg-icons';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -180,5 +181,21 @@ export class FormToJsonService {
       state: state
     };
     return failureStatesJson;
+  }
+
+  public createUpdateProfileJson(
+    userId: number,
+    name: string,
+    middleName: string,
+    lastName: string,
+    email: string) {
+    const updateProfileJson = {
+      id: userId,
+      name: name,
+      middleName: middleName,
+      lastName: lastName,
+      email: email
+    };
+    return updateProfileJson;
   }
 }

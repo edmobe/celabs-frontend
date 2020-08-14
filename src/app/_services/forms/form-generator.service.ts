@@ -271,4 +271,14 @@ export class FormGeneratorService {
     });
   }
 
+  public createDayAvailabilityForm(
+    start: string,
+    end: string
+  ) {
+    return this.formBuilder.group({
+      start: start,
+      end: end
+    });
+  }
+
 }
