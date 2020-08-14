@@ -5,6 +5,8 @@ import { FormGeneratorService } from 'src/app/_services/forms/form-generator.ser
 import { UserService } from 'src/app/_services/api/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
+import { UsuarioModel } from 'src/app/_models/usuario-model.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -21,7 +23,8 @@ export class RegistrationComponent implements OnInit {
     private formGenerator: FormGeneratorService,
     private formToJson: FormToJsonService,
     private userService: UserService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private router: Router) {
     this.titleService.setTitle('Registrarse');
   }
 
@@ -74,21 +77,36 @@ export class RegistrationComponent implements OnInit {
       this.email.value,
       this.role.value
     );
+    
     alert('Json generado:\n' + JSON.stringify(json));
+    this.OnSubmit();
   }
 
 
-  /*OnSubmit() {
-    this.userService.registerUser( )
+  OnSubmit() {
+    const body: UsuarioModel = {
+      username: this.username.value,
+      correo: this.email.value,
+      contrasena: this.password.value,
+      nombre: this.name.value,
+      apellido1: this.middleName.value,
+      apellido2: this.lastName.value,
+      cedula: this.password.value,
+      rol:this.role.value,
+      apoyo: false,
+      administrador: false
+
+    }
+    this.userService.registerUser(body)
       .subscribe((data: any) => {
         if (data.Succeeded == true) {
-          this.resetForm(form);
-          this.toastr.success('User registration successful');
+          this.toastr.success('Usuario registrado','Espere el correo de confirmación');
+          this.router.navigate(['/login']);
         }
         else
           this.toastr.error(data.Errors[0]);
+          this.router.navigate(['/register']);
       });
-  }*/
-
+  }
 
 }
