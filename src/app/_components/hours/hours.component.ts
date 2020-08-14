@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
-import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup } from '@angular/forms';
-import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
-import { FormValidatorService } from 'src/app/_services/forms/form-validator.service';
-import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HoursModalComponent } from './hours-modal/hours-modal.component';
 
 interface Hour {
+  id: number;
   fecha: string;
-  horaRegistrada: string;
+  horasRegistradas: string;
   horaInicio: string;
   horaFinal: string;
   reportado: string;
@@ -23,75 +20,64 @@ interface Hour {
 })
 export class HoursComponent implements OnInit {
 
-  states: string[];
   hours: Hour[];
+  admin: boolean;
 
-  hoursForm: FormGroup;
-  hoursModal: NgbModalRef;
+  editHoursModal: NgbModalRef;
 
   constructor(
     private titleService: TitleService,
-    private modalService: NgbModal,
-    private formGenerator: FormGeneratorService,
-    private formValidator: FormValidatorService,
-    private formToJson: FormToJsonService
-  ) {
+    private modalService: NgbModal) {
     this.titleService.setTitle('Reporte de horas');
   }
 
   ngOnInit(): void {
-    this.states = this.getStates();
-    this.hoursForm = this.formGenerator.createHoursForm();
     this.hours = this.getHours();
+    this.admin = this.getAdmin();
   }
 
-  validTimes(start: string, end: string): boolean {
-    return this.formValidator.checkStartEndTimeValid(start, end);
+  public open(title: string, hour?: any): void {
+    const modalRef = this.modalService.open(
+      HoursModalComponent, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.hour = hour;
+    modalRef.result.then(() => { }).catch(() => { });
   }
 
-  open(content): void {
-    this.hoursModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
-    this.hoursModal.result.then(() => {
-      this.hoursForm.reset();
-    }).catch(() => {
-      this.hoursForm.reset();
-    });
-  }
-
-  successfulPost(json: any): void {
-    this.hoursModal.close();
-    this.hoursForm.reset();
-    alert('Json generado:\n' + JSON.stringify(json));
-  }
-
-  get date() {
-    return this.hoursForm.get('date');
-  }
-
-  get start() {
-    return this.hoursForm.get('start');
-  }
-
-  get end() {
-    return this.hoursForm.get('end');
+  edit(hour): void {
+    console.log(hour);
   }
 
   // GETs
-  getStates() {
-    return ['Aprobado', 'Pendiente'];
+  // Retorna true si ingresó como admin
+  getAdmin() {
+    return false;
   }
 
+  // Cuidado con el formato de las horas -> HH:MM
   getHours() {
-    return [];
+    return [{
+      id: 1,
+      fecha: '2020-01-03',
+      horasRegistradas: '2',
+      horaInicio: '07:30',
+      horaFinal: '09:20',
+      reportado: '09:30',
+      estado: 'Pendiente'
+    }, {
+      id: 2,
+      fecha: '2020-03-03',
+      horasRegistradas: '4',
+      horaInicio: '07:30',
+      horaFinal: '11:20',
+      reportado: '11:30',
+      estado: 'Pendiente'
+    }];
   }
 
-  // POST
-  post() {
-    const json = this.formToJson.createHoursJson(
-      this.date.value,
-      this.start.value,
-      this.end.value
-    );
-    this.successfulPost(json);
+  // POSTs
+  approve(hour): void {
+    console.log(hour);
   }
+
 }
