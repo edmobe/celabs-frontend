@@ -20,6 +20,30 @@ export class FormToJsonService {
     return loginJson;
   }
 
+  public createResiterJson(
+    name: string,
+    middleName: string,
+    lastName: string,
+    id: string,
+    username: string,
+    password: string,
+    email: string,
+    role: string
+  ) {
+    const registerJson = {
+      name: name,
+      middleName: middleName,
+      lastName: lastName,
+      id: id,
+      username: username,
+      password: password,
+      email: email,
+      role: role
+    };
+
+    return registerJson;
+  }
+
   public createBaseFormJson(title: string, type: string, laboratoryId: number, start: Date, end: Date): any {
     const baseFormJson = {
       title: title,

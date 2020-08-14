@@ -141,8 +141,9 @@
         <div class="col-12 text-center">
           <button
             class="btn btn-primary btn-block"
-            routerLink="/home"
+            routerLink="/login"
             [disabled]="registrationForm.invalid"
+            (click)="post()"
           >
             Confirmar registro
           </button>
