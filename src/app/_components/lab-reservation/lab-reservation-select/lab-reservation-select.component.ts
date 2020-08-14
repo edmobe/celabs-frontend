@@ -15,10 +15,11 @@ export class LabReservationSelectComponent implements OnInit {
   constructor(private titleService: TitleService, 
     private laboratoryService: LaboratoryService) {
     this.titleService.setTitle('Seleccione un laboratorio');
+    this.laboratories = this.laboratoryService.getLaboratories();
   }
 
   ngOnInit(): void {
-    this.laboratories = this.laboratoryService.getLaboratories();
+    //this.laboratories = this.laboratoryService.getLaboratories();
   }
 
 }
