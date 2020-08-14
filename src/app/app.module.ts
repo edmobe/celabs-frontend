@@ -101,7 +101,8 @@ FullCalendarModule.registerPlugins([
     ReactiveFormsModule,
     FormsModule,
     FontAwesomeModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
