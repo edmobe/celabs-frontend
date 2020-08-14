@@ -1,29 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TitleService } from '../../_services/title.service';
 import { HomeComponent } from './home.component';
-
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [HomeComponent],
-    }).compileComponents();
-  }));
-
   beforeEach(() => {
+    const titleServiceStub = () => ({ setTitle: (string) => ({}) });
+    TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [HomeComponent],
+      providers: [{ provide: TitleService, useFactory: titleServiceStub }],
+    });
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
-
-  it('should create', () => {
+  it('can load instance', () => {
     expect(component).toBeTruthy();
-  });
-
-  // nuevo test de usabilidad
-  it('should run #ngOnInit()', async () => {
-    component.ngOnInit();
   });
 });

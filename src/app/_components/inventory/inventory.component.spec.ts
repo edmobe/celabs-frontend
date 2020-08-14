@@ -1,102 +1,74 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TitleService } from '../../_services/title.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormGeneratorService } from '../../_services/forms/form-generator.service';
+import { FormToJsonService } from '../../_services/forms/form-to-json.service';
 import { InventoryComponent } from './inventory.component';
-
 describe('InventoryComponent', () => {
   let component: InventoryComponent;
   let fixture: ComponentFixture<InventoryComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [InventoryComponent],
-    }).compileComponents();
-  }));
-
   beforeEach(() => {
+    const titleServiceStub = () => ({ setTitle: (string) => ({}) });
+    const ngbModalStub = () => ({ open: (content, object) => ({}) });
+    const formGeneratorServiceStub = () => ({
+      createInventoryForm: (operator) => ({}),
+    });
+    const formToJsonServiceStub = () => ({
+      createInventoryJson: (
+        operator,
+        id,
+        completeComputers,
+        incompleteComputers,
+        projectors,
+        chairs,
+        extinguishers
+      ) => ({}),
+    });
+    TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [InventoryComponent],
+      providers: [
+        { provide: TitleService, useFactory: titleServiceStub },
+        { provide: NgbModal, useFactory: ngbModalStub },
+        { provide: FormGeneratorService, useFactory: formGeneratorServiceStub },
+        { provide: FormToJsonService, useFactory: formToJsonServiceStub },
+      ],
+    });
     fixture = TestBed.createComponent(InventoryComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
-
-  it('should create', () => {
+  it('can load instance', () => {
     expect(component).toBeTruthy();
   });
-
-  /*
-  // nuevo test de usabilidad
-  it('should run GetterDeclaration #laboratory', async () => {
-    component.inventoryForm = component.inventoryForm || {};
-    component.inventoryForm.get = jest.fn();
-    const laboratory = component.laboratory;
-    expect(component.inventoryForm.get).toHaveBeenCalled();
+  describe('ngOnInit', () => {
+    it('makes expected calls', () => {
+      const formGeneratorServiceStub: FormGeneratorService = fixture.debugElement.injector.get(
+        FormGeneratorService
+      );
+      spyOn(component, 'getLaboratories').and.callThrough();
+      spyOn(component, 'getOperator').and.callThrough();
+      spyOn(component, 'getAmounts').and.callThrough();
+      spyOn(component, 'getInventories').and.callThrough();
+      spyOn(formGeneratorServiceStub, 'createInventoryForm').and.callThrough();
+      component.ngOnInit();
+      expect(component.getLaboratories).toHaveBeenCalled();
+      expect(component.getOperator).toHaveBeenCalled();
+      expect(component.getAmounts).toHaveBeenCalled();
+      expect(component.getInventories).toHaveBeenCalled();
+      expect(formGeneratorServiceStub.createInventoryForm).toHaveBeenCalled();
+    });
   });
-
-  
-
-  // nuevo test de usabilidad
-  it('should run #successfulPost()', async () => {
-    component.inventoryModal = component.inventoryModal || {};
-    component.inventoryModal.close = jest.fn();
-    component.inventoryForm = component.inventoryForm || {};
-    component.inventoryForm.reset = jest.fn();
-    component.successfulPost({});
-    expect(component.inventoryModal.close).toHaveBeenCalled();
-    expect(component.inventoryForm.reset).toHaveBeenCalled();
+  describe('post', () => {
+    it('makes expected calls', () => {
+      const formToJsonServiceStub: FormToJsonService = fixture.debugElement.injector.get(
+        FormToJsonService
+      );
+      spyOn(component, 'successfulPost').and.callThrough();
+      spyOn(formToJsonServiceStub, 'createInventoryJson').and.callThrough();
+      component.post();
+      expect(component.successfulPost).toHaveBeenCalled();
+      expect(formToJsonServiceStub.createInventoryJson).toHaveBeenCalled();
+    });
   });
-
-  // nuevo test de usabilidad
-  it('should run #getAmounts()', async () => {
-
-    component.getAmounts();
-
-  });
-
-  // nuevo test de usabilidad
-  it('should run #getStates()', async () => {
-
-    component.getStates();
-
-  });
-
-  // nuevo test de usabilidad
-  it('should run #getLaboratories()', async () => {
-
-    component.getLaboratories();
-
-  });
-
-  // nuevo test de usabilidad
-  it('should run #getOperator()', async () => {
-
-    component.getOperator();
-
-  });
-
-  // nuevo test de usabilidad
-  it('should run #getInventories()', async () => {
-
-    component.getInventories();
-
-  });
-
-  // nuevo test de usabilidad
-  it('should run #post()', async () => {
-    component.formToJson = component.formToJson || {};
-    component.formToJson.createInventoryJson = jest.fn();
-    component.inventoryForm = component.inventoryForm || {};
-    component.inventoryForm.value = {
-      laboratory: {
-        id: {}
-      },
-      completeComputers: {},
-      incompleteComputers: {},
-      projectors: {},
-      chairs: {},
-      extinguishers: {}
-    };
-    component.successfulPost = jest.fn();
-    component.post();
-    expect(component.formToJson.createInventoryJson).toHaveBeenCalled();
-    expect(component.successfulPost).toHaveBeenCalled();
-  });*/
 });
