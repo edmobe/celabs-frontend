@@ -43,4 +43,13 @@ export class FormValidatorService {
     const endDate = new Date(2020, 0, 1, parseInt(endArray[0], 10), parseInt(endArray[1], 10));
     return startDate < endDate;
   }
+
+  checkStartEndDateValid(start: string, end: string): boolean {
+    if (start === null || end === null) {
+      return false;
+    }
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    return startDate < endDate;
+  }
 }

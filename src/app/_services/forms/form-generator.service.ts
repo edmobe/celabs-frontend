@@ -113,12 +113,12 @@ export class FormGeneratorService {
     });
   }
 
-  public createSemesterConfigForm(): FormGroup {
+  public createSemesterConfigForm(start: string, end: string): FormGroup {
     return this.formBuilder.group({
-      start: ['', [
+      start: [start, [
         Validators.required
       ]],
-      end: ['', [
+      end: [end, [
         Validators.required
       ]]
     });

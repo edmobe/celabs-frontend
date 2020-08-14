@@ -4,7 +4,13 @@ import { NgbDateStruct, NgbCalendar, NgbModal } from '@ng-bootstrap/ng-bootstrap
 import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
 import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
 import { FormValidatorService } from 'src/app/_services/forms/form-validator.service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, Form } from '@angular/forms';
+
+
+interface Semester {
+    startDate: string;
+    endDate: string;
+}
 
 @Component({
   selector: 'app-semestre',
@@ -18,17 +24,31 @@ export class SemestreComponent implements OnInit {
   constructor(
     private titleService: TitleService,
     private formGenerator: FormGeneratorService,
-    private formToJson: FormToJsonService
+    private formToJson: FormToJsonService,
+    private formValidator : FormValidatorService
   ) {
     this.titleService.setTitle('');
   }
   modelEnd: NgbDateStruct;
   modelStart: NgbDateStruct;
+  semestre : Semester;
+  
 
   ngOnInit(): void {
-    this.semesterConfigForm = this.formGenerator.createSemesterConfigForm();
+    this.semestre = this.getInterval();
+    this.semesterConfigForm = this.formGenerator.createSemesterConfigForm(this.semestre.startDate, this.semestre.endDate);
+    
   }
 
+  validDates () : boolean {
+    return this.formValidator.checkStartEndDateValid(this.start.value,this.end.value);
+  }
+
+  //GETs
+  getInterval () : Semester {
+    return {startDate : "2020-01-10", endDate : "2020-08-10"}
+  }
+  //POSTs
   post() {
     alert('Json generado:\n' + JSON.stringify(this.formToJson.createConfigSemesterJson(
       this.start.value,
