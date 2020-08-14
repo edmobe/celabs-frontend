@@ -44,7 +44,7 @@ const routes: Routes = [
   { path: 'hours', component: HoursComponent },
   { path: 'failures', component: FailuresComponent },
   {
-    path: 'configuration',
+    path: 'admin',
     component: ConfigurationComponent,
     children: [
       { path: '', redirectTo: 'administrator', pathMatch: 'full' },

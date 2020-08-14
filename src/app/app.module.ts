@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './_components/login/login.component';
@@ -41,6 +40,10 @@ import { SurveyComponent } from './_components/survey/survey.component';
 import { ConfirmationComponent } from './_components/alerts/confirmation/confirmation.component';
 import { AlertComponent } from './_components/alerts/alert/alert.component';
 import { RegistrationComponent } from './_components/registration/registration.component';
+import { UserService } from './_services/api/user.service';
+import { AuthGuard } from './auth/auth.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth.interceptor';
 import { ApproveTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/approve-teachers-administrative/approve-teachers-administrative.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HoursModalComponent } from './_components/hours/hours-modal/hours-modal.component';
@@ -87,10 +90,10 @@ FullCalendarModule.registerPlugins([
     AlertComponent,
     RegistrationComponent,
     ApproveTeachersAdministrativeComponent,
-    HoursModalComponent,
     ApproveSlapComponent,
     AprobarReservasComponent,
-    AdminhomeComponent
+    AdminhomeComponent,
+    HoursModalComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +107,12 @@ FullCalendarModule.registerPlugins([
     ToastrModule.forRoot(),
     HttpClientModule
   ],
-  providers: [],
+  providers: [UserService, AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent],
   entryComponents: [LabReservationNormalComponent, LabReservationPalmadaComponent]
 })
