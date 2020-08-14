@@ -50,10 +50,10 @@
         >
       </li>
     </ul>
-    <div *ngIf="userClaims != NULL">
+    <div *ngIf="userClaims">
       <form class="form-inline">
         <span class="text-white align-middle">
-          {{userClaims.FirstName}} {{userClaims.LastName}}
+          {{ userClaims.FirstName }} {{ userClaims.LastName }}
         </span>
       </form>
     </div>
