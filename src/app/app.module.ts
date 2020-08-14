@@ -42,6 +42,7 @@ import { ConfirmationComponent } from './_components/alerts/confirmation/confirm
 import { AlertComponent } from './_components/alerts/alert/alert.component';
 import { RegistrationComponent } from './_components/registration/registration.component';
 import { ApproveTeachersAdministrativeComponent } from './_components/configuration/config_components/cteachers-administrative/approve-teachers-administrative/approve-teachers-administrative.component';
+import { AdminhomeComponent } from './_components/home/adminhome/adminhome/adminhome.component';
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   timeGridPlugin,
@@ -81,7 +82,8 @@ FullCalendarModule.registerPlugins([
     ConfirmationComponent,
     AlertComponent,
     RegistrationComponent,
-    ApproveTeachersAdministrativeComponent
+    ApproveTeachersAdministrativeComponent,
+    AdminhomeComponent
   ],
   imports: [
     BrowserModule,
