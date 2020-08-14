@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
 import { FormGroup } from '@angular/forms';
 import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
+import { UserService } from 'src/app/_services/api/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -14,12 +16,15 @@ export class RegistrationComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  constructor(private titleService: TitleService, private formGenerator: FormGeneratorService) {
+  constructor(private titleService: TitleService, 
+    private formGenerator: FormGeneratorService,
+    private userService: UserService,
+    private toastr: ToastrService) {
     this.titleService.setTitle('Registrarse');
   }
 
   ngOnInit(): void {
-    this.roles = ['Admin', 'Profesor', 'Operador'];
+    this.roles = ['Administrativo', 'Profesor'];
     this.registrationForm = this.formGenerator.createRegistrationForm();
   }
 
@@ -54,6 +59,19 @@ export class RegistrationComponent implements OnInit {
   get role() {
     return this.registrationForm.get('role');
   }
+  /*OnSubmit() {
+    this.userService.registerUser( )
+      .subscribe((data: any) => {
+        if (data.Succeeded == true) {
+          this.resetForm(form);
+          this.toastr.success('User registration successful');
+        }
+        else
+          this.toastr.error(data.Errors[0]);
+      });
+  }*/
+
+  
   
 
   
