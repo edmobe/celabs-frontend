@@ -50,11 +50,13 @@
         >
       </li>
     </ul>
-    <form class="form-inline">
-      <span class="text-white align-middle">
-        {{userClaims.FirstName}} {{userClaims.LastName}}
-      </span>
-    </form>
+    <div *ngIf="userClaims != NULL">
+      <form class="form-inline">
+        <span class="text-white align-middle">
+          {{userClaims.FirstName}} {{userClaims.LastName}}
+        </span>
+      </form>
+    </div>
     <div
       ngbDropdown
       class="d-inline-block"
