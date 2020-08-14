@@ -9,14 +9,14 @@
               <input
                 type="text"
                 placeholder="Nombre de usuario"
-                formControlName="email"
+                formControlName="username"
               />
               <div
                 class="alert alert-danger text-left"
                 role="alert"
-                
+                *ngIf="username.invalid && username.touched"
               >
-                Debe ingresar un correo válido.
+                Debe ingresar un nombre de usuario válido.
               </div>
             </div>
           </div>
@@ -28,7 +28,7 @@
             formControlName="password"
           />
           <div
-            class="alert alert-danger"
+            class="alert alert-danger text-left"
             role="alert"
             *ngIf="password.invalid && password.touched"
           >
@@ -42,7 +42,7 @@
             </option>
           </select>
           <div
-            class="alert alert-danger"
+            class="alert alert-danger text-left"
             role="alert"
             *ngIf="role.invalid && role.touched"
           >
