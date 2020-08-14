@@ -1,7 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <a class="btn">
+      <a class="btn" routerLink="/dashboard">
+        <h3 class="flip-front">Dashboard</h3>
+        <p class="flip-back">
+          Observar las métricas de CELabs.
+        </p>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a class="btn" routerLink="/reservations">
         <h3 class="flip-front">
           Reservar laboratorio
         </h3>
@@ -11,15 +19,7 @@
       </a>
     </div>
     <div class="col-md-4">
-      <a class="btn">
-        <h3 class="flip-front">Dashboard</h3>
-        <p class="flip-back">
-          Observar las métricas de CELabs.
-        </p>
-      </a>
-    </div>
-    <div class="col-md-4">
-      <a class="btn">
+      <a class="btn" routerLink="/inventory">
         <h3 class="flip-front">Reportar inventario</h3>
         <p class="flip-back">
           Crear, visualizar y editar.
@@ -30,27 +30,27 @@
 
   <div class="row">
     <div class="col-md-4">
-      <a class="btn">
+      <a class="btn" routerLink="/hours">
         <h3 class="flip-front">
-          Reportar de horas
+          Reportar horas
         </h3>
         <p class="flip-back">
-          Crear, visualizar y editar.
+          Aprobar y editar.
         </p>
       </a>
     </div>
     <div class="col-md-4">
-      <a class="btn">
-        <h3 class="flip-front">Reportar averias</h3>
+      <a class="btn" routerLink="/failures">
+        <h3 class="flip-front">Reportar averías</h3>
         <p class="flip-back">
           Crear, visualizar y editar.
         </p>
       </a>
     </div>
     <div class="col-md-4">
-      <a class="btn">
-        <h3 class="flip-front">Ajustes de CELabs</h3>
-        <p class="flip-back">Acceder a las configuraciones.</p>
+      <a class="btn" routerLink="/admin">
+        <h3 class="flip-front">Administrador</h3>
+        <p class="flip-back">Acceder a los ajustes de CELabs.</p>
       </a>
     </div>
   </div>
