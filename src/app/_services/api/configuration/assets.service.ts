@@ -7,8 +7,8 @@ import { Activo } from '../../../_models/configuration/activo';
   providedIn: 'root'
 })
 export class AssetsService {
-  assets : Activo [];
-  result: string;
+  private assets : Activo [];
+  private result: string;
   constructor(private http: HttpClient, private apiService: ApiService) { }
 
   public getActivos () : Activo[] {
@@ -40,6 +40,7 @@ export class AssetsService {
     }, error => this.result = error);
     return this.result;
   }
+
   public updateActivo (id : string, activo : Activo) : string {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -57,5 +58,10 @@ export class AssetsService {
     }, error => this.result = error);
     return this.result;
   }
+
+  
+
+
+
 
 }
