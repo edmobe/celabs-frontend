@@ -1,7 +1,7 @@
 export class UsuarioModel {
     username: string;
-    contrasena: string;
     correo: string;
+    contrasena: string;
     nombre: string;
     apellido1: string;
     apellido2: string;

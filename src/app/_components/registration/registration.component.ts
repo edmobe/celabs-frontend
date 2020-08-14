@@ -86,15 +86,15 @@ export class RegistrationComponent implements OnInit {
   OnSubmit() {
     const body: UsuarioModel = {
       username: this.username.value,
-      contrasena: this.password.value,
       correo: this.email.value,
+      contrasena: this.password.value,
       nombre: this.name.value,
       apellido1: this.middleName.value,
       apellido2: this.lastName.value,
       cedula: this.password.value,
       rol:this.role.value,
       apoyo: false,
-      administrador: false,
+      administrador: false
 
     }
     this.userService.registerUser(body)
