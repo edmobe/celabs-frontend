@@ -1,4 +1,4 @@
 export class Laboratorio {
-  public nombre: string;
+  public codigo: string;
   public id: number;
 }

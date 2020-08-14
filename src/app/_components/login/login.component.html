@@ -8,31 +8,45 @@
             <div class="row mb-3">
               <input
                 type="text"
-                placeholder="Correo institucional"
-                formControlName="email"
+                placeholder="Nombre de usuario"
+                formControlName="username"
               />
               <div
                 class="alert alert-danger text-left"
                 role="alert"
-                *ngIf="email.invalid && email.touched"
+                *ngIf="username.invalid && username.touched"
               >
-                Debe ingresar un correo válido.
+                Debe ingresar un nombre de usuario válido.
               </div>
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
           <input
             type="password"
             placeholder="Contraseña"
             formControlName="password"
           />
           <div
-            class="alert alert-danger"
+            class="alert alert-danger text-left"
             role="alert"
             *ngIf="password.invalid && password.touched"
           >
             Debe ingresar una contraseña válida.
+          </div>
+        </div>
+        <div class="row">
+          <select class="form-control" formControlName="role">
+            <option *ngFor="let role of roles" [ngValue]="role">
+              {{ role }}
+            </option>
+          </select>
+          <div
+            class="alert alert-danger text-left"
+            role="alert"
+            *ngIf="role.invalid && role.touched"
+          >
+            Debe ingresar un rol.
           </div>
         </div>
         <div class="row mt-5">
@@ -40,7 +54,7 @@
             <button
               class="btn btn-primary btn-block"
               [disabled]="loginForm.invalid"
-              routerLink="/home"
+              (click)="post()"
             >
               Iniciar sesión
             </button>

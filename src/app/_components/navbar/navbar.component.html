@@ -44,10 +44,15 @@
           >Averías</a
         >
       </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin" routerLinkActive="active"
+          >Administrador</a
+        >
+      </li>
     </ul>
     <form class="form-inline">
       <span class="text-white align-middle">
-        {{ user }}
+        {{userClaims.FirstName}} {{userClaims.LastName}}
       </span>
     </form>
     <div
@@ -67,7 +72,7 @@
           <button ngbDropdownItem routerLink="/configuration">
             Configuración
           </button>
-          <button ngbDropdownItem routerLink="/login">Cerrar sesión</button>
+          <button ngbDropdownItem (click)="logout()">Cerrar sesión</button>
         </div>
       </div>
     </div>

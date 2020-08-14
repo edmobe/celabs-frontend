@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from 'src/app/_services/title.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup } from '@angular/forms';
+import { FormGeneratorService } from 'src/app/_services/forms/form-generator.service';
+import { FormToJsonService } from 'src/app/_services/forms/form-to-json.service';
 
 interface Cursos {
-  codigo : string;
-  nombre : string;
+  codigo: string;
+  nombre: string;
 }
 
 @Component({
@@ -15,38 +18,66 @@ interface Cursos {
 })
 export class CoursesComponent implements OnInit {
 
-  constructor(private titleService: TitleService, private modalService: NgbModal) {
+  courses: Cursos[];
+
+  addCourseForm: FormGroup;
+  addCourseModal: NgbModalRef;
+
+  constructor(
+    private titleService: TitleService,
+    private modalService: NgbModal,
+    private formGenerator: FormGeneratorService,
+    private formToJson: FormToJsonService) {
     this.titleService.setTitle('');
-   }
-
-   activos : Cursos[] = [
-    {codigo: "CE1001", nombre : "Monitor"},
-    {codigo: "CE1002", nombre : "Monitor"}
-  ];
-
-  ngOnInit(): void {
   }
 
-  model: NgbDateStruct; 
-  left = true;
-  closeResult = '';
+  ngOnInit(): void {
+    this.courses = this.getCourses();
+    this.addCourseForm = this.formGenerator.createAddCourseForm();
+  }
 
-  open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  open(content): void {
+    this.addCourseModal = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
+    this.addCourseModal.result.then(() => {
+      this.addCourseForm.reset();
+    }).catch(() => {
+      this.addCourseForm.reset();
     });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  successfulNewCourse(json: any): void {
+    this.addCourseModal.close();
+    this.addCourseForm.reset();
+    alert('Json generado:\n' + JSON.stringify(json));
+  }
+
+  get code() {
+    return this.addCourseForm.get('code');
+  }
+
+  get name() {
+    return this.addCourseForm.get('name');
+  }
+
+  // GETs
+  public getCourses(): Cursos[] {
+    return [
+      { codigo: 'CE1001', nombre: 'Introducción a la programación' },
+      { codigo: 'CE1002', nombre: 'Taller de programación' }
+    ];
+  }
+
+  // POSTs
+  public post(): void {
+    const json = this.formToJson.createAddCourseJson(
+      this.code.value,
+      this.name.value
+    );
+    this.successfulNewCourse(json);
+  }
+
+  public delete(course): void {
+    console.log(course);
   }
 
 }

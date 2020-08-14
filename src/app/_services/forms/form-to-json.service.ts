@@ -7,6 +7,19 @@ export class FormToJsonService {
 
   constructor() { }
 
+  public createLoginJson(
+    email: string,
+    password: string,
+    role: string
+  ) {
+    const loginJson = {
+      email: email,
+      password: password,
+      role: role
+    };
+    return loginJson;
+  }
+
   public createBaseFormJson(title: string, type: string, laboratoryId: number, start: Date, end: Date): any {
     const baseFormJson = {
       title: title,
@@ -110,4 +123,16 @@ export class FormToJsonService {
 
     return addUserJson;
   }
+
+  public createAddCourseJson(
+    code: string,
+    name: string
+  ) {
+    const addCourseJson = {
+      code: code,
+      name: name
+    };
+    return addCourseJson;
+  }
+
 }

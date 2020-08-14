@@ -13,7 +13,7 @@ export class LaboratoryService {
   constructor(private http: HttpClient, private apiService: ApiService) { }
 
   public getLaboratories(): Laboratorio[] {
-    this.http.get(this.apiService.getUrl() + '/getLaboratorios').toPromise().then(res => this.laboratories = res as Laboratorio[]);
+    this.http.get(this.apiService.getUrl() + '/getLabs').toPromise().then(res => this.laboratories = res as Laboratorio[]);
     return this.laboratories;
   }
 
