@@ -19,7 +19,7 @@
             <th scope="col">Hora de finalización</th>
             <th scope="col">Reportado</th>
             <th scope="col">Estado</th>
-            <th *ngIf="!admin" scope="col">Editar</th>
+            <th scope="col">Editar</th>
             <th *ngIf="admin" scope="col">Aprobar</th>
           </tr>
         </thead>
@@ -31,14 +31,19 @@
             <td>{{ hour.horaFinal }}</td>
             <td>{{ hour.reportado }}</td>
             <td>{{ hour.estado }}</td>
-            <td *ngIf="!admin">
+            <td>
               <a
+                *ngIf="hour.estado !== 'Aprobado'"
                 class="fa fa-pencil-square-o fa-2x"
                 (click)="open('Editar reporte de horas', hour)"
               ></a>
             </td>
             <td *ngIf="admin">
-              <button class="btn btn-primary" (click)="approve(hour)">
+              <button
+                *ngIf="hour.estado !== 'Aprobado'"
+                class="btn btn-primary"
+                (click)="approve(hour)"
+              >
                 Aprobar
               </button>
             </td>

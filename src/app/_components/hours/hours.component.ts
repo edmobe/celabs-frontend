@@ -43,7 +43,7 @@ export class HoursComponent implements OnInit {
     });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.hour = hour;
-    modalRef.result.then(() => {}).catch(() => {});
+    modalRef.result.then(() => { }).catch(() => { });
   }
 
   edit(hour): void {
@@ -53,7 +53,7 @@ export class HoursComponent implements OnInit {
   // GETs
   // Retorna true si ingresó como admin
   getAdmin() {
-    return false;
+    return true;
   }
 
   // Cuidado con el formato de las horas -> HH:MM
@@ -67,16 +67,31 @@ export class HoursComponent implements OnInit {
         horaFinal: '09:20',
         reportado: '09:30',
         estado: 'Pendiente',
-      },
-      {
+      }, {
         id: 2,
         fecha: '2020-03-03',
         horasRegistradas: '4',
         horaInicio: '07:30',
         horaFinal: '11:20',
         reportado: '11:30',
+        estado: 'Aprobado',
+      }, {
+        id: 3,
+        fecha: '2020-03-03',
+        horasRegistradas: '4',
+        horaInicio: '07:30',
+        horaFinal: '11:20',
+        reportado: '11:30',
+        estado: 'Aprobado',
+      }, {
+        id: 4,
+        fecha: '2020-03-03',
+        horasRegistradas: '4',
+        horaInicio: '07:30',
+        horaFinal: '11:20',
+        reportado: '11:30',
         estado: 'Pendiente',
-      },
+      }
     ];
   }
 

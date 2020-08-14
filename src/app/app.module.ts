@@ -52,7 +52,6 @@ import { AprobarReservasComponent } from './_components/configuration/config_com
 import { AdminhomeComponent } from './_components/home/adminhome/adminhome/adminhome.component';
 import { InventoryReportComponent } from './_components/inventory/inventory-report/inventory-report.component';
 import { ProfileComponent } from './_components/profile/profile.component';
-import { ApproveHoursComponent } from './_components/configuration/config_components/approve-hours/approve-hours.component';
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
   timeGridPlugin,
@@ -98,8 +97,7 @@ FullCalendarModule.registerPlugins([
     AdminhomeComponent,
     HoursModalComponent,
     InventoryReportComponent,
-    ProfileComponent,
-    ApproveHoursComponent
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -24,7 +24,6 @@ import { NotFoundComponent } from './_components/not-found/not-found.component';
 import { AuthGuard } from './auth/auth.guard';
 import { from } from 'rxjs';
 import { ApproveSlapComponent } from './_components/configuration/config_components/approve-slap/approve-slap.component';
-import { ApproveHoursComponent } from './_components/configuration/config_components/approve-hours/approve-hours.component';
 import { AprobarReservasComponent } from './_components/configuration/config_components/aprobar-reservas/aprobar-reservas.component';
 import { ProfileComponent } from './_components/profile/profile.component';
 
@@ -60,10 +59,6 @@ const routes: Routes = [
       {
         path: 'approvePalmada',
         component: ApproveSlapComponent,
-      },
-      {
-        path: 'approveHours',
-        component: ApproveHoursComponent,
       },
       { path: 'failuresStatus', component: FailuresStatusComponent },
       {
