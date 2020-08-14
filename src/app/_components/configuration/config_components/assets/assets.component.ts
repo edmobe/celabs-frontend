@@ -67,7 +67,11 @@ export class AssetsComponent implements OnInit {
   }
 
   // POSTs
-  postAssert(activo:Activo) {
+  postAssert() {
+    var activo:Activo={
+      id: this.id.value,
+      nombre: this.nombre.value
+    }
     this.assetsService.postActivo(activo);
     //return true;
   }
@@ -77,6 +81,6 @@ export class AssetsComponent implements OnInit {
   }
 
 
-
+//modal.close('Save click')
 
 }

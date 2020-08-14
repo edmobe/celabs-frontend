@@ -14,7 +14,7 @@ export class AccountService {
 
   public getAdmins(): Admin[] {
    
-    this.http.get(this.apiService.getUrl() + '/getLabs').toPromise().then(res => this.admins = res as Admin[]);
+    this.http.get(this.apiService.getUrl() + '/getAdmins').toPromise().then(res => this.admins = res as Admin[]);
     return this.admins;
   }
   public updateAdminAccess(cedula:number, aprobacion:boolean){
